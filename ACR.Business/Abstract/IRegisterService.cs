@@ -9,11 +9,8 @@ namespace ACR.Business.Abstract
 {
     public interface IRegisterService
     {
- 
-        Task<Register> AddAsync(Register register);
-        Task<Register> UpdateAsync(Register register);
-        void Delete(Register register);
-
-        
+        Users Add(Users register);
+        Users Update(Users register);
+        void Delete(Users register);
     }
 }

@@ -8,10 +8,12 @@ namespace ACR.Entity.Concrete
 {
     public class ReservationStatus
     {
-        public int ReservationStatus_Id { get; set; }
-        public int Reservation_Id { get; set; }
+        public int Id { get; set; }
         public bool IsConfirmed { get; set; }
         public bool IsCancelled { get; set; }
         public string CancellationNote { get; set; }
+
+        public int ReservationId { get; set; }
+        public Reservation Reservation { get; set; }
     }
 }

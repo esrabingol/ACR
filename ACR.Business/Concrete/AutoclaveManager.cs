@@ -9,19 +9,19 @@ using System.Threading.Tasks;
 
 namespace ACR.Business.Concrete
 {
+    //Otoklav Makinesine ait bilgilerin tutulduğu ve kontrol edildiği işlemler
     public class AutoclaveManager : IAutoclaveService
     {
-        IAutoclaveDal _autoclaveDal;
+       private IAutoclaveDal _autoclaveDal;
         public AutoclaveManager(IAutoclaveDal autoclaveDal)
         {
             _autoclaveDal = autoclaveDal;
         }
 
-        public async Task<Autoclave> AddAsync(Autoclave autoclave)
+        public Autoclave Add(Autoclave autoclave)
         {
-            return await _autoclaveDal.AddAsync(autoclave);
-
-
+            _autoclaveDal.Add(autoclave);
+            return autoclave;
         }
 
         public void Delete(Autoclave autoclave)
@@ -31,22 +31,24 @@ namespace ACR.Business.Concrete
 
         public Autoclave GetById(int Id)
         {
-            return _autoclaveDal.GetById(Id);
+            var autolave = _autoclaveDal.GetById(Id);
+            if(autolave == null)
+            {
+                throw new Exception($"ID'si {Id} olan Autoclave bulunamadı.");
+            }
+            return autolave;
         }
 
         public List<Autoclave> GetList()
-        {
+        { 
             return _autoclaveDal.GetAll().ToList();
         }
 
-        public List<Autoclave> GetListByCategoryId(int categoryId)
+        public Autoclave Update(Autoclave autoclave)
         {
-           return _autoclaveDal.GetListByCategoryId(categoryId).ToList();
+             _autoclaveDal.Update(autoclave);
+            return autoclave;
         }
 
-        public async Task<Autoclave> UpdateAsync(Autoclave autoclave)
-        {
-            return await _autoclaveDal.UpdateAsync(autoclave);
-        }
     }
 }

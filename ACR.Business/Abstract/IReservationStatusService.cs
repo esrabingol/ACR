@@ -10,18 +10,18 @@ namespace ACR.Business.Abstract
     public interface IReservationStatusService
     {
         // Belirli bir rezervasyon durumunu görüntülemek için
-        Task<ReservationStatus> GetReservationStatusAsync(int reservationStatusId);
+        ReservationStatus GetReservationStatus(int reservationStatusId);
 
         // Belirli bir rezervasyon için durumu görüntülemek için
-        Task<ReservationStatus> GetReservationStatusByReservationIdAsync(int reservationId);
+        ReservationStatus GetReservationStatusByReservationId(int reservationId);
 
         // Onaylanmış rezervasyon durumlarını listelemek için
-        Task<List<ReservationStatus>> GetConfirmedReservationStatusAsync();
+        List<ReservationStatus> GetConfirmedReservationStatus();
 
         // İptal edilmiş rezervasyon durumlarını listelemek için
-        Task<List<ReservationStatus>> GetCancelledReservationStatusAsync();
+        List<ReservationStatus> GetCancelledReservationStatus();
 
         // İptal edilen rezervasyon durumunun iptal notuyla birlikte görüntülenmesi için
-        Task<ReservationStatus> GetCancelledReservationStatusWithCancellationNoteAsync(int reservationStatusId);
+        ReservationStatus GetCancelledReservationStatusWithCancellationNote(int reservationStatusId);
     }
 }

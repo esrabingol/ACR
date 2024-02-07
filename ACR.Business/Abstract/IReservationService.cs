@@ -9,18 +9,10 @@ namespace ACR.Business.Abstract
 {
     public interface IReservationService
     {
-
-        //filtrelemeye göre listeleme
-
-
-        Task<List<Reservation>> GetAllRezervationsAsync();
-
-        Task<Reservation> GetRezervationByIdAsync(int reservationId);
-
-        Task<Reservation> UpdateAsync(Reservation rezervation);
-        Task<Reservation> AddAsync(Reservation rezervation);
-
+        List<Reservation> GetAllRezervations();
+        Reservation GetRezervationById(int reservationId);
+        Reservation Update(Reservation rezervation);
+        Reservation Add(Reservation rezervation);
         void Delete(Reservation rezervation);
-
     }
 }

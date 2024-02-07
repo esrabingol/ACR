@@ -9,9 +9,6 @@ namespace ACR.DataAccess.Abstract
 {
     public interface IAutoclaveDal :IRepository<Autoclave>
     {
-        Task<Autoclave> AddAsync(Autoclave autoclave);
-        Task<Autoclave> UpdateAsync(Autoclave autoclave);
-
         public List<Autoclave> GetListByCategoryId(int categoryId);
     }
 }

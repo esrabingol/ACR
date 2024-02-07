@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ACR.DataAccess.Concrete.EntityFramework
 {
-    public class EfRegisterDal : EfGenericRepository<Register, ACRContext> , IRegisterDal
+    public class EfRegisterDal : EfGenericRepository<Users, ACRContext> , IRegisterDal
     {
        
     }

@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace ACR.DataAccess.Concrete.EntityFramework
 {
-    public class EfAutoclaveDal : EfGenericRepository<Autoclave, ACRContext>, IAutoclaveDal
+    public class EfRoleDal : EfGenericRepository<Role, ACRContext>, IRoleDal
     {
-        public List<Autoclave> GetListByCategoryId(int categoryId)
+        public IEnumerable<Role> GetRolesWithSameName(string roleName)
         {
             throw new NotImplementedException();
         }

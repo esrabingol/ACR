@@ -11,24 +11,28 @@ namespace ACR.Business.Concrete
 {
     public class RegisterManager : IRegisterService
     {
-        IRegisterDal _registerDal;
+        private IRegisterDal _registerDal;
         public RegisterManager(IRegisterDal registerDal)
         {
             _registerDal = registerDal;
         }
-        public async Task<Register> AddAsync(Register register)
+
+        public Users Add(Users register)
         {
-            return await _registerDal.AddAsync(register);
+           
+            _registerDal.Add(register);
+            return register;
         }
 
-        public void Delete(Register register)
+        public void Delete(Users register)
         {
             _registerDal.Delete(register);
         }
 
-        public async Task<Register> UpdateAsync(Register register)
+        public Users Update(Users register)
         {
-            return await _registerDal.UpdateAsync(register);
+             _registerDal.Update(register);
+            return register;
         }
     }
 }

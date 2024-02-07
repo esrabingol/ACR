@@ -7,10 +7,7 @@ using System.Threading.Tasks;
 
 namespace ACR.DataAccess.Abstract
 {
-    public interface IRegisterDal:IRepository<Register>
+    public interface IRegisterDal:IRepository<Users>
     {
-        public Task<Register> AddAsync(Register register);
-
-        public Task<Register> UpdateAsync(Register register);
     }
 }

@@ -8,11 +8,7 @@ using System.Threading.Tasks;
 
 namespace ACR.DataAccess.Concrete.EntityFramework
 {
-    public class EfAutoclaveDal : EfGenericRepository<Autoclave, ACRContext>, IAutoclaveDal
+    public class EfReservationStatusDal : EfGenericRepository<ReservationStatus,ACRContext>,IReservationStatusDal
     {
-        public List<Autoclave> GetListByCategoryId(int categoryId)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

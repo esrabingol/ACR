@@ -34,6 +34,7 @@ namespace ACR.DataAccess.Concrete.EntityFramework
 
         public IEnumerable<T> GetAll()
         {
+            //sayfalama olacak
             using (var context = new TContext())
             {
               return context.Set<T>().ToList();
