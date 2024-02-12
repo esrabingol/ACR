@@ -14,8 +14,6 @@ namespace ACR.Business.Abstract
 
         void UpdateRole(Role role);
 
-        void DeleteRole(int roleId);
-
         // Aynı isme sahip olan rolleri listeler
         IEnumerable<Role> GetRolesWithSameName(string roleName);
 

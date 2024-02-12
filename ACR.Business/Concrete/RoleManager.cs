@@ -30,17 +30,7 @@ namespace ACR.Business.Concrete
             }
         }
 
-        public void DeleteRole(int roleId)
-        {
-            if (roleId <= 0)
-            {
-                throw new ArgumentOutOfRangeException(nameof(roleId), "Hata: Geçersiz roleId değeri.");
-            }
-            else
-            {
-                _roleDal.Delete(roleId);
-            }
-        }
+  
 
         public IEnumerable<Role> GetRolesWithSameName(string roleName)
         {

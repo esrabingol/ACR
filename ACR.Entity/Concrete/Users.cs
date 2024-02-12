@@ -14,6 +14,8 @@ namespace ACR.Entity.Concrete
         public string MailAdress { get; set; }
         public long PhoneNumber { get; set; }
         public string Password { get; set; }
+        public string UserRole { get; set; }
+        public string RecordData { get; set; }
 
         // Bir kullanıcının birden çok onayladığı randevuları temsil etmek için -Operatöre özgü
         public ICollection<Reservation> ConfirmedReservations { get; set; }

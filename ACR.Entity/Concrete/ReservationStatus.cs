@@ -9,11 +9,16 @@ namespace ACR.Entity.Concrete
     public class ReservationStatus
     {
         public int Id { get; set; }
-        public bool IsConfirmed { get; set; }
-        public bool IsCancelled { get; set; }
+        public ReservationStatusType StatusType { get; set; }
         public string CancellationNote { get; set; }
-
+        public DateTime CreatedAt { get; set; } // Örnek olarak, durumun oluşturulma tarihi
         public int ReservationId { get; set; }
         public Reservation Reservation { get; set; }
+    }
+    public enum ReservationStatusType
+    {
+        Confirmed,
+        Cancelled
+        // Diğer durumlar eklenebilir
     }
 }

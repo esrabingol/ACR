@@ -9,7 +9,7 @@ namespace ACR.Business.Abstract
 {
     public interface IRegisterService
     {
-        Users Add(Users register);
+        Task <Users> Add(Users register);
         Users Update(Users register);
         void Delete(Users register);
     }

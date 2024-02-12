@@ -10,9 +10,16 @@ namespace ACR.DataAccess.Concrete.EntityFramework
 {
     public class EfRoleDal : EfGenericRepository<Role, ACRContext>, IRoleDal
     {
+        private ACRContext _context;
+    
+
         public IEnumerable<Role> GetRolesWithSameName(string roleName)
         {
-            throw new NotImplementedException();
+            var rolesWithSameName = _context.Roles
+           .Where(role => role.RoleName == roleName)
+           .ToList();
+
+            return rolesWithSameName;
         }
     }
 }

@@ -17,12 +17,23 @@ namespace ACR.Business.Concrete
             _registerDal = registerDal;
         }
 
-        public Users Add(Users register)
+        public async Task<Users> Add(Users register)
         {
-           
-            _registerDal.Add(register);
-            return register;
-        }
+			var newUser = new Users()
+			{
+				Name = register.Name,
+				Surname = register.Surname,
+				MailAdress = register.MailAdress,
+				Password = register.Password,
+				PhoneNumber = register.PhoneNumber,
+				RecordData = DateTime.Now.ToShortDateString().ToString(),
+				UserRole = register.UserRole
+			};
+
+		   _registerDal.Add(newUser); 
+
+			return newUser;
+		}
 
         public void Delete(Users register)
         {
