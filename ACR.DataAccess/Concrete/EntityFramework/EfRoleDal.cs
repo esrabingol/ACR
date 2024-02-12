@@ -12,7 +12,6 @@ namespace ACR.DataAccess.Concrete.EntityFramework
     {
         private ACRContext _context;
     
-
         public IEnumerable<Role> GetRolesWithSameName(string roleName)
         {
             var rolesWithSameName = _context.Roles

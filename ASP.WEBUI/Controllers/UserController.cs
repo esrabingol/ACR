@@ -26,7 +26,8 @@ namespace ASP.WEBUI.Controllers
         [HttpPost]
         public async Task<IActionResult> UserRegister(UserRegisterModel registerModel)
         {
-          
+			if (ModelState.IsValid)
+			{
 				var newUser = new Users()
 				{
 					Name = registerModel.Name,
@@ -40,8 +41,13 @@ namespace ASP.WEBUI.Controllers
 
 				_registerService.Add(newUser);
 
-			return View();
+				// Kullanıcı başarıyla eklenirse UserLogin action'ına yönlendir
+				return RedirectToAction("UserLogin");
+			}
 
+			// Eğer ModelState geçerli değilse, hata mesajlarını göster ve aynı sayfada kal
+			ModelState.AddModelError("", "Kullanıcı eklenirken bir hata oluştu. Lütfen bilgilerinizi kontrol edin.");
+			return View();
 		}
 
         #endregion
@@ -57,7 +63,7 @@ namespace ASP.WEBUI.Controllers
         [HttpPost]
         public async Task<IActionResult> UserLogin(UserLoginModel LoginModel)
         {
-            //view oluşturulucak
+           
 			return View();
 		}
 		#endregion

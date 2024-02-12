@@ -9,8 +9,6 @@ namespace ACR.DataAccess.Abstract
 {
     public interface IRoleDal : IRepository<Role>
     {
-      
-
         // Aynı rolde olanları listeleme
          IEnumerable<Role> GetRolesWithSameName(string roleName);
     }

@@ -1,11 +1,11 @@
 ﻿@using ASP.WEBUI.Models;
 @model UserRegisterModel
-
 @{
 	ViewData["Title"] = "UserRegister";
 }
-
-
+@{
+	Layout = null;
+}
 <!doctype html>
 <html lang="tr">
 <head>
@@ -19,17 +19,10 @@
 	<link href="~/register/css/style.css" rel="stylesheet" />
 
 </head>
-
-
 <body>
 	<a class="navbar-brand" asp-area="" asp-controller="UserController" asp-action="UserRegister">xxx</a>
 	<section class="ftco-section">
 		<div class="container">
-			<div class="row justify-content-center">
-				<div class="col-md-6 text-center mb-5">
-					<h2 class="heading-section">Kayıt Ekranı</h2>
-				</div>
-			</div>
 
 			<div class="row justify-content-center">
 				<div class="col-md-7 col-lg-6 col-xl-5">
@@ -37,26 +30,50 @@
 						<div class="icon d-flex align-items-center justify-content-center">
 							<span class="fa fa-edit"></span>
 						</div>
-						<h3 class="text-center mb-4">Hesap Oluştur</h3>
+						<h3 class="text-center mb-4">KULLANICI KAYIT EKRANI</h3>
 
 						<form action="UserRegister" class="signup-form">
 							<div class="form-group mb-3">
 								<label class="label" for="Name">Adınız</label>
-								<input type="text" class="form-control" placeholder="İsim ">
+								<input type="text" class="form-control" placeholder="İsim">
 							</div>
 							<div class="form-group mb-3">
-								<label class="label" for="MailAdress">Mail Adres</label>
+								<label class="label" for="Name">Soyadınız</label>
+								<input type="text" class="form-control" placeholder="Soyisim">
+							</div>
+							<div class="form-group mb-3">
+								<label class="label" for="MailAdress">Mail Adresiniz</label>
 								<input type="text" class="form-control" placeholder="Kurum içi etkin mail adresinizi giriniz.">
 							</div>
 							<div class="form-group mb-3">
-								<label class="label" for="Password">Şifre</label>
+								<label class="label" for="PhoneNumber">Telefon Numaranız</label>
+								<input type="text" class="form-control" placeholder="Telefon Numaranızı Giriniz.">
+							</div>
+							<div class="form-group mb-3">
+								<label class="label" for="Password">Şifreniz</label>
 								<input id="password-field" type="password" class="form-control" placeholder="Şifrenizi Giriniz.">
 								<span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password"></span>
 							</div>
 							<div class="form-group d-md-flex">
 								<div class="w-100 text-left">
+									<label class="radio-wrap">
+										<input type="radio" asp-for="UserRole" value="Requester" />
+										<span class="checkmark"></span>
+										ÜRETİM MÜHENDİSİ
+									</label>
+								</div>
+								<div class="w-100 text-left">
+									<label class="radio-wrap">
+										<input type="radio" asp-for="UserRole" value="User" />
+										<span class="checkmark"></span>
+									 OPERATÖR
+									</label>
+								</div>
+							</div>
+							<div class="form-group d-md-flex">
+								<div class="w-100 text-left">
 									<label class="checkbox-wrap checkbox-primary">
-										I agree all statements in terms of service
+										"Kullanım Koşulları'ndaki tüm beyanları kabul ediyorum."
 										<input type="checkbox" checked>
 										<span class="checkmark"></span>
 									</label>
@@ -66,7 +83,7 @@
 								<button type="submit" class="form-control btn btn-primary rounded submit px-3">Sign Up</button>
 							</div>
 						</form>
-						<p>Daha Önce Üyelik Oluşturduysanız. <a data-toggle="tab" href="#signin">Üye Girişi</a></p>
+						<p>Daha Önce Üyelik Oluşturduysanız? <a href="@Url.Action("UserLogin", "User")">Üye Girişi</a></p>
 					</div>
 				</div>
 			</div>
