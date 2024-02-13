@@ -9,8 +9,11 @@ namespace ACR.Business.Abstract
 {
     public interface IRegisterService
     {
-        Task <Users> Add(Users register);
+
+		List<Users> FindByEmail(string email);
+		Task <Users> Add(Users register);
         Users Update(Users register);
         void Delete(Users register);
-    }
+		bool PasswordSignIn(string userEmail, string userPassword, string userRole);
+	}
 }

@@ -1,31 +1,32 @@
 ﻿using ACR.Business.Abstract;
 using ACR.Entity.Concrete;
 using ASP.WEBUI.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ASP.WEBUI.Controllers
 {
-    //Register & Login Kısımları
-    public class UserController : Controller
-    {
-        private IRegisterService _registerService; // iş katmanına göndermemi sağlayacak
-        public IActionResult Index()
-        {
-            return View();
-        }
+	//Register & Login Kısımları
+	public class UserController : Controller
+	{
+		private IRegisterService _registerService; // iş katmanına göndermemi sağlayacak
+		public IActionResult Index()
+		{
+			return View();
+		}
 
 
-        #region Kullanıcı Kaydı
+		#region Kullanıcı Kaydı
 
-        [HttpGet]
-        public IActionResult UserRegister()
-        {
-            return View();
-        }
+		[HttpGet]
+		public IActionResult UserRegister()
+		{
+			return View();
+		}
 
-        [HttpPost]
-        public async Task<IActionResult> UserRegister(UserRegisterModel registerModel)
-        {
+		[HttpPost]
+		public async Task<IActionResult> UserRegister(UserRegisterModel registerModel)
+		{
 			if (ModelState.IsValid)
 			{
 				var newUser = new Users()
@@ -50,22 +51,37 @@ namespace ASP.WEBUI.Controllers
 			return View();
 		}
 
-        #endregion
+		#endregion
 
-        #region Giris Yap
+		#region Giris Yap
 
-       [HttpGet]
-        public IActionResult UserLogin()
-        {
-            return View();
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> UserLogin(UserLoginModel LoginModel)
-        {
-           
+		[HttpGet]
+		public IActionResult UserLogin()
+		{
 			return View();
 		}
-		#endregion
+
+		[HttpPost]
+		public async Task<IActionResult> UserLogin(UserLoginModel loginModel, int userType)
+		{
+			if (ModelState.IsValid)
+			{
+				var user = _registerService.FindByEmail(loginModel.Email);
+				var activeUserId = 0;
+				var activeUserType = 0;
+
+				if (user == null)
+				{
+					ModelState.AddModelError("", "Bu Email adresi ile eşleşen bir Email Adresi Bulunamadı");
+				}
+
+				var userLogin = _registerService.PasswordSignIn(loginModel.Email, loginModel.Password, userType);
+			
+			}
+
+			return View();
+		}
 	}
 }
+
+#endregion

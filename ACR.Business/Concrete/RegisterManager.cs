@@ -40,7 +40,17 @@ namespace ACR.Business.Concrete
             _registerDal.Delete(register);
         }
 
-        public Users Update(Users register)
+		public List<Users> FindByEmail(string email)
+		{
+			return _registerDal.FindByEmail(email);
+		}
+
+		public bool PasswordSignIn(string userEmail, string userPassword, string userRole)
+		{
+			return _registerDal.PasswordSignIn(userEmail, userPassword, userRole);
+		}
+
+		public Users Update(Users register)
         {
              _registerDal.Update(register);
             return register;
