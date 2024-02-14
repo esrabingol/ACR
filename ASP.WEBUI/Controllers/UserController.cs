@@ -62,7 +62,7 @@ namespace ASP.WEBUI.Controllers
 		}
 
 		[HttpPost]
-		public async Task<IActionResult> UserLogin(UserLoginModel loginModel, int userType)
+		public async Task<IActionResult> UserLogin(UserLoginModel loginModel, string userRole)
 		{
 			if (ModelState.IsValid)
 			{
@@ -75,7 +75,7 @@ namespace ASP.WEBUI.Controllers
 					ModelState.AddModelError("", "Bu Email adresi ile eşleşen bir Email Adresi Bulunamadı");
 				}
 
-				var userLogin = _registerService.PasswordSignIn(loginModel.Email, loginModel.Password, userType);
+				var userLogin = _registerService.PasswordSignIn(loginModel.Email, loginModel.Password, userRole);
 			
 			}
 
