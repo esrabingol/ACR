@@ -16,20 +16,21 @@
                 <div class="navbar-header">
                     <a class="navbar-brand font-weight-bold" asp-area="" asp-page="/Index">
                         <img src="~/img/logo.png" alt="Logo" height="40" class="d-inline-block align-text-top"> <!-- Amblem -->
-                        OTOKLAV REZERVASYON SİSTEMİ
+                        <strong>OTOKLAV REZERVASYON SİSTEMİ</strong>
                     </a>
                 </div>
-                <div class="ml-auto d-flex justify-content-between">
-                    <form action="@Url.Action("UserLogin", "User")" method="post">
-                        <button type="submit" class="btn btn-primary">Giriş Yap</button>
-                    </form>
-             
-                    <form action="@Url.Action("UserRegister", "User")" method="post">
-                        <button type="submit" class="btn btn-danger ml-2">Kayıt Ol</button>
-                    </form>
-                </div>
+                @if (ViewContext.RouteData.Values["Controller"].ToString() == "Home" && ViewContext.RouteData.Values["Action"].ToString() == "Index")
+                {
+                    <div class="ml-auto d-flex justify-content-between">
+                        <form action="@Url.Action("UserLogin", "User")" method="post">
+                            <button type="submit" class="btn btn-primary">Giriş Yap</button>
+                        </form>
 
-            </div>
+                        <form action="@Url.Action("UserRegister", "User")" method="post">
+                            <button type="submit" class="btn btn-danger ml-2">Kayıt Ol</button>
+                        </form>
+                    </div>
+                }
         </nav>
     </header>
 
@@ -56,3 +57,4 @@
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
+

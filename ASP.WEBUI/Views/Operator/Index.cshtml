@@ -1,0 +1,58 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .btn-custom {
+        padding: 1.25rem 1rem;
+        font-size: 2rem;
+        border-radius: 1.2rem;
+        text-align: left;
+    }
+
+    .container-border {
+        border: 2px solid #e0e0e0;
+        padding: 20px;
+        border-radius: 10px;
+        margin-top: 20px;
+    }
+
+</style>
+
+<body>
+    <div class="container container-border">
+        <div class="row mt-3">
+            <!-- Sol tarafta butonlar -->
+            <div class="col-lg-4 mb-3 col-sm-12">
+                <button type="button" class="btn btn-primary btn-lg btn-block mb-3 btn-custom">Makine Bilgilerini Görüntüle</button>
+                <button type="button" class="btn btn-secondary btn-lg btn-block mb-3 btn-custom">Makine Bilgilerini Düzenle</button>
+                <button type="button" class="btn btn-danger btn-lg btn-block mb-3 btn-custom">Randevu İşlemleri</button>
+            </div>
+
+            <!-- Sağ tarafta sekme içeriği -->
+            <div class="col-lg-8 col-sm-12">
+                <!-- Sekmeler -->
+                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link active" id="randevularim-tab" data-bs-toggle="tab" data-bs-target="#randevularim" type="button" role="tab" aria-controls="randevularim" aria-selected="true">Randevularım</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="gecmis-randevularim-tab" data-bs-toggle="tab" data-bs-target="#gecmis-randevularim" type="button" role="tab" aria-controls="gecmis-randevularim" aria-selected="false">Geçmiş Randevularım</button>
+                    </li>
+                </ul>
+
+                <!-- Sekme İçerikleri -->
+                <div class="tab-content mt-3" id="myTabContent">
+                    <div class="tab-pane fade show active" id="randevularim" role="tabpanel" aria-labelledby="randevularim-tab">
+                        Randevularım İçeriği
+                    </div>
+                    <div class="tab-pane fade" id="gecmis-randevularim" role="tabpanel" aria-labelledby="gecmis-randevularim-tab">
+                        Geçmiş Randevularım İçeriği
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
