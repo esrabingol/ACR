@@ -8,6 +8,12 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/ASP.WEBUI.styles.css" asp-append-version="true" />
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <!-- Font Awesome CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-xxx" crossorigin="anonymous" />
+
+
 </head>
 <body>
     <header>
@@ -31,6 +37,28 @@
                         </form>
                     </div>
                 }
+                <!--dropdown-->
+                <div class="dropdown ml-3">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="userDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Hesabım
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="userDropdown">
+                        <a class="dropdown-item" href="#" data-toggle="collapse" data-target="#accountSubMenu">
+                            Hesap Bilgileri 
+                        </a>
+                        <div class="collapse" id="accountSubMenu">
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#"> Kimlik Bilgileri</a>
+                            <a class="dropdown-item" href="#"> İletişim Bilgileri</a>
+                            <a class="dropdown-item" href="#"> Güvenlik İşlemleri</a>
+                            <a class="dropdown-item" href="#"> Bilgilendirme İşlemleri</a>
+                        </div>
+                        <a class="dropdown-item" href="#">Randevu Bilgileri</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#">Çıkış</a>
+                    </div>
+                </div>
+
         </nav>
     </header>
 
@@ -53,7 +81,12 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
 
+    <!-- Bootstrap JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

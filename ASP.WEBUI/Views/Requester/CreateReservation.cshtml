@@ -1,0 +1,99 @@
+﻿@{
+    ViewData["Title"] = "CreateReservation";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .pb-3, .py-3 {
+        padding-bottom: 5rem !important;
+    }
+    /* Stil tanımlamalarını buraya ekleyebilirsiniz */
+    .reservation-form {
+        max-width: 1110px;
+        margin: auto;
+        padding: 5px;
+        border: 2px solid #e0e0e0;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .form-group {
+        margin-bottom: 15px;
+        position: relative;
+    }
+
+    .form-label {
+        font-weight: bold;
+        display: block;
+        margin-bottom: 5px;
+        color: black;
+    }
+
+    .form-control {
+        width: 100%;
+        padding: 10px;
+        box-sizing: border-box;
+    }
+
+    .submit-button,
+    .clear-button {
+        width: 49%;
+        padding: 10px;
+        box-sizing: border-box;
+        margin-top: 10px;
+    }
+
+    .clear-button {
+        background-color: red;
+        color: white;
+        border: none;
+    }
+
+    .required-note {
+        position: absolute;
+        right: 0;
+        top: 0;
+        color: red;
+        font-size: 12px;
+    }
+</style>
+
+<body>
+    <div class="container reservation-form">
+        <h3 class="text-center mb-4">Rezervasyon Oluştur</h3>
+
+        <form method="post" action="@Url.Action("CreateReservation", "Requester")">
+            <div class="form-group">
+                <label class="form-label" for="autoclave">Otoklav Makinesi:</label>
+                <input type="text" class="form-control" id="autoclave" name="autoclave" required>
+                <span class="required-note">*zorunlu alan</span>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label" for="projectName">Proje Adı:</label>
+                <input type="text" class="form-control" id="projectName" name="projectName" required>
+                <span class="required-note">*zorunlu alan</span>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label" for="recipeCode">Proje Reçetesi/Üretim Kodu:</label>
+                <input type="text" class="form-control" id="recipeCode" name="recipeCode" required>
+                <span class="required-note">*zorunlu alan</span>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label" for="requestNote">Talep Eden Notu:</label>
+                <textarea class="form-control" id="requestNote" name="requestNote"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label" for="reservationDate">Tarih Seçimi:</label>
+                <input type="date" class="form-control" id="reservationDate" name="reservationDate" required>
+                <span class="required-note">*zorunlu alan</span>
+            </div>
+
+            <button type="submit" class="btn btn-primary submit-button">Rezervasyon Ara</button>
+            <button type="reset" class="btn clear-button">Temizle</button>
+        </form>
+    </div>
+</body>

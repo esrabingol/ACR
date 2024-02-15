@@ -3,7 +3,8 @@
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-@*Operatör anasayfası*@
+
+@*Talep Eden Anasayfası*@
 <style>
     .btn-custom {
         padding: 1.25rem 1rem;
@@ -26,11 +27,11 @@
         <div class="row mt-3">
             <!-- Sol tarafta butonlar -->
             <div class="col-lg-4 mb-3 col-sm-12">
-               
-                <a href="@Url.Action("ViewMachineInfo", "Operator")" class="btn btn-primary btn-lg btn-block mb-3 btn-custom">Makine Bilgilerini Görüntüle</a>
-                <a href="@Url.Action("EditMachineInfo","Operator")" class="btn btn-secondary btn-lg btn-block mb-3 btn-custom">Makine Bilgilerini Düzenle</a>
-                <a href="@Url.Action("ManageReservation","Operator")" class="btn btn-danger btn-lg btn-block mb-3 btn-custom">Randevu İşlemleri</a>
-                
+
+                <a href="@Url.Action("ViewMachineInfo", "Requester")" class="btn btn-primary btn-lg btn-block mb-3 btn-custom">Makine Bilgilerini Görüntüle</a>
+                <a href="@Url.Action("CreateReservation","Requester")" class="btn btn-secondary btn-lg btn-block mb-3 btn-custom">Randevu Al</a>
+                <a href="@Url.Action("ManageReservation","Requester")" class="btn btn-danger btn-lg btn-block mb-3 btn-custom">Randevu İşlemleri</a>
+
             </div>
 
             <!-- Sağ tarafta sekme içeriği -->
