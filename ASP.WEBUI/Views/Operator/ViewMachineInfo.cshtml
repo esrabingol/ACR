@@ -2,14 +2,137 @@
     ViewData["Title"] = "ViewMachineInfo";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Operatör Makine Bilgileri Görüntüle</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa;
+        }
 
-<style>
+         .container-border {
+            border: 1px solid #007bff;
+            border-radius: 10px;
+            padding: 5px;
+            margin: 0px auto;
+            background-color: #fff;
+        }
 
+        .filter-section {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 0px;
+        }
 
-</style>
+        .filter-options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
 
+        .filter-options select, .filter-options input {
+                width: 18%;
+                padding: 8px;
+                box-sizing: border-box;
+        }
+
+        .filter-button {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .filter-button-blue {
+            background-color: #007bff;
+            color: #fff;
+        }
+
+        .filter-button-red {
+            background-color: red;
+            color: #fff;
+        }
+
+        .filter-button:hover {
+            filter: brightness(90%);
+        }
+        
+        .pb-3, .py-3 {
+        padding-bottom: 8rem !important;
+        }
+
+        .machine-info {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #007bff;
+            border-radius: 10px;
+        }
+
+            .machine-info h4 {
+                background-color: #007bff;
+                color: #fff;
+                padding: 10px;
+                margin: 0;
+                border-top-left-radius: 10px;
+                border-top-right-radius: 10px;
+            }
+
+            .machine-info p {
+                margin: 8px 0;
+            }
+    </style>
+</head>
 <body>
-    <div class="container container-border">
-     <h1>Operatör Makine Bilgileri Görüntüle</h1>
+    <div class="container-border">
+        <h3>Makine Bilgileri Görüntüle</h3>
+
+        <div class="filter-section">
+            <div class="filter-options">
+                <select id="machineName" placeholder="Makine Adı">
+                    <option value="">Makine Adı</option>
+                    <!-- Makine adlarını dinamik olarak ekleyin -->
+                </select>
+                <select id="machineStatus" placeholder="Makine Durumu">
+                    <option value="">Makine Durumu</option>
+                    <!-- Makine durumlarını dinamik olarak ekleyin -->
+                </select>
+                <input type="number" id="itemNo" placeholder="Item No" min="0">
+                <input type="number" id="tc" placeholder="TC" min="0">
+                <input type="number" id="vp" placeholder="VP" min="0">
+            </div>
+            <div>
+                <button class="filter-button filter-button-blue" onclick="filterMachines()">Filtrele</button>
+                <button class="filter-button filter-button-red" onclick="clearFilters()">Temizle</button>
+            </div>
+        </div>
+
+        <div class="machine-info">
+            <h4>Örnek Makine Bilgisi</h4>
+            <p>Makine Adı: Makine123</p>
+            <p>Makine Durumu: Çalışıyor</p>
+            <p>Item No: 456</p>
+            <p>TC: 789</p>
+            <p>VP: 123</p>
+        </div>
+
     </div>
+
+    <script>
+        function filterMachines() {
+            // Seçilen filtrelerle ilgili veri çekme ve görüntüleme mantığını burada uygulayın
+        }
+
+        function clearFilters() {
+            // Seçilen filtreleri temizleme mantığını burada uygulayın
+            // Ardından veriyi yeniden yükleyin
+        }
+    </script>
 </body>
+</html>
