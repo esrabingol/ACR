@@ -4,5 +4,111 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Talep Eden Makine Görüntüleme Ekranı</h1>
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Operatör Makine Bilgileri Görüntüle</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa;
+        }
 
+        .main-container {
+            max-width: 100%;
+            margin: 0;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+
+        .filter-section, .results-section {
+            background-color: #fff;
+            border: 1px solid #d4d4d4;
+            border-radius: 8px;
+            padding: 10px;
+            margin-bottom: 10px;
+            flex: 1;
+            box-sizing: border-box;
+        }
+
+        .filter-options select, .filter-options input {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+            margin-bottom: 10px;
+        }
+
+        .buttons-section {
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end; /* Sağa yaslamak için */
+        }
+
+        .button {
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .button-blue {
+            background-color: #007bff;
+            color: #fff;
+        }
+
+        .button-red {
+            background-color: #dc3545;
+            color: #fff;
+        }
+
+        .pb-3, .py-3 {
+            padding-bottom: 14rem !important;
+        }
+    </style>
+</head>
+<body>
+    <div class="main-container">
+        <div class="filter-section">
+            <div class="filter-options">
+                <select id="machineName" placeholder="Makine Adı">
+                    <option value="">Makine Adı</option>
+                    <!-- Makine adlarını dinamik olarak ekleyin -->
+                </select>
+                <select id="machineStatus" placeholder="Makine Durumu">
+                    <option value="">Makine Durumu</option>
+                    <!-- Makine durumlarını dinamik olarak ekleyin -->
+                </select>
+                <input type="number" id="itemNo" placeholder="Item No" min="0">
+                <input type="number" id="tc" placeholder="TC" min="0">
+                <input type="number" id="vp" placeholder="VP" min="0">
+            </div>
+            <div class="buttons-section">
+                <button class="button button-blue" onclick="filterMachines()">Filtrele</button>
+                <button class="button button-red" onclick="clearFilters()">Temizle</button>
+            </div>
+        </div>
+
+        <div class="results-section">
+            <!-- Burada makine bilgilerinin listelendiği bir bölüm olacak -->
+        </div>
+    </div>
+
+    <script>
+        function filterMachines() {
+            // Seçilen filtrelerle ilgili veri çekme ve görüntüleme mantığını burada uygulayın
+        }
+
+        function clearFilters() {
+            // Seçilen filtreleri temizleme mantığını burada uygulayın
+            // Ardından veriyi yeniden yükleyin
+        }
+    </script>
+</body>
+</html>

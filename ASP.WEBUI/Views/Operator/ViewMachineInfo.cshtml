@@ -1,7 +1,9 @@
-﻿@{
+﻿
+@{
     ViewData["Title"] = "ViewMachineInfo";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
 <!DOCTYPE html>
 <html lang="tr">
 <head>
@@ -16,83 +18,63 @@
             background-color: #f8f9fa;
         }
 
-         .container-border {
-            border: 1px solid #007bff;
-            border-radius: 10px;
-            padding: 5px;
-            margin: 0px auto;
-            background-color: #fff;
-        }
-
-        .filter-section {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            margin-bottom: 0px;
-        }
-
-        .filter-options {
+        .main-container {
+            max-width: 100%;
+            margin: 0;
             display: flex;
             flex-wrap: wrap;
-            gap: 10px;
+            justify-content: space-between;
+        }
+
+        .filter-section, .results-section {
+            background-color: #fff;
+            border: 1px solid #d4d4d4;
+            border-radius: 8px;
+            padding: 10px;
+            margin-bottom: 10px;
+            flex: 1;
+            box-sizing: border-box;
         }
 
         .filter-options select, .filter-options input {
-                width: 18%;
-                padding: 8px;
-                box-sizing: border-box;
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+            margin-bottom: 10px;
         }
 
-        .filter-button {
-            padding: 8px 16px;
+        .buttons-section {
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end; /* Sağa yaslamak için */
+        }
+
+        .button {
+            padding: 10px;
             border: none;
             border-radius: 5px;
             cursor: pointer;
+            font-weight: bold;
+            text-align: center;
         }
 
-        .filter-button-blue {
+        .button-blue {
             background-color: #007bff;
             color: #fff;
         }
 
-        .filter-button-red {
-            background-color: red;
+        .button-red {
+            background-color: #dc3545;
             color: #fff;
         }
 
-        .filter-button:hover {
-            filter: brightness(90%);
-        }
-        
         .pb-3, .py-3 {
-        padding-bottom: 8rem !important;
+            padding-bottom: 14rem !important;
         }
-
-        .machine-info {
-            margin-top: 20px;
-            padding: 10px;
-            border: 1px solid #007bff;
-            border-radius: 10px;
-        }
-
-            .machine-info h4 {
-                background-color: #007bff;
-                color: #fff;
-                padding: 10px;
-                margin: 0;
-                border-top-left-radius: 10px;
-                border-top-right-radius: 10px;
-            }
-
-            .machine-info p {
-                margin: 8px 0;
-            }
     </style>
 </head>
 <body>
-    <div class="container-border">
-        <h3>Makine Bilgileri Görüntüle</h3>
-
+    <div class="main-container">
         <div class="filter-section">
             <div class="filter-options">
                 <select id="machineName" placeholder="Makine Adı">
@@ -107,21 +89,15 @@
                 <input type="number" id="tc" placeholder="TC" min="0">
                 <input type="number" id="vp" placeholder="VP" min="0">
             </div>
-            <div>
-                <button class="filter-button filter-button-blue" onclick="filterMachines()">Filtrele</button>
-                <button class="filter-button filter-button-red" onclick="clearFilters()">Temizle</button>
+            <div class="buttons-section">
+                <button class="button button-blue" onclick="filterMachines()">Filtrele</button>
+                <button class="button button-red" onclick="clearFilters()">Temizle</button>
             </div>
         </div>
 
-        <div class="machine-info">
-            <h4>Örnek Makine Bilgisi</h4>
-            <p>Makine Adı: Makine123</p>
-            <p>Makine Durumu: Çalışıyor</p>
-            <p>Item No: 456</p>
-            <p>TC: 789</p>
-            <p>VP: 123</p>
+        <div class="results-section">
+            <!-- Burada makine bilgilerinin listelendiği bir bölüm olacak -->
         </div>
-
     </div>
 
     <script>
