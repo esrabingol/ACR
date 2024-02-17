@@ -3,63 +3,164 @@
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<!DOCTYPE html>
+<html lang="tr">
 
-@*Talep Eden Anasayfası*@
-<style>
-    .btn-custom {
-        padding: 1.25rem 1rem;
-        font-size: 2rem;
-        border-radius: 1.2rem;
-        text-align: left;
-    }
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Randevu Filtreleme Ekranı</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa;
+        }
 
-    .container-border {
-        border: 2px solid #e0e0e0;
-        padding: 20px;
-        border-radius: 10px;
-        margin-top: 20px;
-    }
+        .main-container {
+            display: flex;
+            max-width: 100%;
+            margin: 0;
+        }
 
-    .pb-3, .py-3 {
-        padding-bottom: 14rem !important;
-    }
+        .filter-section {
+            background-color: #fff;
+            border: 1px solid #d4d4d4;
+            border-radius: 8px;
+            padding: 10px;
+            margin-right: 5px; /* Adjusted margin to make left section narrower */
+            flex: 1;
+        }
 
-</style>
+        .filter-options input,
+        .filter-options select {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+            margin-bottom: 10px;
+        }
+
+        .buttons-section {
+            display: flex;
+            gap: 10px;
+        }
+
+        .button {
+            flex: 1;
+            padding: 15px; /* Adjusted padding to make buttons larger */
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .button-blue {
+            background-color: #007bff;
+            color: #fff;
+        }
+
+        .results-section {
+            background-color: #fff;
+            border: 1px solid #d4d4d4;
+            border-radius: 8px;
+            padding: 500px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        .top-buttons {
+            display: flex;
+            justify-content: space-between;
+            position: absolute;
+            top: 0;
+            right: 0;
+            left: 0;
+            background-color: #fff;
+            z-index: 1;
+            padding: 10px;
+        }
+
+            .top-buttons .btn {
+                margin-left: 5px;
+            }
+
+        .pb-3,
+        .py-3 {
+            padding-bottom: 10rem !important;
+        }
+
+        .btn {
+            font-weight: lighter;
+            font-size:2rem;
+        }
+
+        .filter-options label {
+            font-weight: bold; 
+        }
+    </style>
+</head>
 
 <body>
-    <div class="container container-border">
-        <div class="row mt-3">
-            <!-- Sol tarafta butonlar -->
-            <div class="col-lg-4 mb-3 col-sm-12">
+    <div class="main-container">
+        <div class="filter-section">
+        
+            <div class="filter-options">
+                <label for="machineName">Makine Adı:</label>
+                <select id="machineName">
+                    <option value="">Makine1</option>
+                    <option value="">Makine2</option>
+                    <!-- Makine adlarını dinamik olarak ekleyin -->
+                </select>
 
-                <a href="@Url.Action("ViewMachineInfo", "Requester")" class="btn btn-primary btn-lg btn-block mb-3 btn-custom">Makine Bilgilerini Görüntüle</a>
-                <a href="@Url.Action("CreateReservation","Requester")" class="btn btn-secondary btn-lg btn-block mb-3 btn-custom">Randevu Al</a>
-                <a href="@Url.Action("ManageReservation","Requester")" class="btn btn-danger btn-lg btn-block mb-3 btn-custom">Randevu İşlemleri</a>
+                <label for="projectName">Proje Adı:</label>
+                <input type="text" id="projectName">
 
+                <label for="partName">Parça Adı:</label>
+                <input type="text" id="partName">
+
+                <label for="recipeCode">Reçete Kodu:</label>
+                <input type="text" id="recipeCode">
+
+                <label for="startDate">Başlangıç Tarihi:</label>
+                <input type="date" id="startDate">
+
+                <label for="endDate">Bitiş Tarihi:</label>
+                <input type="date" id="endDate">
+
+                <label for="startTime">Başlangıç Saati:</label>
+                <input type="time" id="startTime">
+
+                <label for="endTime">Bitiş Saati:</label>
+                <input type="time" id="endTime">
             </div>
-
-            <!-- Sağ tarafta sekme içeriği -->
-            <div class="col-lg-8 col-sm-12">
-                <!-- Sekmeler -->
-                <ul class="nav nav-tabs" id="myTab" role="tablist">
-                    <li class="nav-item" role="presentation">
-                        <button class="nav-link active" id="randevularim-tab" data-bs-toggle="tab" data-bs-target="#randevularim" type="button" role="tab" aria-controls="randevularim" aria-selected="true">Randevularım</button>
-                    </li>
-                    <li class="nav-item" role="presentation">
-                        <button class="nav-link" id="gecmis-randevularim-tab" data-bs-toggle="tab" data-bs-target="#gecmis-randevularim" type="button" role="tab" aria-controls="gecmis-randevularim" aria-selected="false">Geçmiş Randevularım</button>
-                    </li>
-                </ul>
-
-                <!-- Sekme İçerikleri -->
-                <div class="tab-content mt-3" id="myTabContent">
-                    <div class="tab-pane fade show active" id="randevularim" role="tabpanel" aria-labelledby="randevularim-tab">
-                        Randevularım İçeriği
-                    </div>
-                    <div class="tab-pane fade" id="gecmis-randevularim" role="tabpanel" aria-labelledby="gecmis-randevularim-tab">
-                        Geçmiş Randevularım İçeriği
-                    </div>
-                </div>
+            <div class="buttons-section">
+                <button type="button" class="btn btn-outline-primary" onclick="filterAppointments()">Randevu Ara</button>
+            </div>
+        </div>
+        <div class="results-section">
+            <div class="top-buttons">
+                <button type="button" class="btn btn-outline-secondary">Bilgi Getir</button> 
+                <button type="button" class="btn btn-outline-success">Güncelle</button> 
+                <button type="button" class="btn btn-outline-warning">Temizle</button>
+                <button type="button" class="btn btn-outline-danger">İptal Et</button>
+                <button type="button" class="btn btn-outline-primary" onclick="redirectTo('@Url.Action("CreateReservation", "Requester")')">Randevu Al</button>
             </div>
         </div>
     </div>
+
+    <script>
+    
+        function redirectTo(url) {
+            window.location.href = url;
+        }
+        function filterAppointments() {
+            // Seçilen filtrelerle ilgili veri çekme ve görüntüleme mantığını burada uygulayın
+        }
+    </script>
 </body>
+
+</html>

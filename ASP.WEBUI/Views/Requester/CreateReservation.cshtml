@@ -59,6 +59,7 @@
 </style>
 
 <body>
+    <button type="button" class="btn btn-outline-secondary" onclick="goBack()">Geri</button>
     <div class="container reservation-form">
         <h3 class="text-center mb-4">Rezervasyon Oluştur</h3>
 
@@ -96,4 +97,10 @@
             <button type="reset" class="btn clear-button">Temizle</button>
         </form>
     </div>
+
+    <script>
+            function goBack() {
+        window.history.back();
+        }
+    </script>
 </body>
