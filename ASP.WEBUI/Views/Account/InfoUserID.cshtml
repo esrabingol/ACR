@@ -1,0 +1,75 @@
+﻿
+@{
+    ViewData["Title"] = "InfoUserID";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kimlik Bilgileri</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa;
+        }
+
+        .container-border {
+            border: 2px solid #ced4da;
+            border-radius: 10px;
+            margin-top: 20px;
+            padding: 20px;
+            background-color: #fff;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .btn-update {
+            background-color: #28a745;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            padding: 10px;
+            width: 100%;
+        }
+        .pb-3, .py-3 {
+            padding-bottom: 14rem !important;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-3 container-border">
+        <div class="row">
+            <div class="col-md-12">
+                <h2 class="text-center">Kimlik Bilgileri</h2>
+                <!-- Form başlangıcı -->
+                <form>
+                    <div class="form-group">
+                        <label for="firstName">Ad</label>
+                        <input type="text" class="form-control" id="firstName" placeholder="Adınız">
+                    </div>
+                    <div class="form-group">
+                        <label for="lastName">Soyad</label>
+                        <input type="text" class="form-control" id="lastName" placeholder="Soyadınız">
+                    </div>
+                    <div class="form-group">
+                        <label for="tcKimlik">TC Kimlik Numarası</label>
+                        <input type="text" class="form-control" id="tcKimlik" placeholder="TC Kimlik Numaranız">
+                    </div>
+                    <div class="form-group">
+                        <label for="birthDate">Doğum Tarihi</label>
+                        <input type="date" class="form-control" id="birthDate">
+                    </div>
+                    <button type="submit" class="btn btn-update">Güncelle</button>
+                </form>
+                <!-- Form bitişi -->
+            </div>
+        </div>
+    </div>
+</body>
+</html>

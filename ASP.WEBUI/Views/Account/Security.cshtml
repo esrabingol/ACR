@@ -1,0 +1,229 @@
+﻿@*<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Parola Değiştir</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px auto;
+            max-width: 500px;
+            padding: 20px;
+            background-color: #f8f9fa;
+        }
+
+        .password-change-form {
+            border: 1px solid #ced4da;
+            border-radius: 10px;
+            padding: 20px;
+            background-color: #fff;
+        }
+
+        .password-form-field {
+            margin-bottom: 15px;
+            position: relative;
+        }
+
+        .password-form-input {
+            width: calc(100% - 22px);
+            padding: 10px;
+            box-sizing: border-box;
+            border: 1px solid #ced4da;
+            border-radius: 5px;
+        }
+
+        .required-marker {
+            color: red;
+            position: absolute;
+            top: 50%;
+            right: 8px;
+            transform: translateY(-50%);
+        }
+
+        .form-button-container {
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .form-button {
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 48%;
+        }
+
+        .save-password-button {
+            background-color: #28a745;
+            color: #fff;
+        }
+
+        .clear-password-button {
+            background-color: #dc3545;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <div class="password-change-form">
+        <div class="password-form-field">
+            <label for="current-password">Güncel Parola<span class="required-marker">*</span>:</label>
+            <input type="password" id="current-password" class="password-form-input" required>
+        </div>
+
+        <div class="password-form-field">
+            <label for="new-password">Yeni Parola<span class="required-marker">*</span>:</label>
+            <input type="password" id="new-password" class="password-form-input" required>
+        </div>
+
+        <div class="password-form-field">
+            <label for="confirm-password">Yeni Parola (Tekrar)<span class="required-marker">*</span>:</label>
+            <input type="password" id="confirm-password" class="password-form-input" required>
+        </div>
+
+        <div class="form-button-container">
+            <button class="form-button save-password-button">Kaydet</button>
+            <button class="form-button clear-password-button" onclick="clearPasswords()">Temizle</button>
+        </div>
+    </div>
+
+    <script>
+        function clearPasswords() {
+            var passwordFields = document.querySelectorAll('.password-form-input');
+            passwordFields.forEach(function (field) {
+                field.value = '';
+            });
+        }
+    </script>
+</body>
+</html>
+*@
+
+
+
+@{
+    ViewData["Title"] = "InfoUserID";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Güvenlik İşlemleri</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa;
+        }
+             .password-change-form {
+            border: 1px solid #ced4da;
+            border-radius: 10px;
+            padding: 20px;
+            background-color: #fff;
+        }
+
+        .password-form-field {
+            margin-bottom: 15px;
+            position: relative;
+        }
+
+        .password-form-input {
+            width: calc(100% - 22px);
+            padding: 10px;
+            box-sizing: border-box;
+            border: 1px solid #ced4da;
+            border-radius: 5px;
+        }
+        .container-border {
+            border: 2px solid #ced4da;
+            border-radius: 10px;
+            margin-top: 20px;
+            padding: 20px;
+            background-color: #fff;
+        }
+
+        .required-marker {
+            color: red;
+            position: absolute;
+            top: 50%;
+            right: 8px;
+            transform: translateY(-50%);
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-button-container {
+            margin-top: 20px;
+            display: flex;
+/*            justify-content: space-between;*/
+            justify-content: center;
+        }
+
+        .form-button {
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 40%; /* Örnek olarak %40 olarak ayarlandı, ihtiyacınıza göre değiştirebilirsiniz */
+            margin-right: 5px;
+        }
+        .save-password-button {
+            background-color: #28a745;
+            color: #fff;
+        }
+
+        .clear-password-button {
+            background-color: #dc3545;
+            color: #fff;
+        }
+        .pb-3, .py-3 {
+            padding-bottom: 14rem !important;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-3 container-border">
+        <div class="row">
+            <div class="col-md-12">
+                <h2 class="text-center">Güvenlik İşlemleri</h2>
+                <div class="password-change-form">
+                    <div class="password-form-field">
+                        <label for="current-password">Güncel Parola<span class="required-marker">*</span>:</label>
+                        <input type="password" id="current-password" class="password-form-input" required>
+                    </div>
+
+                    <div class="password-form-field">
+                        <label for="new-password">Yeni Parola<span class="required-marker">*</span>:</label>
+                        <input type="password" id="new-password" class="password-form-input" required>
+                    </div>
+
+                    <div class="password-form-field">
+                        <label for="confirm-password">Yeni Parola (Tekrar)<span class="required-marker">*</span>:</label>
+                        <input type="password" id="confirm-password" class="password-form-input" required>
+                    </div>
+
+                    <div class="form-button-container">
+                        <button class="form-button save-password-button">Kaydet</button>
+                        <button class="form-button clear-password-button" onclick="clearPasswords()">Temizle</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+        <script>
+    function clearPasswords() {
+            var passwordFields = document.querySelectorAll('.password-form-input');
+            passwordFields.forEach(function (field) {
+                field.value = '';
+            });
+        }
+    </script>
+</body>
+</html>
