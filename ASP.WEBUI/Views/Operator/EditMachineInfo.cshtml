@@ -1,8 +1,178 @@
 ﻿
 @{
-    ViewData["Title"] = "EditMachineInfo";
+    ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<!DOCTYPE html>
+<html lang="tr">
 
-<h1>Operatör Makine Bilgilerini Düzenleme Ekranım</h1>
+<head>
 
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa;
+            line-height: 2.5;
+        }
+
+        .main-container {
+            display: flex;
+            max-width: 100%;
+            margin: 0;
+        }
+
+        .filter-section {
+            background-color: #fff;
+            border: 1px solid #d4d4d4;
+            border-radius: 8px;
+            padding: 10px;
+            margin-right: 0px; /* Adjusted margin to make left section narrower */
+            flex: 1;
+        }
+
+        .filter-options input,
+        .filter-options select {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+            margin-bottom: 10px;
+        }
+
+        .buttons-section {
+            display: flex;
+            gap: 10px;
+        }
+
+        .button {
+            flex: 1;
+            padding: 15px; /* Adjusted padding to make buttons larger */
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .button-blue {
+            background-color: #007bff;
+            color: #fff;
+        }
+
+        .results-section {
+            background-color: #fff;
+            border: 1px solid #d4d4d4;
+            border-radius: 8px;
+            padding: 500px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        .top-buttons {
+            display: flex;
+            justify-content: space-between;
+            position: absolute;
+            top: 0;
+            right: 0;
+            left: 0;
+            background-color: #fff;
+            z-index: 1;
+            padding: 10px;
+        }
+
+            .top-buttons .btn {
+                margin-left: 5px;
+            }
+
+        .pb-3,
+        .py-3 {
+            padding-bottom: 8rem !important;
+        }
+
+        .btn {
+            font-weight: lighter;
+            font-size: 2rem;
+        }
+
+        .filter-options label {
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="main-container">
+        <div class="filter-section">
+            <div class="filter-options">
+       
+                <label for="machineName">Makine Adı:</label>
+                <select id="machineName">
+                    <option value="">Makine1</option>
+                    <option value="">Makine2</option>
+                    <!-- Makine adlarını dinamik olarak ekleyin -->
+                </select>
+                <label for="machineName">Makine Durumu:</label>
+                <select id="machineStatu">
+                    <option value="">Aktif</option>
+                    <option value="">Pasif</option>
+                    <!-- Makine adlarını dinamik olarak ekleyin -->
+                </select>
+
+                <label for="partName">Item No:</label>
+                <input type="number" id="itemNo">
+
+                <label for="recipeCode">TC:</label>
+                <input type="number" id="tc">
+
+                <label for="recipeCode">VP:</label>
+                <input type="number" id="vp">
+
+        
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label class="form-label" for="startDate">Bakım Başlangıç Tarihi:</label>
+                        <input type="date" class="form-control" id="startDate" name="startDate" required>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label class="form-label" for="endDate">Bakım Bitiş Tarihi:</label>
+                        <input type="date" class="form-control" id="endDate" name="endDate" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="requestNote">Operator Notu:</label>
+                    <textarea class="form-control" id="requestNote" name="requestNote"></textarea>
+                </div>
+
+
+            </div>
+            <div class="buttons-section">
+                <button type="button" class="btn btn-outline-primary" onclick="#">Güncelle</button>
+            </div>
+        </div>
+  @*      <div class="results-section">
+            <div class="top-buttons">
+                <button type="button" class="btn btn-outline-secondary">Bilgi Getir</button>
+                <button type="button" class="btn btn-outline-success" onclick="redirectTo('@Url.Action("EditMachineInfo", "Operator")')">Düzenle</button>
+                <button type="button" class="btn btn-outline-danger">Temizle</button>
+            </div>
+        </div>*@
+    </div>
+
+    <script>
+        function redirectTo(url) {
+            window.location.href = url;
+        }
+        function filterAppointments() {
+            // Seçilen filtrelerle ilgili veri çekme ve görüntüleme mantığını burada uygulayın
+        }
+    </script>
+</body>
+
+</html>
