@@ -5,7 +5,6 @@
 }
 <!DOCTYPE html>
 <html lang="tr">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -30,7 +29,7 @@
             border: 1px solid #d4d4d4;
             border-radius: 8px;
             padding: 10px;
-            margin-right: 0px; /* Adjusted margin to make left section narrower */
+            margin-right: 0px; 
             flex: 1;
         }
 
@@ -49,7 +48,7 @@
 
         .button {
             flex: 1;
-            padding: 15px; /* Adjusted padding to make buttons larger */
+            padding: 15px;
             border: none;
             border-radius: 5px;
             cursor: pointer;
@@ -95,13 +94,19 @@
         }
 
         .btn {
-            font-weight: lighter;
-            font-size:2rem;
+            font-weight: 750;
+            font-size:1rem;
         }
 
         .filter-options label {
             font-weight: bold; 
         }
+
+
+    }
+
+}
+
     </style>
 </head>
 
@@ -145,10 +150,10 @@
         <div class="results-section">
             <div class="top-buttons">
                 <button type="button" class="btn btn-outline-secondary">Bilgi Getir</button> 
-                <button type="button" class="btn btn-outline-success">Güncelle</button> 
-                <button type="button" class="btn btn-outline-warning">Temizle</button>
-                <button type="button" class="btn btn-outline-danger">İptal Et</button>
+                <button type="button" class="btn btn-outline-success" onclick="redirectTo('@Url.Action("ManageReservation","Requester")')">Randevu Güncelle</button>
                 <button type="button" class="btn btn-outline-primary" onclick="redirectTo('@Url.Action("CreateReservation", "Requester")')">Randevu Al</button>
+                <button type="button" class="btn btn-outline-warning">Temizle</button>
+                <button type="button" class="btn btn-outline-danger">Randevu İptal Et</button>
             </div>
         </div>
     </div>

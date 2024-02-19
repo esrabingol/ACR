@@ -2,19 +2,34 @@
     ViewData["Title"] = "CreateReservation";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-  <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<head>
+    @*<meta name="viewport" content="width=device-width, initial-scale=1.0">*@
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-  </head>
+</head>
 <style>
+    body {
+        padding-top: 0px;
+    }
+
     .pb-3, .py-3 {
         padding-bottom: 7rem !important;
     }
     /* Stil tanımlamalarını buraya ekleyebilirsiniz */
+    /*    .reservation-form {
+            max-width: 1320px;
+            margin: auto;
+            padding: 5px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }*/
     .reservation-form {
-        max-width: 1320px;
+        /* Remove fixed width */
+        /* width: 1320px; */
         margin: auto;
         padding: 5px;
         border: 2px solid #e0e0e0;
@@ -35,10 +50,12 @@
     }
 
     .form-control {
+        /*    width: 100%;
+            padding: 10px;
+            box-sizing: border-box;*/
         width: 100%;
-        padding: 10px;
-        box-sizing: border-box;
     }
+
     .required-note {
         position: absolute;
         right: 0;
@@ -46,34 +63,43 @@
         color: red;
         font-size: 12px;
     }
-    .btn
-    {
-        border: 1px solid cornflowerblue;
-        font-size:20px;
-        padding: 9px 13px;
+
+    /*   .btn {
+            border: 1px solid cornflowerblue;
+            font-size: 20px;
+            padding: 9px 13px;
+        }
+    */
+    .btn {
+        /* Adjust button styles as needed */
+        font-size: 16px; /* Decrease font size */
+        padding: 8px 12px; /* Adjust padding */
+        border: 1px solid blue;
     }
 
     .container {
-        width: 1320px;
+        /*width: 1320px;*/
+
+        width: 100%; /* Change to 100% for responsiveness */
     }
 </style>
 
 <body>
-   
-<div class="container reservation-form">
 
-  
-            <div class="d-flex justify-content-between align-items-center mb-3">
+    <div class="container reservation-form">
+
+
+        <div class="d-flex justify-content-between align-items-center mb-3">
             <a href=@Url.Action("Index","Requester")>
-                    <span class="glyphicon glyphicon-circle-arrow-left" style="font-size: 24px;"></span>
-                </a>
-            </div>
+                <span class="glyphicon glyphicon-circle-arrow-left" style="font-size: 24px;"></span>
+            </a>
+        </div>
         <form method="post" action="@Url.Action("CreateReservation", "Requester")">
             <div class="form-group">
-            <label for="machineName"><strong>Makine Adı:</strong></label>
-            <select id="machineName" class="form-control">
-                <!-- Makine adlarını dinamik olarak ekleyin -->
-            </select>
+                <label for="machineName"><strong>Makine Adı:</strong></label>
+                <select id="machineName" class="form-control">
+                    <!-- Makine adlarını dinamik olarak ekleyin -->
+                </select>
             </div>
 
             <div class="form-group">
@@ -83,7 +109,7 @@
             </div>
 
             <div class="form-group">
-                <label class="form-label" for="recipeCode">Proje Reçetesi/Üretim Kodu:</label>
+                <label class="form-label" for="recipeCode">Reçete Kodu:</label>
                 <input type="text" class="form-control" id="recipeCode" name="recipeCode" required>
                 <span class="required-note">*zorunlu alan</span>
             </div>
@@ -109,5 +135,5 @@
                 <button type="button" class="btn btn-outline-primary" onclick=#>Randevu Ara</button>
             </div>
         </form>
-   </div>
+    </div>
 </body>
