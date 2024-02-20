@@ -9,7 +9,7 @@ namespace ACR.Business.Abstract
 {
     public interface IReservationService
     {
-        List<Reservation> GetAllRezervations();
+        List<Reservation> GetAllRezervations(Reservation rezervation);
         Reservation GetRezervationById(int reservationId);
         Reservation Update(Reservation rezervation);
         Reservation Add(Reservation rezervation);

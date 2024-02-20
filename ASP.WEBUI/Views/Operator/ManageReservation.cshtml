@@ -1,8 +1,10 @@
-﻿@*randevu işlemleri*@
+﻿@using ASP.WEBUI.Models;
+@model OpReservationFilterModel
 @{
     ViewData["Title"] = "ManageReservation";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+@*randevu işlemleri*@
 <!DOCTYPE html>
 <html lang="tr">
 
@@ -133,7 +135,7 @@
                 <input type="text" id="projectName" name="projectName">
 
                 <label for="partName">Parça Adı:</label>
-                <input type="text" id="partName" name="PartName">
+                <input type="text" id="partName" name="partName">
 
                 <label for="recipeCode">Reçete Kodu:</label>
                 <input type="text" id="recipeCode" name="recipeCode">

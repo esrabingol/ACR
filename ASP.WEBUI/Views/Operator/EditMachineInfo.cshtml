@@ -1,4 +1,6 @@
-﻿@*makine işlemlerinden sonra düzenle kısmı*@
+﻿@using ASP.WEBUI.Models;
+@model EditMachineModel
+@*makine işlemlerinden sonra düzenle kısmı*@
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -55,7 +57,7 @@
 
         .button {
             flex: 1;
-            padding: 15px; /* Adjusted padding to make buttons larger */
+            padding: 15px; 
             border: none;
             border-radius: 5px;
             cursor: pointer;
@@ -124,9 +126,10 @@
                     </div>
                     <label for="machineName">Makine Adı:</label>
                     <select id="machineName">
-                        <option value="">Makine1</option>
-                        <option value="">Makine2</option>
-                        <!-- Makine adlarını dinamik olarak ekleyin -->
+                 @*       @foreach (var machineName in ViewBag.MachineNames)
+                        {
+                            <option value="@machineName">@machineName</option>
+                        }*@
                     </select>
                     <label for="machineStatu">Makine Durumu:</label>
                     <select id="machineStatu">

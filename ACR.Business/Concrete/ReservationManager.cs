@@ -27,7 +27,7 @@ namespace ACR.Business.Concrete
             _reservationDal.Delete(rezervation);
         }
 
-        public List<Reservation> GetAllRezervations()
+        public List<Reservation> GetAllRezervations(Reservation reservation)
         {
             return _reservationDal.GetAll().ToList();
         }

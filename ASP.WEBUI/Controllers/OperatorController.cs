@@ -8,6 +8,7 @@ namespace ASP.WEBUI.Controllers
 	public class OperatorController : Controller
 	{
 		private IAutoclaveService _autoclaveService;
+		private IReservationService _reservationService;
 
 		//Operator anasayfa işlemleri
 		public IActionResult Index()
@@ -15,8 +16,23 @@ namespace ASP.WEBUI.Controllers
 			return View();
 		}
 
-		//Makine Bilgilerini Görüntüleme İşlemleri
-		//[HttpPost]
+        public IActionResult ListMachine()
+        {
+            var machineNames = _autoclaveService.GetList();
+            ViewBag.MachineNames = machineNames;
+
+            return View();
+        }
+
+        [HttpGet]
+        public IActionResult ViewMachineInfo()
+        {
+            //admin ürün ekleme sayfasını görüntüleyecek
+            return View(new OpMachineFilterModel());
+        }
+
+        //Makine Bilgilerini Görüntüleme İşlemleri
+        [HttpPost]
 		public IActionResult ViewMachineInfo(OpMachineFilterModel opMachineFilterModel)
 		{
 			if (ModelState.IsValid)
@@ -26,14 +42,20 @@ namespace ASP.WEBUI.Controllers
 
 				// Filtrelenmiş Autoclave nesnelerini ViewBag veya Model ile View'e gönder
 				ViewBag.FilteredAutoclaves = filteredAutoclaves;
-
 			}
 			return View();
 		}
 
 
-		//Makine Bilgileri Düzenleme İşlemleri
-		[HttpPost]
+        [HttpGet]
+        public IActionResult EditMachineInfo()
+        {
+            //admin ürün ekleme sayfasını görüntüleyecek
+            return View(new EditMachineModel());
+        }
+
+        //Makine Bilgileri Düzenleme İşlemleri
+        [HttpPost]
 		public IActionResult EditMachineInfo(EditMachineModel editMachine)
 		{
 			if(ModelState.IsValid)
@@ -50,18 +72,42 @@ namespace ASP.WEBUI.Controllers
 					OperatorNote = editMachine.operatorNote
 				};
 			    var updateAutoclave = _autoclaveService.Update(autoclaveUpdate);
-				return RedirectToAction("Index");
+                ViewBag.FilteredAutoclaves = updateAutoclave;
+                return RedirectToAction("Index");
 			}
 		
 			return View(editMachine);
 		}
 
+        [HttpGet]
+        public IActionResult ManageReservation()
+        {
+            //admin ürün ekleme sayfasını görüntüleyecek
+            return View(new OpReservationFilterModel());
+        }
 
-		public IActionResult ManageReservation()
+        //Rezervasyon Düzenleme İşlemi
+        [HttpPost]
+		public IActionResult ManageReservation(OpReservationFilterModel opReservationFilter)
 		{
-		   //Filtrelere uygun rezervasyonu getir
+		   if(ModelState.IsValid)
+			{
+				var reservationFilter = new Reservation
+				{
+					MachineName = opReservationFilter.machineName,
+					ProjectName = opReservationFilter.projectName,
+					PartName = opReservationFilter.partName,
+					StartDate= opReservationFilter.startDate,
+					EndDate = opReservationFilter.endDate,
+					StartTime = opReservationFilter.startTime,
+					EndTime= opReservationFilter.endTime
+				};
 
-			return View();
+				var filterReservation = _reservationService.GetAllRezervations(reservationFilter);
+                ViewBag.FilteredReservations = filterReservation;
+            }
+
+            return View();
 		}
 
 
