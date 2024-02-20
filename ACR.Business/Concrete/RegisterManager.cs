@@ -26,7 +26,6 @@ namespace ACR.Business.Concrete
 				MailAdress = register.MailAdress,
 				Password = register.Password,
 				PhoneNumber = register.PhoneNumber,
-				RecordData = DateTime.Now.ToShortDateString().ToString(),
 				UserRole = register.UserRole
 			};
 

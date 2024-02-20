@@ -1,135 +1,21 @@
-﻿@*
+﻿@*makine işlemleri sekmesi*@
 @{
     ViewData["Title"] = "ViewMachineInfo";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
 <!DOCTYPE html>
 <html lang="tr">
+
 <head>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Operatör Makine Bilgileri Görüntüle</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f8f9fa;
-        }
 
-        .main-container {
-            max-width: 100%;
-            margin: 0;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-        }
-
-        .filter-section, .results-section {
-            background-color: #fff;
-            border: 1px solid #d4d4d4;
-            border-radius: 8px;
-            padding: 10px;
-            margin-bottom: 10px;
-            flex: 1;
-            box-sizing: border-box;
-        }
-
-        .filter-options select, .filter-options input {
-            width: 100%;
-            padding: 8px;
-            box-sizing: border-box;
-            margin-bottom: 10px;
-        }
-
-        .buttons-section {
-            display: flex;
-            gap: 10px;
-            justify-content: flex-end; /* Sağa yaslamak için */
-        }
-
-        .button {
-            padding: 10px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-weight: bold;
-            text-align: center;
-        }
-
-        .button-blue {
-            background-color: #007bff;
-            color: #fff;
-        }
-
-        .button-red {
-            background-color: #dc3545;
-            color: #fff;
-        }
-
-        .pb-3, .py-3 {
-            padding-bottom: 14rem !important;
-        }
-    </style>
-</head>
-<body>
-    <div class="main-container">
-        <div class="filter-section">
-            <div class="filter-options">
-                <select id="machineName" placeholder="Makine Adı">
-                    <option value="">Makine Adı</option>
-                    <!-- Makine adlarını dinamik olarak ekleyin -->
-                </select>
-                <select id="machineStatus" placeholder="Makine Durumu">
-                    <option value="">Makine Durumu</option>
-                    <!-- Makine durumlarını dinamik olarak ekleyin -->
-                </select>
-                <input type="number" id="itemNo" placeholder="Item No" min="0">
-                <input type="number" id="tc" placeholder="TC" min="0">
-                <input type="number" id="vp" placeholder="VP" min="0">
-            </div>
-            <div class="buttons-section">
-                <button class="button button-blue" onclick="filterMachines()">Filtrele</button>
-                <button class="button button-red" onclick="clearFilters()">Temizle</button>
-            </div>
-        </div>
-
-        <div class="results-section">
-            <!-- Burada makine bilgilerinin listelendiği bir bölüm olacak -->
-        </div>
-    </div>
-
-    <script>
-        function filterMachines() {
-            // Seçilen filtrelerle ilgili veri çekme ve görüntüleme mantığını burada uygulayın
-        }
-
-        function clearFilters() {
-            // Seçilen filtreleri temizleme mantığını burada uygulayın
-            // Ardından veriyi yeniden yükleyin
-        }
-    </script>
-</body>
-</html>
-*@
-
-@{
-    ViewData["Title"] = "Index";
-    Layout = "~/Views/Shared/_Layout.cshtml";
-}
-<!DOCTYPE html>
-<html lang="tr">
-
-<head>
-      <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -169,7 +55,7 @@
 
         .button {
             flex: 1;
-            padding: 15px; /* Adjusted padding to make buttons larger */
+            padding: 15px;
             border: none;
             border-radius: 5px;
             cursor: pointer;
@@ -229,56 +115,58 @@
 <body>
     <div class="main-container">
         <div class="filter-section">
-            <div class="filter-options">
-                <div class="d-flex justify-content-between align-items-center mb-3">
-                    <a href=@Url.Action("Index","Operator")>
-                        <span class="glyphicon glyphicon-circle-arrow-left" style="font-size: 24px;"></span>
-                    </a>
+            <form method="post" action="@Url.Action("ViewMachineInfo","Operator")">
+                <div class="filter-options">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <a href=@Url.Action("Index","Operator")>
+                            <span class="glyphicon glyphicon-circle-arrow-left" style="font-size: 24px;"></span>
+                        </a>
+                    </div>
+                    <label for="machineName">Makine Adı:</label>
+                    <select id="machineName" name="machineName">
+                        <option value="Makine1">Makine1</option>
+                        <option value="Makine2">Makine2</option>
+                        <!-- Diğer makine adlarını dinamik olarak ekleyin -->
+                    </select>
+
+                    <label for="machineName">Makine Adı:</label>
+                    <input type="text" id="machineName" name="machineName">
+
+                    <label for="machineStatu">Makine Durumu:</label>
+                    <input type="text" id="machineStatu" name="machineStatu">
+
+                    <label for="itemNo">Item No :</label>
+                    <input type="text" id="itemNo" name="itemNo">
+
+                    <label for="tc">TC:</label>
+                    <input type="number" id="tc" name="tc">
+
+                    <label for="vp">VP:</label>
+                    <input type="number" id="vp" name="vp">
                 </div>
-                <label for="machineName">Makine Adı:</label>
-                <select id="machineName">
-                    <option value="">Makine1</option>
-                    <option value="">Makine2</option>
-                    <!-- Makine adlarını dinamik olarak ekleyin -->
-                </select>
-             <label for="machineName">Makine Durumu:</label>
-                   <select id="machineStatu">
-                    <option value="">Aktif</option>
-                    <option value="">Pasif</option>
-                    <!-- Makine adlarını dinamik olarak ekleyin -->
-                </select>
+                <div class="buttons-section">
+                    <button type="submit" class="btn btn-outline-primary">Makine Ara</button>
+                </div>
+            </form>
 
-                <label for="partName">Item No:</label>
-                <input type="number" id="itemNo">
-
-                <label for="recipeCode">TC:</label>
-                <input type="number" id="tc">
-
-                <label for="recipeCode">VP:</label>
-                <input type="number" id="vp">
-            </div>
-            <div class="buttons-section">
-                <button type="button" class="btn btn-outline-primary" onclick="filterAppointments()">Makine Ara</button>
-            </div>
         </div>
         <div class="results-section">
             <div class="top-buttons">
                 <button type="button" class="btn btn-outline-secondary">Bilgi Getir</button>
                 <button type="button" class="btn btn-outline-success" onclick="redirectTo('@Url.Action("EditMachineInfo", "Operator")')">Düzenle</button>
-                <button type="button" class="btn btn-outline-danger">Temizle</button>
+                <button type="button" class="btn btn-outline-warning" onclick="#">Temizle</button>
             </div>
         </div>
     </div>
 
     <script>
-                function redirectTo(url) {
+        function redirectTo(url) {
             window.location.href = url;
         }
-        function filterAppointments() {
-            // Seçilen filtrelerle ilgili veri çekme ve görüntüleme mantığını burada uygulayın
-        }
+                //function filterAppointments() {
+                //    // Seçilen filtrelerle ilgili veri çekme ve görüntüleme mantığını burada uygulayın
+                //}
     </script>
-
 </body>
 
 </html>

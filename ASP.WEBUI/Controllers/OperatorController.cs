@@ -1,4 +1,6 @@
 ﻿using ACR.Business.Abstract;
+using ACR.Entity.Concrete;
+using ASP.WEBUI.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ASP.WEBUI.Controllers
@@ -6,7 +8,6 @@ namespace ASP.WEBUI.Controllers
 	public class OperatorController : Controller
 	{
 		private IAutoclaveService _autoclaveService;
-		//Tüm operatör ekranları bu kısımda olucak
 
 		//Operator anasayfa işlemleri
 		public IActionResult Index()
@@ -15,25 +16,51 @@ namespace ASP.WEBUI.Controllers
 		}
 
 		//Makine Bilgilerini Görüntüleme İşlemleri
-
-		[HttpGet]
-		public IActionResult ViewMachineInfo()
+		//[HttpPost]
+		public IActionResult ViewMachineInfo(OpMachineFilterModel opMachineFilterModel)
 		{
-			//tüm makineleri getirmesini sağlıyıcam.
+			if (ModelState.IsValid)
+			{
+				var machineName = opMachineFilterModel.machineName;
+				var filteredAutoclaves = _autoclaveService.GetByName(machineName);
+
+				// Filtrelenmiş Autoclave nesnelerini ViewBag veya Model ile View'e gönder
+				ViewBag.FilteredAutoclaves = filteredAutoclaves;
+
+			}
 			return View();
 		}
 
 
-		public IActionResult EditMachineInfo()
+		//Makine Bilgileri Düzenleme İşlemleri
+		[HttpPost]
+		public IActionResult EditMachineInfo(EditMachineModel editMachine)
 		{
-			//Makine Bilgilerini Düzenle
-			return View();
+			if(ModelState.IsValid)
+			{
+				var autoclaveUpdate = new Autoclave
+				{
+					MachineName = editMachine.machineName,
+					MachineStatu = editMachine.machineStatu,
+					ItemNo = editMachine.itemNo,
+					TcNumber = editMachine.tcNumber,
+					VpNumber = editMachine.vpNumber,
+					StartDate = editMachine.startDate,
+					EndDate = editMachine.endDate,
+					OperatorNote = editMachine.operatorNote
+				};
+			    var updateAutoclave = _autoclaveService.Update(autoclaveUpdate);
+				return RedirectToAction("Index");
+			}
+		
+			return View(editMachine);
 		}
 
 
 		public IActionResult ManageReservation()
 		{
-			//Rezervasyon İşlemleri
+		   //Filtrelere uygun rezervasyonu getir
+
 			return View();
 		}
 

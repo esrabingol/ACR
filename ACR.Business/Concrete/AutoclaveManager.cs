@@ -29,6 +29,12 @@ namespace ACR.Business.Concrete
              _autoclaveDal.Delete(autoclave);
         }
 
+        //Makine Bilgilerini Güncelleme İşlemi
+        public Autoclave Update(Autoclave autoclave)
+        {
+            _autoclaveDal.Update(autoclave);
+            return autoclave;
+        }
         public Autoclave GetById(int Id)
         {
             var autolave = _autoclaveDal.GetById(Id);
@@ -44,11 +50,11 @@ namespace ACR.Business.Concrete
             return _autoclaveDal.GetAll().ToList();
         }
 
-        public Autoclave Update(Autoclave autoclave)
+        public List<Autoclave> GetByName(string machineName)
         {
-             _autoclaveDal.Update(autoclave);
-            return autoclave;
+            var autoclaves = _autoclaveDal.GetAll();
+            var filteredAutoclaves = autoclaves.Where(a => a.MachineName == machineName).ToList();
+            return filteredAutoclaves;
         }
-
     }
 }

@@ -43,7 +43,7 @@ namespace ASP.WEBUI
 			{
 				endpoints.MapControllerRoute(
 					name: "default",
-					pattern: "{controller=Requester}/{action=Index}");
+					pattern: "{controller=User}/{action=UserLogin}");
 			});
 		}
 	}

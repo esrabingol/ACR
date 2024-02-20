@@ -16,6 +16,7 @@ namespace ACR.Business.Abstract
         void Delete(Autoclave autoclave);
 
         Autoclave GetById(int Id); // randevu alma işleminde kolaylık sağlamak için
+        List<Autoclave> GetByName(string machineName);
 
         List<Autoclave> GetList(); //makineleri listelemek için
          

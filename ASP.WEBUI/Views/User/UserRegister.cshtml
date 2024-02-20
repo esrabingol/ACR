@@ -31,7 +31,7 @@
 						</div>
 						<h3 class="text-center mb-4">KULLANICI KAYIT EKRANI</h3>
 
-						<form action="UserRegister" class="signup-form">
+						<form action="UserRegister" method="post" class="signup-form">
 							<div class="form-group mb-3">
 								<label class="label" for="Name">Adınız</label>
 								<input type="text" class="form-control" placeholder="İsim">
@@ -54,21 +54,16 @@
 								<span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password"></span>
 							</div>
 							<div class="form-group d-md-flex">
+								<label for="userRoleSelect" class="w-100 text-left">Kullanıcı Rolü:</label>
 								<div class="w-100 text-left">
-									<label class="radio-wrap">
-										<input type="radio" asp-for="UserRole" value="Requester" />
-										<span class="checkmark"></span>
-										ÜRETİM MÜHENDİSİ
-									</label>
-								</div>
-								<div class="w-100 text-left">
-									<label class="radio-wrap">
-										<input type="radio" asp-for="UserRole" value="User" />
-										<span class="checkmark"></span>
-									 OPERATÖR
-									</label>
+									<select id="userRoleSelect" name="UserRole" class="form-control">
+										<option value="Requester">ÜRETİM MÜHENDİSİ</option>
+										<option value="User">OPERATÖR</option>
+									</select>
 								</div>
 							</div>
+
+
 							<div class="form-group d-md-flex">
 								<div class="w-100 text-left">
 									<label class="checkbox-wrap checkbox-primary">

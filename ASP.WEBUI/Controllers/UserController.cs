@@ -36,7 +36,6 @@ namespace ASP.WEBUI.Controllers
 					MailAdress = registerModel.MailAdress,
 					Password = registerModel.Password,
 					PhoneNumber = registerModel.PhoneNumber,
-					RecordData = DateTime.Now.ToShortDateString().ToString(),
 					UserRole = registerModel.UserRole
 				};
 
@@ -67,16 +66,29 @@ namespace ASP.WEBUI.Controllers
 			if (ModelState.IsValid)
 			{
 				var user = _registerService.FindByEmail(loginModel.Email);
-				var activeUserId = 0;
-				var activeUserType = 0;
 
 				if (user == null)
 				{
 					ModelState.AddModelError("", "Bu Email adresi ile eşleşen bir Email Adresi Bulunamadı");
 				}
-
-				var userLogin = _registerService.PasswordSignIn(loginModel.Email, loginModel.Password, userRole);
+				else 
+				{
+                    var userLogin = _registerService.PasswordSignIn(loginModel.Email, loginModel.Password, userRole);
+					if(userLogin)
+					{
+						if(userRole == "OPERATÖR")
+						{
+							return RedirectToAction("Index", "Operator");
+						}
+						else if(userRole =="ÜRETİM MÜHENDİSİ")
+						{
+							return RedirectToAction("Index", "Requester");
+						}
+					}
+                }
+				
 			
+
 			}
 
 			return View();

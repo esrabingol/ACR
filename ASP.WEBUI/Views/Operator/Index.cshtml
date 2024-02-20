@@ -1,72 +1,4 @@
-﻿@*
-@{
-    ViewData["Title"] = "Index";
-    Layout = "~/Views/Shared/_Layout.cshtml";
-}
-
-<style>
-    .btn-custom {
-        padding: 1.25rem 1rem;
-        font-size: 2rem;
-        border-radius: 1.2rem;
-        text-align: left;
-    }
-
-    .container-border {
-        border: 2px solid #e0e0e0;
-        padding: 20px;
-        border-radius: 10px;
-        margin-top: 20px;
-    }
-
-    .pb-3, .py-3 {
-        padding-bottom: 14rem !important;
-    }
-
-</style>
-
-<body>
-    <div class="container container-border">
-        <div class="row mt-3">
-            <!-- Sol tarafta butonlar -->
-            <div class="col-lg-4 mb-3 col-sm-12">
-               
-                <a href="@Url.Action("ViewMachineInfo", "Operator")" class="btn btn-primary btn-lg btn-block mb-3 btn-custom">Makine Bilgilerini Görüntüle</a>
-                <a href="@Url.Action("EditMachineInfo","Operator")" class="btn btn-secondary btn-lg btn-block mb-3 btn-custom">Makine Bilgilerini Düzenle</a>
-                <a href="@Url.Action("ManageReservation","Operator")" class="btn btn-danger btn-lg btn-block mb-3 btn-custom">Randevu İşlemleri</a>
-                
-            </div>
-
-            <!-- Sağ tarafta sekme içeriği -->
-            <div class="col-lg-8 col-sm-12">
-                <!-- Sekmeler -->
-                <ul class="nav nav-tabs" id="myTab" role="tablist">
-                    <li class="nav-item" role="presentation">
-                        <button class="nav-link active" id="randevularim-tab" data-bs-toggle="tab" data-bs-target="#randevularim" type="button" role="tab" aria-controls="randevularim" aria-selected="true">Randevularım</button>
-                    </li>
-                    <li class="nav-item" role="presentation">
-                        <button class="nav-link" id="gecmis-randevularim-tab" data-bs-toggle="tab" data-bs-target="#gecmis-randevularim" type="button" role="tab" aria-controls="gecmis-randevularim" aria-selected="false">Geçmiş Randevularım</button>
-                    </li>
-                </ul>
-
-                <!-- Sekme İçerikleri -->
-                <div class="tab-content mt-3" id="myTabContent">
-                    <div class="tab-pane fade show active" id="randevularim" role="tabpanel" aria-labelledby="randevularim-tab">
-                        Randevularım İçeriği
-                    </div>
-                    <div class="tab-pane fade" id="gecmis-randevularim" role="tabpanel" aria-labelledby="gecmis-randevularim-tab">
-                        Geçmiş Randevularım İçeriği
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</body>*@
-
-
-
-
-@*OPERATOR GİRİŞ SAYFASI*@
+﻿@*OPERATOR GİRİŞ SAYFASI*@
 
 @{
     ViewData["Title"] = "Index";
@@ -177,38 +109,40 @@
 <body>
     <div class="main-container">
         <div class="filter-section">
+            <form method="post" action="@Url.Action("Index","Operator")">
             <div class="filter-options">
-                <label for="machineName">Makine Adı:</label>
-                <select id="machineName">
+                    <label for="MachineName">Makine Adı:</label>
+                    <select id="MachineName">
                     <option value="">Makine1</option>
                     <option value="">Makine2</option>
                     <!-- Makine adlarını dinamik olarak ekleyin -->
                 </select>
 
-                <label for="projectName">Proje Adı:</label>
-                <input type="text" id="projectName">
+                    <label for="ProjectName">Proje Adı:</label>
+                    <input type="text" id="ProjectName">
 
                 <label for="partName">Parça Adı:</label>
                 <input type="text" id="partName">
 
-                <label for="recipeCode">Reçete Kodu:</label>
-                <input type="text" id="recipeCode">
+                <label for="RecipeCode">Reçete Kodu:</label>
+                <input type="text" id="RecipeCode">
 
-                <label for="startDate">Başlangıç Tarihi:</label>
+                <label for="StartDate">Başlangıç Tarihi:</label>
                 <input type="date" id="startDate">
 
-                <label for="endDate">Bitiş Tarihi:</label>
+                    <label for="EndDate">Bitiş Tarihi:</label>
                 <input type="date" id="endDate">
 
-                <label for="startTime">Başlangıç Saati:</label>
+                <label for="StartTime">Başlangıç Saati:</label>
                 <input type="time" id="startTime">
 
-                <label for="endTime">Bitiş Saati:</label>
+                <label for="EndTime">Bitiş Saati:</label>
                 <input type="time" id="endTime">
             </div>
             <div class="buttons-section">
                 <button type="button" class="btn btn-outline-primary" onclick="filterAppointments()">Randevu Ara</button>
             </div>
+            </form>
         </div>
         <div class="results-section">
             <div class="top-buttons">

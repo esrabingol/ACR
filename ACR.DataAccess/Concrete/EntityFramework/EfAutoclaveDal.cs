@@ -12,6 +12,7 @@ namespace ACR.DataAccess.Concrete.EntityFramework
     {
         public List<Autoclave> GetListByCategoryId(int categoryId)
         {
+            //Aktif- pasif durumunu bu kısımda kullanılıcak
             throw new NotImplementedException();
         }
     }
