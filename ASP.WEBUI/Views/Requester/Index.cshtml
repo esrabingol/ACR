@@ -147,6 +147,14 @@
                 <button type="button" class="btn btn-outline-primary" onclick="filterAppointments()">Randevu Ara</button>
             </div>
         </div>
+ @*       randevu başarılı oluşturulduğunda uyarı mesajını göster*@
+        @if (ViewBag.SuccessMessage != null)
+        {
+            <div class="alert alert-success">
+                @ViewBag.SuccessMessage
+            </div>
+        }
+
         <div class="results-section">
             <div class="top-buttons">
                 <button type="button" class="btn btn-outline-secondary">Bilgi Getir</button> 

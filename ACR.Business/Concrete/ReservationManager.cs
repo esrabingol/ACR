@@ -1,6 +1,7 @@
 ﻿using ACR.Business.Abstract;
 using ACR.DataAccess.Abstract;
 using ACR.Entity.Concrete;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -42,6 +43,7 @@ namespace ACR.Business.Concrete
             return reservation;
         }
 
+   
         public Reservation Update(Reservation rezervation)
         {
             _reservationDal.Update(rezervation);

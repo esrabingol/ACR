@@ -9,7 +9,6 @@ namespace ACR.DataAccess.Abstract
 {
     public interface IReservationDal : IRepository<Reservation>
     {
-       
 
     }
 }

@@ -8,16 +8,16 @@ namespace ACR.Entity.Concrete
 {
     public class Reservation
     {
-        public int Id { get; set; }
-        public string ProjectName { get; set; }
-        public string MachineName { get; set; }
-        public string PartName { get; set; }
-        public string ProjectCode { get; set; }
-        public DateTime StartDate { get; set; }
-        public DateTime EndDate { get; set; }
-        public TimeOnly StartTime { get; set; }
-        public TimeOnly EndTime { get; set; }
-        public string ReservationNote { get; set; }
+        public int id { get; set; }
+        public string projectName { get; set; }
+        public string machineName { get; set; }
+        public string partName { get; set; }
+        public string recipeCode { get; set; }
+        public DateOnly startDate { get; set; }
+        public DateOnly endDate { get; set; }
+        public TimeOnly startTime { get; set; }
+        public TimeOnly endTime { get; set; }
+        public string reservationNote { get; set; }
 
         //Rezervasyon durumu kontrolü için
         public ReservationStatus Status { get; set; }

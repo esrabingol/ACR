@@ -27,7 +27,6 @@ namespace ASP.WEBUI.Controllers
         [HttpGet]
         public IActionResult ViewMachineInfo()
         {
-            //admin ürün ekleme sayfasını görüntüleyecek
             return View(new OpMachineFilterModel());
         }
 
@@ -94,13 +93,13 @@ namespace ASP.WEBUI.Controllers
 			{
 				var reservationFilter = new Reservation
 				{
-					MachineName = opReservationFilter.machineName,
-					ProjectName = opReservationFilter.projectName,
-					PartName = opReservationFilter.partName,
-					StartDate= opReservationFilter.startDate,
-					EndDate = opReservationFilter.endDate,
-					StartTime = opReservationFilter.startTime,
-					EndTime= opReservationFilter.endTime
+					machineName = opReservationFilter.machineName,
+					projectName = opReservationFilter.projectName,
+					partName = opReservationFilter.partName,
+					startDate= opReservationFilter.startDate,
+					endDate = opReservationFilter.endDate,
+					startTime = opReservationFilter.startTime,
+					endTime= opReservationFilter.endTime
 				};
 
 				var filterReservation = _reservationService.GetAllRezervations(reservationFilter);

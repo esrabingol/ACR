@@ -1,4 +1,7 @@
-﻿@{
+﻿@using ASP.WEBUI.Models;
+@model CreateReservationModel
+
+@{
     ViewData["Title"] = "CreateReservation";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
@@ -18,18 +21,7 @@
     .pb-3, .py-3 {
         padding-bottom: 7rem !important;
     }
-    /* Stil tanımlamalarını buraya ekleyebilirsiniz */
-    /*    .reservation-form {
-            max-width: 1320px;
-            margin: auto;
-            padding: 5px;
-            border: 2px solid #e0e0e0;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }*/
     .reservation-form {
-        /* Remove fixed width */
-        /* width: 1320px; */
         margin: auto;
         padding: 5px;
         border: 2px solid #e0e0e0;
@@ -50,9 +42,6 @@
     }
 
     .form-control {
-        /*    width: 100%;
-            padding: 10px;
-            box-sizing: border-box;*/
         width: 100%;
     }
 
@@ -63,24 +52,14 @@
         color: red;
         font-size: 12px;
     }
-
-    /*   .btn {
-            border: 1px solid cornflowerblue;
-            font-size: 20px;
-            padding: 9px 13px;
-        }
-    */
     .btn {
-        /* Adjust button styles as needed */
-        font-size: 16px; /* Decrease font size */
-        padding: 8px 12px; /* Adjust padding */
+        font-size: 16px;
+        padding: 8px 12px;
         border: 1px solid blue;
     }
 
     .container {
-        /*width: 1320px;*/
-
-        width: 100%; /* Change to 100% for responsiveness */
+        width: 100%;
     }
 </style>
 
@@ -94,12 +73,12 @@
                 <span class="glyphicon glyphicon-circle-arrow-left" style="font-size: 24px;"></span>
             </a>
         </div>
-        <form method="post" action="@Url.Action("CreateReservation", "Requester")">
+        <form asp-controller="Requester" asp-action="CreateReservation" method="post">
             <div class="form-group">
                 <label for="machineName"><strong>Makine Adı:</strong></label>
-                <select id="machineName" class="form-control">
+                <selec id ="machineName" name="machineName" class="form-control">
                     <!-- Makine adlarını dinamik olarak ekleyin -->
-                </select>
+                </selec>
             </div>
 
             <div class="form-group">
@@ -130,9 +109,18 @@
                 </div>
             </div>
 
-
+                <div class="form-row">
+            <div class="form-group col-md-6">
+                    <label class="form-label" for="startDate">Başlangıç Saati:</label>
+                    <input type="time" class="form-control" id="startTime" name="startTime" required>
+                </div>
+                <div class="form-group col-md-6">
+                    <label class="form-label" for="endDate">Bitiş Saati:</label>
+                    <input type="time" class="form-control" id="endTime" name="endTime" required>
+                </div>
+            </div>
             <div class="text-right">
-                <button type="button" class="btn btn-outline-primary" onclick=#>Randevu Ara</button>
+                <button type="submit" class="btn btn-outline-primary" onclick=#>Randevu Ara</button>
             </div>
         </form>
     </div>

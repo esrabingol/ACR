@@ -14,5 +14,7 @@ namespace ACR.Business.Abstract
         Reservation Update(Reservation rezervation);
         Reservation Add(Reservation rezervation);
         void Delete(Reservation rezervation);
+
+
     }
 }
