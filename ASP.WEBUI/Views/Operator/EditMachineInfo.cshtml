@@ -1,5 +1,5 @@
 ﻿@using ASP.WEBUI.Models;
-@model EditMachineModel
+@model OpEditMachineModel
 @*makine işlemlerinden sonra düzenle kısmı*@
 @{
     ViewData["Title"] = "Index";
@@ -117,7 +117,7 @@
 <body>
     <div class="main-container">
         <div class="filter-section">
-            <form method="post" action="@Url.Action("EditMachineInfo","Operator")">
+            <form asp-controller="Operator" asp-action="EditMachineInfo" method="post">
                 <div class="filter-options">
                     <div class="d-flex justify-content-between align-items-center mb-3">
                         <a href=@Url.Action("ViewMachineInfo","Operator")>

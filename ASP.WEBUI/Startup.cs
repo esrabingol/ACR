@@ -44,8 +44,9 @@ namespace ASP.WEBUI
 				endpoints.MapControllerRoute(
 					name: "default",
 					pattern: "{controller=Requester}/{action=Index}");
-			});
-		}
+
+            });
+        }
 	}
 }
 

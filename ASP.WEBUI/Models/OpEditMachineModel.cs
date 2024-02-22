@@ -1,7 +1,7 @@
 ﻿namespace ASP.WEBUI.Models
 {
     //Operatör Makine Bilgileri Düzenleme Ekranı
-    public class EditMachineModel
+    public class OpEditMachineModel
     {
         public string machineName { get; set; }
         public string machineStatu { get; set; }

@@ -30,7 +30,49 @@ namespace ACR.Business.Concrete
 
         public List<Reservation> GetAllRezervations(Reservation reservation)
         {
-            return _reservationDal.GetAll().ToList();
+            // Filtreleme işlemlerini gerçekleştir
+            var reservations = _reservationDal.GetAll();
+
+            // Örnek: Makine adına göre filtrele
+            if (!string.IsNullOrWhiteSpace(reservation.machineName))
+            {
+                reservations = reservations.Where(r => r.machineName == reservation.machineName).ToList();
+            }
+
+            if (!string.IsNullOrWhiteSpace(reservation.projectName))
+            {
+                reservations = reservations.Where(r => r.projectName == reservation.projectName).ToList();
+            }
+            if (!string.IsNullOrWhiteSpace(reservation.partName))
+            {
+                reservations = reservations.Where(r => r.partName == reservation.partName).ToList();
+            }
+
+            if (!string.IsNullOrWhiteSpace(reservation.recipeCode))
+            {
+                reservations = reservations.Where(r => r.recipeCode == reservation.recipeCode).ToList();
+            }
+
+            if (reservation.startDate != default(DateOnly))
+            {
+                reservations = reservations.Where(r => r.startDate == reservation.startDate).ToList();
+            }
+
+            if (reservation.endDate != default(DateOnly))
+            {
+                reservations = reservations.Where(r => r.endDate == reservation.endDate).ToList();
+            }
+
+            if (reservation.startTime != default(TimeOnly))
+            {
+                reservations = reservations.Where(r => r.startTime == reservation.startTime).ToList();
+            }
+
+            if (reservation.endTime != default(TimeOnly))
+            {
+                reservations = reservations.Where(r => r.endTime == reservation.endTime).ToList();
+            }
+            return reservations.ToList();
         }
 
         public Reservation GetRezervationById(int reservationId)

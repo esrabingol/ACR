@@ -17,7 +17,7 @@ namespace ACR.Entity.Concrete
         public DateOnly endDate { get; set; }
         public TimeOnly startTime { get; set; }
         public TimeOnly endTime { get; set; }
-        public string reservationNote { get; set; }
+        public string requestNote { get; set; }
 
         //Rezervasyon durumu kontrolü için
         public ReservationStatus Status { get; set; }

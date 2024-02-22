@@ -117,7 +117,7 @@
 <body>
     <div class="main-container">
         <div class="filter-section">
-            <form method="post" action="@Url.Action("ManageReservation","Operator")">
+            <form asp-controller="Operator" asp-action="ManageReservation" method="post">
 				<div class="filter-options">
 					<div class="d-flex justify-content-between align-items-center mb-3">
 						<a href=@Url.Action("Index","Operator")>
@@ -125,11 +125,12 @@
 						</a>
 					</div>
 		          <label for="machineName">Makine Adı:</label>
-                <select id="machineName" name="machineName">
-                    <option value="Makine1">Makine1</option>
-                    <option value="Makine2">Makine2</option>
-                    <!-- Diğer makine adlarını dinamik olarak ekleyin -->
-                </select>
+                    <select id="machineName" name="machineName">
+                        @*      @foreach (var machineName in ViewBag.MachineNames)
+                        {
+                        <option value="@machineName">@machineName</option>
+                        }*@
+                    </select>
 
                 <label for="projectName">Proje Adı:</label>
                 <input type="text" id="projectName" name="projectName">

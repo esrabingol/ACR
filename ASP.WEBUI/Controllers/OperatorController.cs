@@ -2,6 +2,8 @@
 using ACR.Entity.Concrete;
 using ASP.WEBUI.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ApplicationModels;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace ASP.WEBUI.Controllers
 {
@@ -13,16 +15,43 @@ namespace ASP.WEBUI.Controllers
 		//Operator anasayfa işlemleri
 		public IActionResult Index()
 		{
-			return View();
+			return View(new OpIndexModel());
 		}
 
-        public IActionResult ListMachine()
+        [HttpPost]
+        public IActionResult Index(OpIndexModel indexModel)
         {
-            var machineNames = _autoclaveService.GetList();
-            ViewBag.MachineNames = machineNames;
+            if (ModelState.IsValid)
+            {
+                var reservationFilter = new Reservation
+                {
+                    machineName = indexModel.machineName,
+                    projectName = indexModel.projectName,
+                    partName = indexModel.partName,
+                    startDate = indexModel.startDate,
+                    endDate = indexModel.endDate,
+                    startTime = indexModel.startTime,
+                    endTime = indexModel.endTime
+                };
+              
+                // Business katmanında bulunan bir servis metodu ile verileri filtrele
+                var filterReservations = _reservationService.GetAllRezervations(reservationFilter);
+                // Filtrelenmiş rezervasyonları model içine ekleyin
+                indexModel.Results = filterReservations;
+            }
 
-            return View();
+            // Model geçerli değilse, aynı sayfayı tekrar göster
+            return View(indexModel);
         }
+
+        //public IActionResult ListMachine()
+        //{
+
+        //    var machineNames = _autoclaveService.GetList();
+        //    ViewBag.MachineNames = machineNames;
+
+        //    return View();
+        //}
 
         [HttpGet]
         public IActionResult ViewMachineInfo()
@@ -50,12 +79,12 @@ namespace ASP.WEBUI.Controllers
         public IActionResult EditMachineInfo()
         {
             //admin ürün ekleme sayfasını görüntüleyecek
-            return View(new EditMachineModel());
+            return View(new OpEditMachineModel());
         }
 
         //Makine Bilgileri Düzenleme İşlemleri
         [HttpPost]
-		public IActionResult EditMachineInfo(EditMachineModel editMachine)
+		public IActionResult EditMachineInfo(OpEditMachineModel editMachine)
 		{
 			if(ModelState.IsValid)
 			{

@@ -1,4 +1,5 @@
-﻿
+﻿@using ASP.WEBUI.Models;
+@model ReIndexModel
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -117,9 +118,10 @@
             <div class="filter-options">
                 <label for="machineName">Makine Adı:</label>
                 <select id="machineName">
-                    <option value="">Makine1</option>
-                    <option value="">Makine2</option>
-                    <!-- Makine adlarını dinamik olarak ekleyin -->
+                    @*       @foreach (var machineName in ViewBag.MachineNames)
+                    {
+                    <option value="@machineName">@machineName</option>
+                    }*@
                 </select>
 
                 <label for="projectName">Proje Adı:</label>
@@ -148,10 +150,16 @@
             </div>
         </div>
  @*       randevu başarılı oluşturulduğunda uyarı mesajını göster*@
-        @if (ViewBag.SuccessMessage != null)
+        @if (ViewBag.SuccessMessageOne != null)
         {
             <div class="alert alert-success">
-                @ViewBag.SuccessMessage
+                @ViewBag.SuccessMessageOne
+            </div>
+        }
+        @if (ViewBag.SuccessMessageTwo != null)
+        {
+            <div class="alert alert-success">
+                @ViewBag.SuccessMessageTwo
             </div>
         }
 
@@ -162,6 +170,9 @@
                 <button type="button" class="btn btn-outline-primary" onclick="redirectTo('@Url.Action("CreateReservation", "Requester")')">Randevu Al</button>
                 <button type="button" class="btn btn-outline-warning">Temizle</button>
                 <button type="button" class="btn btn-outline-danger">Randevu İptal Et</button>
+            </div>
+            <div>
+
             </div>
         </div>
     </div>

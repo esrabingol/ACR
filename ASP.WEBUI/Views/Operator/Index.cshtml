@@ -1,4 +1,7 @@
-﻿@*OPERATOR GİRİŞ SAYFASI*@
+﻿@using ASP.WEBUI.Models;
+@model OpIndexModel
+
+@*OPERATOR GİRİŞ SAYFASI*@
 
 @{
     ViewData["Title"] = "Index";
@@ -109,38 +112,39 @@
 <body>
     <div class="main-container">
         <div class="filter-section">
-            <form method="post" action="@Url.Action("Index","Operator")">
+            <form asp-controller="Operator" asp-action="Index" method="post">
             <div class="filter-options">
-                    <label for="MachineName">Makine Adı:</label>
-                    <select id="MachineName">
-                    <option value="">Makine1</option>
-                    <option value="">Makine2</option>
-                    <!-- Makine adlarını dinamik olarak ekleyin -->
-                </select>
+                    <label for="machineName">Makine Adı:</label>
+                    <select id="machineName" name="machineName">
+                        @*      @foreach (var machineName in ViewBag.MachineNames)
+                        {
+                        <option value="@machineName">@machineName</option>
+                        }*@
+                    </select>
 
-                    <label for="ProjectName">Proje Adı:</label>
-                    <input type="text" id="ProjectName">
+               <label for="ProjectName">Proje Adı:</label>
+                    <input type="text" id="projectName" name="projectName">
 
                 <label for="partName">Parça Adı:</label>
-                <input type="text" id="partName">
+                <input type="text" id="partName" name="partName">
 
                 <label for="RecipeCode">Reçete Kodu:</label>
-                <input type="text" id="RecipeCode">
+                <input type="text" id="recipeCode" name="recipeCode">
 
                 <label for="StartDate">Başlangıç Tarihi:</label>
-                <input type="date" id="startDate">
+                <input type="date" id="startDate" name="startDate">
 
                     <label for="EndDate">Bitiş Tarihi:</label>
-                <input type="date" id="endDate">
+                <input type="date" id="endDate" name="endDate">
 
                 <label for="StartTime">Başlangıç Saati:</label>
-                <input type="time" id="startTime">
+                <input type="time" id="startTime" name="startTime">
 
                 <label for="EndTime">Bitiş Saati:</label>
-                <input type="time" id="endTime">
+                <input type="time" id="endTime" name="endTime">
             </div>
             <div class="buttons-section">
-                <button type="button" class="btn btn-outline-primary" onclick="filterAppointments()">Randevu Ara</button>
+                <button type="button" class="btn btn-outline-primary">Randevu Ara</button>
             </div>
             </form>
         </div>
@@ -150,6 +154,50 @@
                 <button type="button" class="btn btn-outline-success" onclick="redirectTo('@Url.Action("ViewMachineInfo", "Operator")')">Makine İşlemleri</button>
                 <button type="button" class="btn btn-outline-warning" onclick="redirectTo('@Url.Action("ManageReservation", "Operator")')">Randevu İşlemleri</button>
                 <button type="button" class="btn btn-outline-danger">Temizle</button>
+            </div>
+
+            <div>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Makine Adı</th>
+                            <th>Proje Adı</th>
+                            <th>Parça Adı</th>
+                            <th>Proje Kodu</th>
+                            <th>Başlangıç Tarih</th>
+                            <th>Bitiş Tarih</th>
+                            <th>Başlangıç Saat</th>
+                            <th>Bitiş Saat</th>
+                            <!-- Diğer sütun başlıkları buraya eklenmeli -->
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model != null && Model.Results != null && Model.Results.Any())
+                        {
+                            foreach (var result in Model.Results)
+                            {
+                                <tr>
+                                    <td>@result.machineName</td>
+                                    <td>@result.projectName</td>
+                                    <td>@result.partName</td>
+                                    <td>@result.recipeCode</td>
+                                    <td>@result.startDate.ToString("yyyy-MM-dd")</td>
+                                    <td>@result.endDate.ToString("yyyy-MM-dd")</td>
+                                    <td>@result.startTime.ToString("HH:mm")</td>
+                                    <td>@result.endTime.ToString("HH:mm")</td>
+
+                                    <!-- Diğer sütun değerleri buraya eklenmeli -->
+                                </tr>
+                            }
+                        }
+                        else
+                        {
+                            <tr>
+                                <td colspan="5">Sonuç bulunamadı.</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>

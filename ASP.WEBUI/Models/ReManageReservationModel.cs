@@ -1,11 +1,11 @@
 ﻿namespace ASP.WEBUI.Models
 {
-    //ManageReservation Sekmesi
-    public class OpReservationFilterModel
+    public class ReManageReservationModel
     {
         public string machineName { get; set; }
         public string projectName { get; set; }
-        public string partName { get; set; }
+        public string recipeCode { get; set; }
+        public string requestNote { get; set; }
         public DateOnly startDate { get; set; }
         public DateOnly endDate { get; set; }
         public TimeOnly startTime { get; set; }

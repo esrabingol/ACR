@@ -2,7 +2,7 @@
 
 namespace ASP.WEBUI.Models
 {
-    public class CreateReservationModel
+    public class ReCreateReservationModel
     {
         [Required(ErrorMessage = "Makine Adı zorunludur.")]
         public string machineName { get; set; }
