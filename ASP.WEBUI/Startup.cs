@@ -2,23 +2,47 @@
 using ACR.Business.Abstract;
 using ACR.Business.Concrete;
 using ACR.DataAccess.Abstract;
+using ACR.DataAccess.Concrete;
 using ACR.DataAccess.Concrete.EntityFramework;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace ASP.WEBUI
 {
 	public class Startup
 	{
-		public void ConfigureServices(IServiceCollection services)
-		{
-			//services.AddScoped<IRegisterDal, EfRegisterDal>();
-			//services.AddScoped<IRegisterService, RegisterManager>();
+        public IConfiguration Configuration { get; }
 
-			// Servis konfigürasyonları burada yapılır.
-			services.AddControllersWithViews();
-			// Diğer servis eklemeleri yapılabilir.
+        public Startup(IConfiguration configuration)
+        {
+            Configuration = configuration;
+        }
+
+        public void ConfigureServices(IServiceCollection services)
+		{
+            services.AddScoped<IAutoclaveDal, EfAutoclaveDal>();
+            services.AddScoped<IAutoclaveService, AutoclaveManager>();
+
+            services.AddScoped<IRegisterDal, EfRegisterDal>();
+			services.AddScoped<IRegisterService, RegisterManager>();
+
+			services.AddScoped<IReservationDal, EfReservationDal>();
+            services.AddScoped<IReservationService, ReservationManager>();
+
+            services.AddScoped<IReservationStatusDal, EfReservationStatusDal>();
+            services.AddScoped<IReservationStatusService, ReservationStatusManager>();
+
+            services.AddScoped<IRoleDal, EfRoleDal>();
+            services.AddScoped<IRoleService, RoleManager>();
+
+
+            services.AddControllersWithViews();
+			services.AddRazorPages();
+			services.AddDbContext<ACRContext>(options =>
+			options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"))
+				);
 		}
 
 		public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -43,7 +67,7 @@ namespace ASP.WEBUI
 			{
 				endpoints.MapControllerRoute(
 					name: "default",
-					pattern: "{controller=Requester}/{action=Index}");
+					pattern: "{controller=Operator}/{action=Index}");
 
             });
         }

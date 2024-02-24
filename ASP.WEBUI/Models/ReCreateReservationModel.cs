@@ -16,16 +16,16 @@ namespace ASP.WEBUI.Models
         public string requestNote { get; set; }
 
         [Required(ErrorMessage = "Başlangıç Tarihi zorunludur.")]
-        public DateOnly startDate { get; set; }
+        public DateTime startDate { get; set; }
 
         [Required(ErrorMessage = "Bitiş Tarihi zorunludur.")]
-        public DateOnly endDate { get; set; }
+        public DateTime endDate { get; set; }
 
         [Required(ErrorMessage = "Başlangıç zamanı zorunludur.")]
-        public TimeOnly startTime { get; set; }
+        public  DateTime startTime { get; set; }
 
         [Required(ErrorMessage = "Bitiş zamanı zorunludur.")]
-        public TimeOnly endTime { get; set; }
+        public DateTime endTime { get; set; }
 
         
     }

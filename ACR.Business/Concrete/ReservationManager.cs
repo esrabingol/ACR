@@ -53,22 +53,22 @@ namespace ACR.Business.Concrete
                 reservations = reservations.Where(r => r.recipeCode == reservation.recipeCode).ToList();
             }
 
-            if (reservation.startDate != default(DateOnly))
+            if (reservation.startDate != default(DateTime))
             {
                 reservations = reservations.Where(r => r.startDate == reservation.startDate).ToList();
             }
 
-            if (reservation.endDate != default(DateOnly))
+            if (reservation.endDate != default(DateTime))
             {
                 reservations = reservations.Where(r => r.endDate == reservation.endDate).ToList();
             }
 
-            if (reservation.startTime != default(TimeOnly))
+            if (reservation.startTime != default(DateTime))
             {
                 reservations = reservations.Where(r => r.startTime == reservation.startTime).ToList();
             }
 
-            if (reservation.endTime != default(TimeOnly))
+            if (reservation.endTime != default(DateTime))
             {
                 reservations = reservations.Where(r => r.endTime == reservation.endTime).ToList();
             }

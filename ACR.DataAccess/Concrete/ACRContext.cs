@@ -10,13 +10,27 @@ namespace ACR.DataAccess.Concrete
 {
     public class ACRContext: DbContext
     {
-       
+        public ACRContext(DbContextOptions<ACRContext> options) : base(options) 
+        { 
+        }
+        public ACRContext()
+        {
+
+        }
+
         public DbSet<Autoclave> Autoclaves { get; set; }
         public DbSet<Users> Registers { get; set; }
         public DbSet<Reservation> Reservations { get; set; }
         public DbSet<ReservationStatus> ReservationStatuses { get; set; }
         public DbSet<Role> Roles { get; set; }
-        
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            if (!optionsBuilder.IsConfigured)
+            {
+                optionsBuilder.UseSqlServer("ConnectionStrings");
+            }
+        }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             // Users - Rezervation ilişlisi
@@ -52,11 +66,6 @@ namespace ACR.DataAccess.Concrete
                 .WithOne(r => r.SelectedRole)
                 .HasForeignKey(r => r.RoleId)
                 .OnDelete(DeleteBehavior.Restrict);
-
-
         }
-
-
-
     }
 }

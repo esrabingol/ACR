@@ -115,12 +115,9 @@
             <form asp-controller="Operator" asp-action="Index" method="post">
             <div class="filter-options">
                     <label for="machineName">Makine Adı:</label>
-                    <select id="machineName" name="machineName">
-                        @*      @foreach (var machineName in ViewBag.MachineNames)
-                        {
-                        <option value="@machineName">@machineName</option>
-                        }*@
-                    </select>
+                 @*   <select id="machineName" name="machineName" asp-items="@(ViewBag.MachineNames)">
+                        <!-- SelectListItem'ların eklenmesi gerekmiyor, asp-items kullanılacak -->
+                    </select>*@
 
                <label for="ProjectName">Proje Adı:</label>
                     <input type="text" id="projectName" name="projectName">
@@ -156,49 +153,63 @@
                 <button type="button" class="btn btn-outline-danger">Temizle</button>
             </div>
 
-            <div>
-                <table class="table table-bordered">
-                    <thead>
-                        <tr>
-                            <th>Makine Adı</th>
-                            <th>Proje Adı</th>
-                            <th>Parça Adı</th>
-                            <th>Proje Kodu</th>
-                            <th>Başlangıç Tarih</th>
-                            <th>Bitiş Tarih</th>
-                            <th>Başlangıç Saat</th>
-                            <th>Bitiş Saat</th>
-                            <!-- Diğer sütun başlıkları buraya eklenmeli -->
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @if (Model != null && Model.Results != null && Model.Results.Any())
-                        {
-                            foreach (var result in Model.Results)
-                            {
-                                <tr>
-                                    <td>@result.machineName</td>
-                                    <td>@result.projectName</td>
-                                    <td>@result.partName</td>
-                                    <td>@result.recipeCode</td>
-                                    <td>@result.startDate.ToString("yyyy-MM-dd")</td>
-                                    <td>@result.endDate.ToString("yyyy-MM-dd")</td>
-                                    <td>@result.startTime.ToString("HH:mm")</td>
-                                    <td>@result.endTime.ToString("HH:mm")</td>
 
-                                    <!-- Diğer sütun değerleri buraya eklenmeli -->
-                                </tr>
-                            }
-                        }
-                        else
-                        {
-                            <tr>
-                                <td colspan="5">Sonuç bulunamadı.</td>
-                            </tr>
-                        }
-                    </tbody>
-                </table>
+            @if (Model != null && Model.Results != null && Model.Results.Any())
+            {
+                <div class="wishlist_area mt-70">
+                    <div class="container">
+                        <form action="@Url.Action("Index","Operator")">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="cart_page table-responsive">
+                                        <table>
+                                            <thead>
+                                                <tr>
+                                                    <th class="product_remove">Sipariş Id</th>
+                                                    <th class="product_remove">Makine Adı</th>
+                                                    <th class="product_remove">Proje Adı</th>
+                                                    <th class="product_remove">Parça Adı</th>
+                                                    <th class="product_remove">Proje Kodu</th>
+                                                    <th class="product_thumb">Başlangıç Tarihi</th>
+                                                    <th class="product_name">Bitiş Tarihi</th>
+                                                    <th class="product-price">Başlangıç Saati</th>
+                                                    <th class="product_quantity">Bitiş Saati</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach (var result in Model.Results)
+                                                {
+                                                    <tr>
+                                                        <td class="product_name"><a href="#">@result.id</a></td>
+                                                        <td class="product_name"><a href="#">@result.machineName</a></td>
+                                                        <td class="product_name"><a href="#">@result.projectName</a></td>
+                                                        <td class="product_name"><a href="#">@result.partName</a></td>
+                                                        <td class="product_name"><a href="#">@result.recipeCode</a></td>
+                                                        <td class="product-thumb">@result.startDate.ToString("yyyy-MM-dd")</td>
+                                                        <td class="product_name">@result.endDate.ToString("yyyy-MM-dd")</td>
+                                                        <td class="product-price">@result.startTime.ToString("HH:mm")</td>
+                                                        <td class="product_quantity">@result.endTime.ToString("HH:mm")</td>
+                                                    </tr>
+                                                }
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+
+                </div>
             </div>
+            }
+            else
+            {
+            <div class="alert alert-danger">
+                <center>Sistem üzerinde kayıtlı bir randevu bulunamadı.</center>
+            </div>
+            }
+            @* filtre sonucu son*@
+
+
         </div>
     </div>
 

@@ -6,10 +6,10 @@
         public string projectName { get; set; }
         public string recipeCode { get; set; }
         public string requestNote { get; set; }
-        public DateOnly startDate { get; set; }
-        public DateOnly endDate { get; set; }
-        public TimeOnly startTime { get; set; }
-        public TimeOnly endTime { get; set; }
+        public DateTime startDate { get; set; }
+        public DateTime endDate { get; set; }
+        public DateTime startTime { get; set; }
+        public DateTime endTime { get; set; }
 
     }
 }

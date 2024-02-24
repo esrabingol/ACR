@@ -12,10 +12,17 @@ namespace ACR.DataAccess.Concrete.EntityFramework
         where T : class
         where TContext : DbContext, new()
     {
+        //private readonly TContext _context;
+
+        //public EfGenericRepository(TContext context)
+        //{
+        //    _context = context;
+        //}
+
         public void Add(T entity)
         {
 
-            using( var context = new TContext())
+            using (var context = new TContext())
             {
                 context.Set<T>().Add(entity);
                 context.SaveChanges();
@@ -25,7 +32,7 @@ namespace ACR.DataAccess.Concrete.EntityFramework
 
         public void Delete(T entity)
         {
-            using( var context  = new TContext()) 
+            using (var context = new TContext())
             {
                 context.Set<T>().Remove(entity);
                 context.SaveChanges();
@@ -37,13 +44,13 @@ namespace ACR.DataAccess.Concrete.EntityFramework
             //sayfalama olacak
             using (var context = new TContext())
             {
-              return context.Set<T>().ToList();
+                return context.Set<T>().ToList();
             }
         }
 
         public T GetById(int Id)
         {
-            using( var context = new TContext())
+            using (var context = new TContext())
             {
                 return context.Set<T>().Find(Id);
             }
@@ -51,7 +58,7 @@ namespace ACR.DataAccess.Concrete.EntityFramework
 
         public void Update(T entity)
         {
-           using( var context= new TContext())
+            using (var context = new TContext())
             {
                 context.Entry(entity).State = EntityState.Modified;
                 context.SaveChanges();
