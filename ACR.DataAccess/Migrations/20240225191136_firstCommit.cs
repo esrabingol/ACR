@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace ACR.DataAccess.Migrations
 {
-    public partial class InitialCreate : Migration
+    public partial class firstCommit : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -53,7 +53,6 @@ namespace ACR.DataAccess.Migrations
                     MailAdress = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     PhoneNumber = table.Column<long>(type: "bigint", nullable: false),
                     Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    UserRole = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     RoleId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -83,7 +82,8 @@ namespace ACR.DataAccess.Migrations
                     endTime = table.Column<DateTime>(type: "datetime2", nullable: false),
                     requestNote = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     OperatorId = table.Column<int>(type: "int", nullable: false),
-                    RequesterId = table.Column<int>(type: "int", nullable: false)
+                    RequesterId = table.Column<int>(type: "int", nullable: false),
+                    UsersId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -100,6 +100,11 @@ namespace ACR.DataAccess.Migrations
                         principalTable: "Registers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Reservations_Registers_UsersId",
+                        column: x => x.UsersId,
+                        principalTable: "Registers",
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -138,6 +143,11 @@ namespace ACR.DataAccess.Migrations
                 name: "IX_Reservations_RequesterId",
                 table: "Reservations",
                 column: "RequesterId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Reservations_UsersId",
+                table: "Reservations",
+                column: "UsersId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ReservationStatuses_ReservationId",

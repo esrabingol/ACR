@@ -89,9 +89,9 @@
             padding: 10px;
         }
 
-            .top-buttons .btn {
+        .top-buttons .btn {
                 margin-left: 5px;
-            }
+        }
 
         .pb-3,
         .py-3 {
@@ -112,11 +112,10 @@
 <body>
     <div class="main-container">
         <div class="filter-section">
-            <form asp-controller="Operator" asp-action="Index" method="post">
+            <form asp-controller="Operator" asp-action="Index">
             <div class="filter-options">
                     <label for="machineName">Makine Adı:</label>
-                 @*   <select id="machineName" name="machineName" asp-items="@(ViewBag.MachineNames)">
-                        <!-- SelectListItem'ların eklenmesi gerekmiyor, asp-items kullanılacak -->
+                  @*  <select id="machineName" name="machineName" asp-items="@(ViewBag.MachineNames)">
                     </select>*@
 
                <label for="ProjectName">Proje Adı:</label>
@@ -165,7 +164,6 @@
                                         <table>
                                             <thead>
                                                 <tr>
-                                                    <th class="product_remove">Sipariş Id</th>
                                                     <th class="product_remove">Makine Adı</th>
                                                     <th class="product_remove">Proje Adı</th>
                                                     <th class="product_remove">Parça Adı</th>

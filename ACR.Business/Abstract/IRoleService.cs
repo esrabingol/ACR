@@ -16,5 +16,7 @@ namespace ACR.Business.Abstract
         // Aynı isme sahip olan rolleri listeler
         IEnumerable<Role> GetRolesWithSameName(string roleName);
 
-    }
+		IEnumerable<Role> GetRoles();
+		
+	}
 }

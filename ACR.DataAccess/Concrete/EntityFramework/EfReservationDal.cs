@@ -11,6 +11,9 @@ namespace ACR.DataAccess.Concrete.EntityFramework
 {
     public class EfReservationDal : EfGenericRepository<Reservation, ACRContext>, IReservationDal
     {
-        
-    }
+		public EfReservationDal(ACRContext context) : base(context)
+		{
+
+		}
+	}
 }

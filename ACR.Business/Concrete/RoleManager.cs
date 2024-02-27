@@ -1,6 +1,7 @@
 ﻿using ACR.Business.Abstract;
 using ACR.DataAccess.Abstract;
 using ACR.Entity.Concrete;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -13,6 +14,7 @@ namespace ACR.Business.Concrete
     public class RoleManager : IRoleService
     {
         private IRoleDal _roleDal;
+        
         public RoleManager(IRoleDal roleDal) 
         {
             _roleDal = roleDal;
@@ -30,9 +32,13 @@ namespace ACR.Business.Concrete
             }
         }
 
-  
+		public IEnumerable<Role> GetRoles()
+		{
+			var roles = _roleDal.GetAll();
+			return roles.ToList();
+		}
 
-        public IEnumerable<Role> GetRolesWithSameName(string roleName)
+		public IEnumerable<Role> GetRolesWithSameName(string roleName)
         {
             if (string.IsNullOrEmpty(roleName))
             {

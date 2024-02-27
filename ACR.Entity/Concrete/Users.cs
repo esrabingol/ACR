@@ -8,25 +8,18 @@ namespace ACR.Entity.Concrete
 {
     public class Users
     {
+        //Ekleme olmayacak.
         public int Id { get; set; }
         public string Name { get; set; }
         public string Surname{ get; set; }
         public string MailAdress { get; set; }
         public long PhoneNumber { get; set; }
         public string Password { get; set; }
-        public string UserRole { get; set; }
+		public Role Role { get; set; }
+		public int RoleId { get; set; }
+		public virtual  ICollection<Reservation> Reservations { get; set; }
 
-        // Bir kullanıcının birden çok onayladığı randevuları temsil etmek için -Operatöre özgü
-        public ICollection<Reservation> ConfirmedReservations { get; set; }
-
-        // Bir kullanıcının birden çok talep ettiği randevuları temsil etmek için - Talep edene özgü
-        public ICollection<Reservation> RequestedReservations { get; set; }
-        
-        //Arayüzden seçilen kullanıcı rolü bu kısma atanır
-        public int RoleId { get; set; }
-
-        // Navigation Property - Kullanıcının seçtiği rolü temsil eder
-        public Role SelectedRole { get; set; }
-    }
+      
+	}
 
 }

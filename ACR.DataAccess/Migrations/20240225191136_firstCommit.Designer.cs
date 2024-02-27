@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ACR.DataAccess.Migrations
 {
     [DbContext(typeof(ACRContext))]
-    [Migration("20240224142747_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20240225191136_firstCommit")]
+    partial class firstCommit
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -78,6 +78,9 @@ namespace ACR.DataAccess.Migrations
                     b.Property<int>("RequesterId")
                         .HasColumnType("int");
 
+                    b.Property<int?>("UsersId")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("endDate")
                         .HasColumnType("datetime2");
 
@@ -115,6 +118,8 @@ namespace ACR.DataAccess.Migrations
                     b.HasIndex("OperatorId");
 
                     b.HasIndex("RequesterId");
+
+                    b.HasIndex("UsersId");
 
                     b.ToTable("Reservations");
                 });
@@ -195,10 +200,6 @@ namespace ACR.DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("UserRole")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.HasKey("Id");
 
                     b.HasIndex("RoleId");
@@ -220,6 +221,10 @@ namespace ACR.DataAccess.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
+                    b.HasOne("ACR.Entity.Concrete.Users", null)
+                        .WithMany("Reservations")
+                        .HasForeignKey("UsersId");
+
                     b.Navigation("Operator");
 
                     b.Navigation("Requester");
@@ -238,13 +243,13 @@ namespace ACR.DataAccess.Migrations
 
             modelBuilder.Entity("ACR.Entity.Concrete.Users", b =>
                 {
-                    b.HasOne("ACR.Entity.Concrete.Role", "SelectedRole")
+                    b.HasOne("ACR.Entity.Concrete.Role", "Role")
                         .WithMany("Users")
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.Navigation("SelectedRole");
+                    b.Navigation("Role");
                 });
 
             modelBuilder.Entity("ACR.Entity.Concrete.Reservation", b =>
@@ -263,6 +268,8 @@ namespace ACR.DataAccess.Migrations
                     b.Navigation("ConfirmedReservations");
 
                     b.Navigation("RequestedReservations");
+
+                    b.Navigation("Reservations");
                 });
 #pragma warning restore 612, 618
         }

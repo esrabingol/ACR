@@ -11,5 +11,5 @@ namespace ACR.DataAccess.Abstract
     {
         // Aynı rolde olanları listeleme
          IEnumerable<Role> GetRolesWithSameName(string roleName);
-    }
+	}
 }

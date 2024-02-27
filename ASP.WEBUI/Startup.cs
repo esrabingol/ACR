@@ -22,7 +22,11 @@ namespace ASP.WEBUI
 
         public void ConfigureServices(IServiceCollection services)
 		{
-            services.AddScoped<IAutoclaveDal, EfAutoclaveDal>();
+			var st = Configuration.GetConnectionString("Default");
+			services.AddDbContext<ACRContext>(opts => opts.UseSqlServer(Configuration.GetConnectionString("Default"), 
+				option => { option.MigrationsAssembly("ACR.DataAccess"); }));
+
+			services.AddScoped<IAutoclaveDal, EfAutoclaveDal>();
             services.AddScoped<IAutoclaveService, AutoclaveManager>();
 
             services.AddScoped<IRegisterDal, EfRegisterDal>();
@@ -40,11 +44,8 @@ namespace ASP.WEBUI
 
             services.AddControllersWithViews();
 			services.AddRazorPages();
-			services.AddDbContext<ACRContext>(options =>
-			options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"))
-				);
 		}
-
+		//hata nerde
 		public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
 		{
 			if (env.IsDevelopment())
@@ -67,7 +68,7 @@ namespace ASP.WEBUI
 			{
 				endpoints.MapControllerRoute(
 					name: "default",
-					pattern: "{controller=Operator}/{action=Index}");
+					pattern: "{controller=Home}/{action=Index}");
 
             });
         }

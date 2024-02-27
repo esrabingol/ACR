@@ -10,7 +10,11 @@ namespace ACR.DataAccess.Concrete.EntityFramework
 {
     public class EfAutoclaveDal : EfGenericRepository<Autoclave, ACRContext>, IAutoclaveDal
     {
-        public List<Autoclave> GetListByCategoryId(int categoryId)
+		public EfAutoclaveDal(ACRContext context) : base(context)
+		{
+
+		}
+		public List<Autoclave> GetListByCategoryId(int categoryId)
         {
             //Aktif- pasif durumunu bu kısımda kullanılıcak
             throw new NotImplementedException();

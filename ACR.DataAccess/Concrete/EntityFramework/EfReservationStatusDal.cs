@@ -11,7 +11,11 @@ namespace ACR.DataAccess.Concrete.EntityFramework
 {
     public class EfReservationStatusDal : EfGenericRepository<ReservationStatus, ACRContext>, IReservationStatusDal
     {
-        private ACRContext _context;
+		public EfReservationStatusDal(ACRContext context) : base(context)
+		{
+
+		}
+		private ACRContext _context;
         public List<ReservationStatus> GetCancelledReservationStatus()
         {
             // İptal edilmiş rezervasyon durumlarını getir

@@ -12,6 +12,6 @@ namespace ACR.Entity.Concrete
         public string RoleName { get; set; }
 
         // Bir rolün birçok kullanıcısı olabilir
-         public ICollection<Users> Users { get; set; }
+         public virtual  ICollection<Users> Users { get; set; }
     }
 }

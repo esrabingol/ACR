@@ -1,15 +1,12 @@
 ﻿using ACR.Business.Abstract;
+using ACR.Business.Models;
 using ACR.DataAccess.Abstract;
 using ACR.Entity.Concrete;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Net;
 
 namespace ACR.Business.Concrete
 {
-    public class RegisterManager : IRegisterService
+	public class RegisterManager : IRegisterService
     {
         private IRegisterDal _registerDal;
         public RegisterManager(IRegisterDal registerDal)
@@ -17,20 +14,24 @@ namespace ACR.Business.Concrete
             _registerDal = registerDal;
         }
 
-        public async Task<Users> Add(Users register)
+		////senin burası olmaz yanlış
+		//WebClient katmanından business katmanını referans verdin
+		//	yani şimdi business katmanından web katmanındaki modeli kullanmaya çalışıyon bu hata veriri circualar dependcy hatası olur
+		//	o ona o ona baglanmaya çalışır patlar 
+
+		//	çözüm. ne model sınıfını business katmanına taşı yada core diye katman aç oraya yaza.
+        public async Task<Users> Add(UserRegisterModelDTO registerModel)
         {
 			var newUser = new Users()
 			{
-				Name = register.Name,
-				Surname = register.Surname,
-				MailAdress = register.MailAdress,
-				Password = register.Password,
-				PhoneNumber = register.PhoneNumber,
-				UserRole = register.UserRole
+				Name = registerModel.Name,
+				Surname = registerModel.SurName,
+				MailAdress = registerModel.MailAdress,
+				Password = registerModel.Password,
+				PhoneNumber = registerModel.PhoneNumber,
+				RoleId = registerModel.RoleId
 			};
-
-		   _registerDal.Add(newUser); 
-
+			_registerDal.Add(newUser);
 			return newUser;
 		}
 
@@ -44,9 +45,9 @@ namespace ACR.Business.Concrete
 			return _registerDal.FindByEmail(email);
 		}
 
-		public bool PasswordSignIn(string userEmail, string userPassword, string userRole)
+		public bool PasswordSignIn(string userEmail, string userPassword, int roleId)
 		{
-			return _registerDal.PasswordSignIn(userEmail, userPassword, userRole);
+			return _registerDal.PasswordSignIn(userEmail, userPassword, roleId);
 		}
 
 		public Users Update(Users register)

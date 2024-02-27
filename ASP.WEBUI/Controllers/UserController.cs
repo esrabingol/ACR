@@ -1,58 +1,55 @@
 ﻿using ACR.Business.Abstract;
+using ACR.Business.Models;
 using ACR.Entity.Concrete;
 using ASP.WEBUI.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace ASP.WEBUI.Controllers
 {
 	//Register & Login Kısımları
 	public class UserController : Controller
 	{
-		private IRegisterService _registerService; // iş katmanına göndermemi sağlayacak
+		private IRegisterService _registerService;
+		private IRoleService _roleService; 
+
+		public UserController(IRegisterService registerService, IRoleService roleService)
+		{
+			_registerService = registerService;
+			_roleService = roleService;
+		}
 		public IActionResult Index()
 		{
 			return View();
 		}
 
 
-		#region Kullanıcı Kaydı
-
 		[HttpGet]
 		public IActionResult UserRegister()
 		{
-			return View();
+			var roles = _roleService.GetRoles();
+			var userRegisterModelDTO = new UserRegisterModelDTO { Roles = roles };
+			return View(userRegisterModelDTO);
+
 		}
 
 		[HttpPost]
-		public async Task<IActionResult> UserRegister(UserRegisterModel registerModel)
+		public async Task<IActionResult> UserRegister(UserRegisterModelDTO registerModel)
 		{
-			if (ModelState.IsValid)
+			var newUser = await _registerService.Add(registerModel);
+			if (newUser != null)
 			{
-				var newUser = new Users()
-				{
-					Name = registerModel.Name,
-					Surname = registerModel.SurName,
-					MailAdress = registerModel.MailAdress,
-					Password = registerModel.Password,
-					PhoneNumber = registerModel.PhoneNumber,
-					UserRole = registerModel.UserRole
-				};
-
-				_registerService.Add(newUser);
-
-				// Kullanıcı başarıyla eklenirse UserLogin action'ına yönlendir
 				return RedirectToAction("UserLogin");
 			}
+			else
+			{
+				ModelState.AddModelError("", "Registration failed. Please check your information and try again.");
+				return View(registerModel);
+			}
 
-			// Eğer ModelState geçerli değilse, hata mesajlarını göster ve aynı sayfada kal
-			ModelState.AddModelError("", "Kullanıcı eklenirken bir hata oluştu. Lütfen bilgilerinizi kontrol edin.");
-			return View();
 		}
 
-		#endregion
-
-		#region Giris Yap
 
 		[HttpGet]
 		public IActionResult UserLogin()
@@ -61,7 +58,7 @@ namespace ASP.WEBUI.Controllers
 		}
 
 		[HttpPost]
-		public async Task<IActionResult> UserLogin(UserLoginModel loginModel, string userRole)
+		public async Task<IActionResult> UserLogin(UserLoginModel loginModel, int roleId)
 		{
 			if (ModelState.IsValid)
 			{
@@ -71,23 +68,23 @@ namespace ASP.WEBUI.Controllers
 				{
 					ModelState.AddModelError("", "Bu Email adresi ile eşleşen bir Email Adresi Bulunamadı");
 				}
-				else 
+				else
 				{
-                    var userLogin = _registerService.PasswordSignIn(loginModel.Email, loginModel.Password, userRole);
-					if(userLogin)
+					var userLogin = _registerService.PasswordSignIn(loginModel.Email, loginModel.Password, roleId);
+					if (userLogin)
 					{
-						if(userRole == "OPERATÖR")
+						if (roleId == 1)
 						{
 							return RedirectToAction("Index", "Operator");
 						}
-						else if(userRole =="ÜRETİM MÜHENDİSİ")
+						else if (roleId == 2)
 						{
 							return RedirectToAction("Index", "Requester");
 						}
 					}
-                }
-				
-			
+				}
+
+
 
 			}
 
@@ -95,5 +92,3 @@ namespace ASP.WEBUI.Controllers
 		}
 	}
 }
-
-#endregion

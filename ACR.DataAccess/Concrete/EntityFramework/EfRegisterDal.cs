@@ -11,6 +11,10 @@ namespace ACR.DataAccess.Concrete.EntityFramework
 {
 	public class EfRegisterDal : EfGenericRepository<Users, ACRContext>, IRegisterDal
 	{
+		public EfRegisterDal(ACRContext context): base(context)
+		{
+
+		}
 		public List<Users> FindByEmail(string email)
 		{
 			using (var context = new ACRContext())
@@ -22,14 +26,14 @@ namespace ACR.DataAccess.Concrete.EntityFramework
 			}
 		}
 
-		public bool PasswordSignIn(string userEmail, string userPassword, string userRole)
+		public bool PasswordSignIn(string userEmail, string userPassword, int roleId)
 		{
 			using (var context = new ACRContext())
 			{
 				var userLogin = context.Registers
 					.Where(i => i.MailAdress.ToLower() == userEmail.ToLower())
 					.Where(i => i.Password.ToLower() == userPassword.ToLower())
-					.Where(i => i.UserRole == userRole)
+					.Where(i => i.RoleId == roleId)
 					.FirstOrDefault();
 
 				if (userLogin != null)

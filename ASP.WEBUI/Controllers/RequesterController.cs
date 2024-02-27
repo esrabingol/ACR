@@ -12,7 +12,12 @@ namespace ASP.WEBUI.Controllers
         private IReservationService _reservationService;
         private IAutoclaveService _autoclaveService;
 
-        public IActionResult Index()
+		public RequesterController(IAutoclaveService autoclaveService, IReservationService reservationService)
+		{
+			_autoclaveService = autoclaveService;
+			_reservationService = reservationService;
+		}
+		public IActionResult Index()
         {
             return View(new ReIndexModel());
         }

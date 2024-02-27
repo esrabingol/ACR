@@ -33,39 +33,43 @@ namespace ACR.DataAccess.Concrete
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            // Users - Rezervation ilişlisi
-            modelBuilder.Entity<Users>()
-                .HasMany(u => u.ConfirmedReservations) //Onaylanmış randevular
-                .WithOne(r => r.Operator)
-                .HasForeignKey(r => r.OperatorId)
-                .OnDelete(DeleteBehavior.Restrict);
-            
-            modelBuilder.Entity<Users>()
-                .HasMany(u => u.RequestedReservations) //randevu talepleri
-                .WithOne(r => r.Requester)
-                .HasForeignKey(r => r.RequesterId)
-                .OnDelete(DeleteBehavior.Restrict);
+            //Users - Rezervation ilişkisi
+            //modelBuilder.Entity<Users>()
+            //    .HasMany(u => u.ConfirmedReservations) //Onaylanmış randevular
+            //    .WithOne(r => r.Operator)
+            //    .HasForeignKey(r => r.OperatorId)
+            //    .OnDelete(DeleteBehavior.Restrict);
+
+            //modelBuilder.Entity<Users>()
+            //    .HasMany(u => u.RequestedReservations) //randevu talepleri
+            //    .WithOne(r => r.Requester)
+            //    .HasForeignKey(r => r.RequesterId)
+            //    .OnDelete(DeleteBehavior.Restrict);
 
             //Users - Role ilişkisi
             modelBuilder.Entity<Users>()
-                .HasOne(u => u.SelectedRole)
+                .HasOne(u => u.Role)
                 .WithMany(r => r.Users)
-                .HasForeignKey(r => r.RoleId)
-                .OnDelete(DeleteBehavior.Restrict);
+                .HasForeignKey(r => r.RoleId);
 
-            //Reservation - ReservationStatus ilişkisi
-            modelBuilder.Entity<Reservation>()
+			//Users - Role ilişkisi
+			modelBuilder.Entity<Users>()
+				.HasMany(u => u.Reservations)
+				.WithOne(r => r.Requester)
+				.HasForeignKey(r => r.RequesterId);
+
+			//Reservation - ReservationStatus ilişkisi
+			modelBuilder.Entity<Reservation>()
                 .HasOne(u => u.Status)
                 .WithOne(rs => rs.Reservation)
-                .HasForeignKey<ReservationStatus>(rs => rs.ReservationId)
-                .OnDelete(DeleteBehavior.Cascade); 
+                .HasForeignKey<ReservationStatus>(rs => rs.ReservationId);
+
 
             //Role - Users ilişkisi
             modelBuilder.Entity<Role>()
                 .HasMany(u => u.Users)
-                .WithOne(r => r.SelectedRole)
-                .HasForeignKey(r => r.RoleId)
-                .OnDelete(DeleteBehavior.Restrict);
-        }
+                .WithOne(r => r.Role)
+                .HasForeignKey(r => r.RoleId);
+		}
     }
 }

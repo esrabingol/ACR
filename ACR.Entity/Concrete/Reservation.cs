@@ -24,11 +24,11 @@ namespace ACR.Entity.Concrete
 
         // Bir randevunun onaylayan operatörü temsil etmek için
         public int OperatorId { get; set; }
-        public Users Operator { get; set; }
+        public virtual  Users Operator { get; set; }
 
         // Bir randevunun talep edeni temsil etmek için
         public int RequesterId { get; set; }
-        public Users Requester { get; set; }
+        public virtual  Users Requester { get; set; }
 
 
     }

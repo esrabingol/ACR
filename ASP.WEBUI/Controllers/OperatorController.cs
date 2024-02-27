@@ -12,6 +12,12 @@ namespace ASP.WEBUI.Controllers
 		private IAutoclaveService _autoclaveService;
 		private IReservationService _reservationService;
 
+		public OperatorController(IAutoclaveService autoclaveService, IReservationService reservationService)
+		{
+			_autoclaveService = autoclaveService;
+			_reservationService = reservationService;	
+		}
+
 		//Operator anasayfa işlemleri
 		public IActionResult Index()
 		{
@@ -43,15 +49,6 @@ namespace ASP.WEBUI.Controllers
             // Model geçerli değilse, aynı sayfayı tekrar göster
             return View(indexModel);
         }
-
-        //public IActionResult ListMachine()
-        //{
-
-        //    var machineNames = _autoclaveService.GetList();
-        //    ViewBag.MachineNames = machineNames;
-
-        //    return View();
-        //}
 
         [HttpGet]
         public IActionResult ViewMachineInfo()

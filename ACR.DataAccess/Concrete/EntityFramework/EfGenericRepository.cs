@@ -12,58 +12,39 @@ namespace ACR.DataAccess.Concrete.EntityFramework
         where T : class
         where TContext : DbContext, new()
     {
-        //private readonly TContext _context;
+        private readonly TContext _context;
 
-        //public EfGenericRepository(TContext context)
-        //{
-        //    _context = context;
-        //}
+        public EfGenericRepository(TContext context)
+        {
+            _context = context;
+        }
 
         public void Add(T entity)
         {
-
-            using (var context = new TContext())
-            {
-                context.Set<T>().Add(entity);
-                context.SaveChanges();
-
-            }
+			_context.Set<T>().Add(entity);
+			_context.SaveChanges();
         }
 
         public void Delete(T entity)
         {
-            using (var context = new TContext())
-            {
-                context.Set<T>().Remove(entity);
-                context.SaveChanges();
-            }
+            _context.Set<T>().Remove(entity);
+				_context.SaveChanges();
         }
 
         public IEnumerable<T> GetAll()
-        {
-            //sayfalama olacak
-            using (var context = new TContext())
-            {
-                return context.Set<T>().ToList();
-            }
+        {        
+                return _context.Set<T>().ToList();
         }
 
         public T GetById(int Id)
         {
-            using (var context = new TContext())
-            {
-                return context.Set<T>().Find(Id);
-            }
+               return _context.Set<T>().Find(Id);
         }
 
         public void Update(T entity)
         {
-            using (var context = new TContext())
-            {
-                context.Entry(entity).State = EntityState.Modified;
-                context.SaveChanges();
-
-            }
+			_context.Entry(entity).State = EntityState.Modified;
+			_context.SaveChanges();
         }
     }
 }
