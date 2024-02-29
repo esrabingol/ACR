@@ -1,5 +1,5 @@
-﻿@using ASP.WEBUI.Models;
-@model ReCreateReservationModel
+﻿@using ACR.Business.Models;
+@model ReCreateReservationModelDTO
 
 @{
     ViewData["Title"] = "CreateReservation";
@@ -75,55 +75,69 @@
         </div>
         <form asp-controller="Requester" asp-action="CreateReservation" method="post">
             <div class="form-group">
-                <label for="machineName"><strong>Makine Adı:</strong></label>
-                <select id="machineName">
-                    @*       @foreach (var machineName in ViewBag.MachineNames)
+                <label><strong>Makine Adı:</strong></label>
+                <select asp-for="machineName" class="form-control" placeholder=" Seçimi">
+                    <option value="" selected disabled>Seçiniz</option>
+                    @if (Model.MachineNames != null)
                     {
-                    <option value="@machineName">@machineName</option>
-                    }*@
+                        foreach (var item in Model.MachineNames)
+                        {
+                            <option>@item.MachineName</option>
+                        }
+                    }
                 </select>
             </div>
 
             <div class="form-group">
                 <label class="form-label" for="projectName">Proje Adı:</label>
-                <input type="text" class="form-control" id="projectName" name="projectName" required>
+                <input asp-for="projectName" value="@Model.projectName" type="text" class="form-control" />
+
                 <span class="required-note">*zorunlu alan</span>
             </div>
 
             <div class="form-group">
                 <label class="form-label" for="recipeCode">Reçete Kodu:</label>
-                <input type="text" class="form-control" id="recipeCode" name="recipeCode" required>
+                <input asp-for="recipeCode" value="@Model.recipeCode" type="text"class="form-control" />
                 <span class="required-note">*zorunlu alan</span>
             </div>
 
             <div class="form-group">
+                <label class="form-label" for="partName">Parça Adı:</label>
+                <input asp-for="partName" value="@Model.partName" type="text" class="form-control" />
+            </div>
+
+            <div class="form-group">
                 <label class="form-label" for="requestNote">Talep Eden Notu:</label>
-                <textarea class="form-control" id="requestNote" name="requestNote"></textarea>
+                <input asp-for="requestNote" value="@Model.requestNote" type="text" class="form-control" />
+
             </div>
 
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label class="form-label" for="startDate">Başlangıç Tarihi:</label>
-                    <input type="date" class="form-control" id="startDate" name="startDate" required>
+                    <input asp-for="startDate" value="@Model.startDate" type="date" class="form-control" />
+
                 </div>
                 <div class="form-group col-md-6">
                     <label class="form-label" for="endDate">Bitiş Tarihi:</label>
-                    <input type="date" class="form-control" id="endDate" name="endDate" required>
+                    <input asp-for="endDate" value="@Model.endDate" type="date" class="form-control" />
+
                 </div>
             </div>
 
                 <div class="form-row">
             <div class="form-group col-md-6">
                     <label class="form-label" for="startDate">Başlangıç Saati:</label>
-                    <input type="time" class="form-control" id="startTime" name="startTime" required>
+                    <input asp-for="startDate" value="@Model.startDate" type="time" class="form-control" />
                 </div>
                 <div class="form-group col-md-6">
-                    <label class="form-label" for="endDate">Bitiş Saati:</label>
-                    <input type="time" class="form-control" id="endTime" name="endTime" required>
+                    <label class="form-label" for="endTime">Bitiş Saati:</label>
+                    <input asp-for="endTime" value="@Model.endTime" type="time" class="form-control" />
+
                 </div>
             </div>
             <div class="text-right">
-                <button type="submit" class="btn btn-outline-primary" onclick=#>Randevu Ara</button>
+                <button type="submit" class="btn btn-outline-primary" >Randevu Al</button>
             </div>
         </form>
     </div>

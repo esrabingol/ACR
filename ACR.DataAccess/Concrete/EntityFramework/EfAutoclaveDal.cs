@@ -81,5 +81,12 @@ namespace ACR.DataAccess.Concrete.EntityFramework
             }
            
         }
+
+        public Autoclave UpdateMachine(Autoclave autoclave)
+        {
+            _context.Autoclaves.Update(autoclave);
+            _context.SaveChanges();
+            return autoclave;
+        }
     }
 }

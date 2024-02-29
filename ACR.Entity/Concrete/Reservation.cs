@@ -30,6 +30,5 @@ namespace ACR.Entity.Concrete
         public int RequesterId { get; set; }
         public virtual  Users Requester { get; set; }
 
-
     }
 }

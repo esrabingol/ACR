@@ -12,11 +12,11 @@ namespace ACR.Business.Abstract
     {
         Autoclave Add(Autoclave autoclave);
 
-        Autoclave Update(Autoclave autoclave);
+        Autoclave UpdateMachineInfo(OpEditMachineModelDTO editMachine);
 
         void Delete(Autoclave autoclave);
 
-        Autoclave GetById(int Id); // randevu alma işleminde kolaylık sağlamak için
+        Autoclave GetById(int Id); 
 
         List<Autoclave> GetFilteredValues(OpMachineFilterModelDTO opMachineFilterModel);
 

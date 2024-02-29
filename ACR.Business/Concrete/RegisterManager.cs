@@ -18,13 +18,6 @@ namespace ACR.Business.Concrete
         {
             _registerDal = registerDal;
         }
-
-		////senin burası olmaz yanlış
-		//WebClient katmanından business katmanını referans verdin
-		//	yani şimdi business katmanından web katmanındaki modeli kullanmaya çalışıyon bu hata veriri circualar dependcy hatası olur
-		//	o ona o ona baglanmaya çalışır patlar 
-
-		//	çözüm. ne model sınıfını business katmanına taşı yada core diye katman aç oraya yaza.
         public async Task<Users> Add(UserRegisterModelDTO registerModel)
         {
 			var newUser = new Users()
@@ -55,8 +48,6 @@ namespace ACR.Business.Concrete
 			 return await _registerDal.FindByEmail(findUser.MailAdress);
 			
 		}
-
-	
 
 		public bool PasswordSignIn(string userEmail, string userPassword, int roleId)
 		{

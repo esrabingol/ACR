@@ -64,8 +64,17 @@ namespace ASP.WEBUI.Controllers
         [HttpPost]
 		public IActionResult ViewMachineInfo(OpMachineFilterModelDTO opMachineFilterModel)
 		{
-            var filters = _autoclaveService.GetFilteredValues(opMachineFilterModel);
-            return View(filters);
+            // Filtreleme işlemini gerçekleştir
+            var filteredMachineInfos = _autoclaveService.GetFilteredValues(opMachineFilterModel);
+
+            // View'e filtrelenmiş bilgileri gönder
+            var opMachineFilterModelDTO = new OpMachineFilterModelDTO
+            {
+                MachineNames = _autoclaveService.GetValues(), // Tüm makine isimlerini al
+                MachineInfos = filteredMachineInfos // Filtrelenmiş bilgileri gönder
+            };
+
+            return View(opMachineFilterModelDTO);
 
         }
 
@@ -73,33 +82,18 @@ namespace ASP.WEBUI.Controllers
         [HttpGet]
         public IActionResult EditMachineInfo()
         {
-            //admin ürün ekleme sayfasını görüntüleyecek
-            return View(new OpEditMachineModel());
+            var machines = _autoclaveService.GetValues();
+            var opEditMachineModelDTO = new OpEditMachineModelDTO { MachineNames = machines };
+            return View(opEditMachineModelDTO);
         }
 
         //Makine Bilgileri Düzenleme İşlemleri
         [HttpPost]
-		public IActionResult EditMachineInfo(OpEditMachineModel editMachine)
+		public IActionResult EditMachineInfo(OpEditMachineModelDTO editMachine)
 		{
-			if(ModelState.IsValid)
-			{
-				var autoclaveUpdate = new Autoclave
-				{
-					MachineName = editMachine.machineName,
-					MachineStatu = editMachine.machineStatu,
-					ItemNo = editMachine.itemNo,
-					TcNumber = editMachine.tcNumber,
-					VpNumber = editMachine.vpNumber,
-					StartDate = editMachine.startDate,
-					EndDate = editMachine.endDate,
-					OperatorNote = editMachine.operatorNote
-				};
-			    var updateAutoclave = _autoclaveService.Update(autoclaveUpdate);
+			    var updateAutoclave = _autoclaveService.UpdateMachineInfo(editMachine);
                 ViewBag.FilteredAutoclaves = updateAutoclave;
                 return RedirectToAction("Index");
-			}
-		
-			return View(editMachine);
 		}
 
         [HttpGet]

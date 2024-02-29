@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace ACR.Business.Concrete
 {
-    //Otoklav Makinesine ait bilgilerin tutulduğu ve kontrol edildiği işlemler
+   
     public class AutoclaveManager : IAutoclaveService
     {
        private IAutoclaveDal _autoclaveDal;
@@ -31,11 +31,21 @@ namespace ACR.Business.Concrete
              _autoclaveDal.Delete(autoclave);
         }
 
-        //Makine Bilgilerini Güncelleme İşlemi
-        public Autoclave Update(Autoclave autoclave)
+        public Autoclave UpdateMachineInfo(OpEditMachineModelDTO editMachine)
         {
-            _autoclaveDal.Update(autoclave);
-            return autoclave;
+            var autoclaveUpdate = new Autoclave
+            {
+                MachineName = editMachine.machineName,
+                MachineStatu = editMachine.machineStatu,
+                ItemNo = editMachine.itemNo,
+                TcNumber = editMachine.tcNumber,
+                VpNumber = editMachine.vpNumber,
+                StartDate = editMachine.startDate,
+                EndDate = editMachine.endDate,
+                OperatorNote = editMachine.operatorNote
+            };
+           return _autoclaveDal.UpdateMachine(autoclaveUpdate);
+           
         }
         public Autoclave GetById(int Id)
         {
@@ -52,15 +62,16 @@ namespace ACR.Business.Concrete
             var filteredValues = new Autoclave()
             {
                 MachineName = opMachineFilterModel.machineName,
-                MachineStatu =opMachineFilterModel.machineStatu,
+                MachineStatu = opMachineFilterModel.machineStatu,
                 TcNumber = opMachineFilterModel.tc,
                 VpNumber = opMachineFilterModel.vp,
                 ItemNo = opMachineFilterModel.itemNo,
                 EndDate = opMachineFilterModel.endDate,
                 StartDate = opMachineFilterModel.startDate,
-                OperatorNote= opMachineFilterModel.operatorNote,
+                OperatorNote = opMachineFilterModel.operatorNote,
             };
-           return _autoclaveDal.FindFilterResult(filteredValues);
+            return _autoclaveDal.FindFilterResult(filteredValues);
+
         }
 
         public IEnumerable<Autoclave> GetValues()

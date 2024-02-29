@@ -11,7 +11,6 @@ namespace ACR.Entity.Concrete
         public int Id { get; set; }
         public ReservationStatusType StatusType { get; set; }
         public string CancellationNote { get; set; }
-        public DateTime CreatedAt { get; set; } // Örnek olarak, durumun oluşturulma tarihi
         public int ReservationId { get; set; }
         public Reservation Reservation { get; set; }
     }
@@ -19,6 +18,5 @@ namespace ACR.Entity.Concrete
     {
         Confirmed,
         Cancelled
-        // Diğer durumlar eklenebilir
     }
 }

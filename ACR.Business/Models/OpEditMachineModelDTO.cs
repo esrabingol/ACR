@@ -1,7 +1,13 @@
-﻿namespace ASP.WEBUI.Models
+﻿using ACR.Entity.Concrete;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ACR.Business.Models
 {
-    //Operatör Makine Bilgileri Düzenleme Ekranı
-    public class OpEditMachineModel
+    public class OpEditMachineModelDTO
     {
         public string machineName { get; set; }
         public string machineStatu { get; set; }
@@ -12,5 +18,6 @@
         public DateTime startDate { get; set; }
         public DateTime endDate { get; set; }
         public string operatorNote { get; set; }
+        public IEnumerable<Autoclave> MachineNames { get; set; }
     }
 }

@@ -10,10 +10,10 @@ namespace ACR.DataAccess.Abstract
     public interface IAutoclaveDal :IRepository<Autoclave>
     {
         public List<Autoclave> GetListByCategoryId(int categoryId);
-        //IEnumerable<string> GetMachineNames();
 
         List<Autoclave> FindFilterResult(Autoclave autoclave);
 
         IEnumerable<string> GetMachineNames();
+        Autoclave UpdateMachine(Autoclave autoclave);
     }
 }

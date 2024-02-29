@@ -1,4 +1,5 @@
-﻿using ACR.Entity.Concrete;
+﻿using ACR.Business.Models;
+using ACR.Entity.Concrete;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,10 +12,9 @@ namespace ACR.Business.Abstract
     {
         List<Reservation> GetAllRezervations(Reservation rezervation);
         Reservation GetRezervationById(int reservationId);
-        Reservation Update(Reservation rezervation);
-        Reservation Add(Reservation rezervation);
+        Reservation Add(ReCreateReservationModelDTO reReservationFilterModel);
         void Delete(Reservation rezervation);
-
+        Reservation UpdateReservation(ReManageReservationModelDTO reReservationUpdateModel);
 
     }
 }

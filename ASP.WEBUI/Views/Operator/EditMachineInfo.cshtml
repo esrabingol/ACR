@@ -1,5 +1,5 @@
-﻿@using ASP.WEBUI.Models;
-@model OpEditMachineModel
+﻿@using ACR.Business.Models;
+@model OpEditMachineModelDTO
 @*makine işlemlerinden sonra düzenle kısmı*@
 @{
     ViewData["Title"] = "Index";
@@ -124,16 +124,18 @@
                             <span class="glyphicon glyphicon-circle-arrow-left" style="font-size: 24px;"></span>
                         </a>
                     </div>
-                    <label for="machineName">Makine Adı:</label>
-                    <select asp-for="machineName" class="form-control" placeholder="Departman Seçimi">
-                    @*    @if (Model.machineName != null)
+                    <label><strong>Makine Adı:</strong></label>
+                    <select asp-for="machineName" class="form-control" placeholder=" Seçimi">
+                        <option value="" selected disabled>Seçiniz</option>
+                        @if (Model.MachineNames != null)
                         {
-                            foreach (var item in Model.machineName)
+                            foreach (var item in Model.MachineNames)
                             {
-                                <option value="@item.machineName">@item.machineName</option>
+                                <option>@item.MachineName</option>
                             }
-                        }*@
+                        }
                     </select>
+  
                     <label for="machineStatu">Makine Durumu:</label>
                     <select id="machineStatu">
                         <option value="">Aktif</option>
@@ -141,30 +143,30 @@
                         <!-- Makine adlarını dinamik olarak ekleyin -->
                     </select>
 
-                    <label for="itemNo">Item No:</label>
-                    <input type="number" id="itemNo">
+                    <label for="itemNo">Item No :</label>
+                    <input asp-for="itemNo" value="@Model.itemNo" class="form-control" placeholder="Item No giriniz." />
 
-                    <label for="tcNumber">TC:</label>
-                    <input type="number" id="tcNumber">
+                    <label for="tc">TC:</label>
+                    <input asp-for="tcNumber" value="@Model.tcNumber" class="form-control" placeholder="TC değerini giriniz." />
 
-                    <label for="vpNumber">VP:</label>
-                    <input type="number" id="vpNumber">
+                    <label for="vp">VP:</label>
+                    <input asp-for="vpNumber" value="@Model.vpNumber" class="form-control" placeholder="VP değerini giriniz." />
 
 
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <label class="form-label" for="StartDate">Bakım Başlangıç Tarihi:</label>
-                            <input type="date" class="form-control" id="StartDate" name="StartDate" required>
+                            <input asp-for="startDate" value="@Model.startDate" type="time" class="form-control" />
                         </div>
                         <div class="form-group col-md-6">
                             <label class="form-label" for="EndDate">Bakım Bitiş Tarihi:</label>
-                            <input type="date" class="form-control" id="EndDate" name="EndDate" required>
+                            <input asp-for="endDate" value="@Model.endDate" type="time" class="form-control" />
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label class="form-label" for="OperatorNote">Operator Notu:</label>
-                        <textarea class="form-control" id="OperatorNote" name="OperatorNote"></textarea>
+                        <input asp-for="operatorNote" value="@Model.operatorNote" type="text" class="form-control" />
                     </div>
 
 

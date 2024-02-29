@@ -1,5 +1,5 @@
-﻿@using ASP.WEBUI.Models;
-@model ReManageReservationModel
+﻿@using ACR.Business.Models;
+@model ReManageReservationModelDTO
 @{
     ViewData["Title"] = "ManageReservation";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -74,12 +74,16 @@
         </div>
         <form asp-controller="Requester" asp-action="ManageReservation" method="post">
             <div class="form-group">
-                <label for="machineName"><strong>Makine Adı:</strong></label>
-                <select id="machineName">
-                    @*       @foreach (var machineName in ViewBag.MachineNames)
+                   <label><strong>Makine Adı:</strong></label>
+                <select asp-for="machineName" class="form-control" placeholder=" Seçimi">
+                    <option value="" selected disabled>Seçiniz</option>
+                    @if (Model.MachineNames != null)
                     {
-                    <option value="@machineName">@machineName</option>
-                    }*@
+                        foreach (var item in Model.MachineNames)
+                        {
+                            <option>@item.MachineName</option>
+                        }
+                    }
                 </select>
             </div>
 

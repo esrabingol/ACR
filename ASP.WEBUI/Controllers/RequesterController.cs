@@ -1,4 +1,5 @@
 ﻿using ACR.Business.Abstract;
+using ACR.Business.Models;
 using ACR.Entity.Concrete;
 using ASP.WEBUI.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -58,88 +59,39 @@ namespace ASP.WEBUI.Controllers
             return View(indexModel);
         }
 
-        //public IActionResult ListMachine()
-        //{
-
-        //    var machineNames = _autoclaveService.GetList();
-        //    ViewBag.MachineNames = machineNames;
-
-        //    return View();
-        //}
-        public IActionResult ViewMachineInfo()
-        {
-            return View();
-        }
-
         //Randevu Oluşturma işlemleri
         [HttpGet]
         public IActionResult CreateReservation()
         {
-            return View(new ReCreateReservationModel());
+            var machines = _autoclaveService.GetValues();
+            var opCreateMachineModelDTO = new ReCreateReservationModelDTO { MachineNames = machines };
+            return View(opCreateMachineModelDTO);
         }
 
         [HttpPost]
-        public IActionResult CreateReservation(ReCreateReservationModel reservationModel)
+        public IActionResult CreateReservation(ReCreateReservationModelDTO reservationModel)
         {
-            if (ModelState.IsValid)
-            {
-                var reservationCreate = new Reservation
-                {
-                    machineName = reservationModel.machineName,
-                    projectName = reservationModel.projectName,
-                    recipeCode = reservationModel.recipeCode,
-                    startDate = reservationModel.startDate,
-                    endDate = reservationModel.endDate,
-                    startTime = reservationModel.startTime,
-                    endTime = reservationModel.endTime
-                };
+            var reservationMachineInfos = _reservationService.Add(reservationModel);
 
-                var createReservation = _reservationService.Add(reservationCreate);
-
-                TempData["SuccessMessageOne"] = "Randevu Başarıyla eklenmiştir.";
-
-                return RedirectToAction("Index"); 
-            }
-            else
-            {
-                // Geçerlilik ihlali durumunda uygun bir hata mesajıyla geri dön
-                return View(reservationModel);
-            }
+            return View(reservationMachineInfos);
         }
-
-        //
 
         //Randevu Düzenleme İşlemleri
 
         [HttpGet]
         public IActionResult ManageReservation()
         {
-            return View(new ReManageReservationModel());
+            var machines = _autoclaveService.GetValues();
+            var opManageMachineModelDTO = new ReManageReservationModelDTO { MachineNames = machines };
+            return View(opManageMachineModelDTO);
         }
 
         [HttpPost]
-        public IActionResult ManageReservation(ReManageReservationModel manageReservationModel)
+        public IActionResult ManageReservation(ReManageReservationModelDTO manageReservationModel)
         {
-            if(ModelState.IsValid)
-            {
-                var reservationUpdate = new Reservation
-                {
-                    machineName = manageReservationModel.machineName,
-                    projectName = manageReservationModel.projectName,
-                    recipeCode = manageReservationModel.recipeCode,
-                    requestNote = manageReservationModel.requestNote,
-                    startDate = manageReservationModel.startDate,
-                    endDate = manageReservationModel.endDate,
-                    startTime = manageReservationModel.startTime,
-                    endTime = manageReservationModel.endTime
-                };
-                var updateReservation = _reservationService.Update(reservationUpdate);
+            var updateReservation = _reservationService.UpdateReservation(manageReservationModel);
 
-                TempData["SuccessMessageTwo"] = "Randevu Başarıyla Güncellenmiştir.";
-
-                return RedirectToAction("Index");
-            }
-            return View();
+            return View(updateReservation);
         }
     }
 }

@@ -1,5 +1,7 @@
 ﻿using ACR.Business.Abstract;
+using ACR.Business.Models;
 using ACR.DataAccess.Abstract;
+using ACR.DataAccess.Concrete.EntityFramework;
 using ACR.Entity.Concrete;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -13,14 +15,29 @@ namespace ACR.Business.Concrete
     public class ReservationManager : IReservationService
     {
         private IReservationDal _reservationDal;
+        private IAutoclaveDal _autoclaveDal;
+
         public ReservationManager( IReservationDal reservationDal)
         {
             _reservationDal = reservationDal;
         }
-        public Reservation Add(Reservation rezervation)
+        public Reservation Add(ReCreateReservationModelDTO reReservationFilterModel)
         {
-            _reservationDal.Add(rezervation);
-            return rezervation;
+
+            var reservationAdd = new Reservation
+            {
+                machineName = reReservationFilterModel.machineName,
+                projectName = reReservationFilterModel.projectName,
+                partName = reReservationFilterModel.partName,
+                recipeCode = reReservationFilterModel.recipeCode,
+                requestNote = reReservationFilterModel.requestNote,
+                startDate = reReservationFilterModel.startDate,
+                endDate = reReservationFilterModel.endDate,
+                startTime = reReservationFilterModel.startTime,
+                endTime = reReservationFilterModel.endTime,
+            };
+
+            return _reservationDal.AddReservation(reservationAdd);
         }
 
         public void Delete(Reservation rezervation)
@@ -30,10 +47,10 @@ namespace ACR.Business.Concrete
 
         public List<Reservation> GetAllRezervations(Reservation reservation)
         {
-            // Filtreleme işlemlerini gerçekleştir
+  
             var reservations = _reservationDal.GetAll();
 
-            // Örnek: Makine adına göre filtrele
+       
             if (!string.IsNullOrWhiteSpace(reservation.machineName))
             {
                 reservations = reservations.Where(r => r.machineName == reservation.machineName).ToList();
@@ -85,11 +102,20 @@ namespace ACR.Business.Concrete
             return reservation;
         }
 
-   
-        public Reservation Update(Reservation rezervation)
+        public Reservation UpdateReservation(ReManageReservationModelDTO reReservationUpdateModel)
         {
-            _reservationDal.Update(rezervation);
-            return rezervation;
+            var reservationUpdate = new Reservation
+            {
+                machineName = reReservationUpdateModel.machineName,
+                projectName = reReservationUpdateModel.projectName,
+                recipeCode = reReservationUpdateModel.recipeCode,
+                requestNote = reReservationUpdateModel.requestNote,
+                startDate = reReservationUpdateModel.startDate,
+                endDate = reReservationUpdateModel.endDate,
+                startTime = reReservationUpdateModel.startTime,
+                endTime = reReservationUpdateModel.endTime
+            };
+            return _reservationDal.UpdateReservation(reservationUpdate);
         }
     }
 }
