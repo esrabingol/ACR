@@ -46,5 +46,6 @@ namespace ACR.DataAccess.Concrete.EntityFramework
 			_context.Entry(entity).State = EntityState.Modified;
 			_context.SaveChanges();
         }
+   
     }
 }

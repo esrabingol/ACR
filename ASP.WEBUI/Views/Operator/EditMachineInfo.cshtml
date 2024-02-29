@@ -125,10 +125,13 @@
                         </a>
                     </div>
                     <label for="machineName">Makine Adı:</label>
-                    <select id="machineName">
-                 @*       @foreach (var machineName in ViewBag.MachineNames)
+                    <select asp-for="machineName" class="form-control" placeholder="Departman Seçimi">
+                    @*    @if (Model.machineName != null)
                         {
-                            <option value="@machineName">@machineName</option>
+                            foreach (var item in Model.machineName)
+                            {
+                                <option value="@item.machineName">@item.machineName</option>
+                            }
                         }*@
                     </select>
                     <label for="machineStatu">Makine Durumu:</label>

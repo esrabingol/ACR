@@ -1,15 +1,11 @@
 ﻿@using ASP.WEBUI.Models;
 @model OpIndexModel
-
-@*OPERATOR GİRİŞ SAYFASI*@
-
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <!DOCTYPE html>
 <html lang="tr">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -20,7 +16,7 @@
             margin: 0;
             padding: 0;
             background-color: #f8f9fa;
-            line-height: 2.5;
+            line-height:2.5;
         }
 
         .main-container {
@@ -53,7 +49,7 @@
 
         .button {
             flex: 1;
-            padding: 15px; 
+            padding: 15px;
             border: none;
             border-radius: 5px;
             cursor: pointer;
@@ -89,9 +85,9 @@
             padding: 10px;
         }
 
-        .top-buttons .btn {
+            .top-buttons .btn {
                 margin-left: 5px;
-        }
+            }
 
         .pb-3,
         .py-3 {
@@ -99,51 +95,61 @@
         }
 
         .btn {
-            font-weight: lighter;
-            font-size: 2rem;
+            font-weight: 750;
+            font-size:1rem;
         }
 
         .filter-options label {
-            font-weight: bold;
+            font-weight: bold; 
         }
+
+
+    }
+
+}
+
     </style>
 </head>
 
 <body>
     <div class="main-container">
         <div class="filter-section">
-            <form asp-controller="Operator" asp-action="Index">
+        
             <div class="filter-options">
-                    <label for="machineName">Makine Adı:</label>
-                  @*  <select id="machineName" name="machineName" asp-items="@(ViewBag.MachineNames)">
-                    </select>*@
+                <label for="machineName">Makine Adı:</label>
+                <select id="machineName">
+                    @*       @foreach (var machineName in ViewBag.MachineNames)
+                    {
+                    <option value="@machineName">@machineName</option>
+                    }*@
+                </select>
 
-               <label for="ProjectName">Proje Adı:</label>
-                    <input type="text" id="projectName" name="projectName">
+                <label for="projectName">Proje Adı:</label>
+                <input type="text" id="projectName">
 
                 <label for="partName">Parça Adı:</label>
-                <input type="text" id="partName" name="partName">
+                <input type="text" id="partName">
 
-                <label for="RecipeCode">Reçete Kodu:</label>
-                <input type="text" id="recipeCode" name="recipeCode">
+                <label for="recipeCode">Reçete Kodu:</label>
+                <input type="text" id="recipeCode">
 
-                <label for="StartDate">Başlangıç Tarihi:</label>
-                <input type="date" id="startDate" name="startDate">
+                <label for="startDate">Başlangıç Tarihi:</label>
+                <input type="date" id="startDate">
 
-                    <label for="EndDate">Bitiş Tarihi:</label>
-                <input type="date" id="endDate" name="endDate">
+                <label for="endDate">Bitiş Tarihi:</label>
+                <input type="date" id="endDate">
 
-                <label for="StartTime">Başlangıç Saati:</label>
-                <input type="time" id="startTime" name="startTime">
+                <label for="startTime">Başlangıç Saati:</label>
+                <input type="time" id="startTime">
 
-                <label for="EndTime">Bitiş Saati:</label>
-                <input type="time" id="endTime" name="endTime">
+                <label for="endTime">Bitiş Saati:</label>
+                <input type="time" id="endTime">
             </div>
             <div class="buttons-section">
-                <button type="button" class="btn btn-outline-primary">Randevu Ara</button>
+                <button type="button" class="btn btn-outline-primary" onclick="filterAppointments()">Randevu Ara</button>
             </div>
-            </form>
         </div>
+
         <div class="results-section">
             <div class="top-buttons">
                 <button type="button" class="btn btn-outline-secondary">Bilgi Getir</button>
@@ -151,74 +157,18 @@
                 <button type="button" class="btn btn-outline-warning" onclick="redirectTo('@Url.Action("ManageReservation", "Operator")')">Randevu İşlemleri</button>
                 <button type="button" class="btn btn-outline-danger">Temizle</button>
             </div>
-
-
-            @if (Model != null && Model.Results != null && Model.Results.Any())
-            {
-                <div class="wishlist_area mt-70">
-                    <div class="container">
-                        <form action="@Url.Action("Index","Operator")">
-                            <div class="row">
-                                <div class="col-12">
-                                    <div class="cart_page table-responsive">
-                                        <table>
-                                            <thead>
-                                                <tr>
-                                                    <th class="product_remove">Makine Adı</th>
-                                                    <th class="product_remove">Proje Adı</th>
-                                                    <th class="product_remove">Parça Adı</th>
-                                                    <th class="product_remove">Proje Kodu</th>
-                                                    <th class="product_thumb">Başlangıç Tarihi</th>
-                                                    <th class="product_name">Bitiş Tarihi</th>
-                                                    <th class="product-price">Başlangıç Saati</th>
-                                                    <th class="product_quantity">Bitiş Saati</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                @foreach (var result in Model.Results)
-                                                {
-                                                    <tr>
-                                                        <td class="product_name"><a href="#">@result.id</a></td>
-                                                        <td class="product_name"><a href="#">@result.machineName</a></td>
-                                                        <td class="product_name"><a href="#">@result.projectName</a></td>
-                                                        <td class="product_name"><a href="#">@result.partName</a></td>
-                                                        <td class="product_name"><a href="#">@result.recipeCode</a></td>
-                                                        <td class="product-thumb">@result.startDate.ToString("yyyy-MM-dd")</td>
-                                                        <td class="product_name">@result.endDate.ToString("yyyy-MM-dd")</td>
-                                                        <td class="product-price">@result.startTime.ToString("HH:mm")</td>
-                                                        <td class="product_quantity">@result.endTime.ToString("HH:mm")</td>
-                                                    </tr>
-                                                }
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                        </form>
-
-                </div>
-            </div>
-            }
-            else
-            {
-            <div class="alert alert-danger">
-                <center>Sistem üzerinde kayıtlı bir randevu bulunamadı.</center>
-            </div>
-            }
-            @* filtre sonucu son*@
-
-
-        </div>
-    </div>
-
     <script>
-                function redirectTo(url) {
+    
+        function redirectTo(url) {
             window.location.href = url;
         }
         function filterAppointments() {
             // Seçilen filtrelerle ilgili veri çekme ve görüntüleme mantığını burada uygulayın
         }
     </script>
+
 </body>
 
 </html>
+
+

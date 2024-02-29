@@ -1,5 +1,5 @@
-﻿@using ASP.WEBUI.Models;
-@model OpMachineFilterModel
+﻿@using ACR.Business.Models;
+@model OpMachineFilterModelDTO
 @{
     ViewData["Title"] = "ViewMachineInfo";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -126,24 +126,32 @@
                         </a>
                     </div>
                     <label for="machineName">Makine Adı:</label>
-                    <select id="machineName" name="machineName">
-                  @*      @foreach (var machineName in ViewBag.MachineNames)
+                    <select asp-for="machineName" class="form-control" placeholder=" Seçimi">
+                        <option value="" selected disabled>Seçiniz</option>
+                        @if (Model.MachineNames != null)
                         {
-                            <option value="@machineName">@machineName</option>
-                        }*@
+                            foreach (var item in Model.MachineNames)
+                            {
+                                <option>@item.MachineName</option>
+                            }
+                        }
                     </select>
 
                     <label for="machineStatu">Makine Durumu:</label>
-                    <input type="text" id="machineStatu" name="machineStatu">
+                    <select asp-for="machineStatu" class="form-control" placeholder="Makine Durumu Seçimi">
+                        <option value="" selected disabled>Seçiniz</option>
+                        <option value="Aktif">AKTİF</option>
+                        <option value="Pasif">PASİF</option>
+                      </select>
 
                     <label for="itemNo">Item No :</label>
-                    <input type="text" id="itemNo" name="itemNo">
+                    <input asp-for="itemNo" value="@Model.itemNo" class="form-control" placeholder="Item No giriniz." />
 
                     <label for="tc">TC:</label>
-                    <input type="number" id="tc" name="tc">
+                    <input asp-for="tc" value="@Model.tc" class="form-control" placeholder="TC değerini giriniz." />
 
                     <label for="vp">VP:</label>
-                    <input type="number" id="vp" name="vp">
+                    <input asp-for="vp" value="@Model.vp" class="form-control" placeholder="VP değerini giriniz." />
                 </div>
                 <div class="buttons-section">
                     <button type="submit" class="btn btn-outline-primary">Makine Ara</button>
@@ -157,26 +165,36 @@
                 <button type="button" class="btn btn-outline-success" onclick="redirectTo('@Url.Action("EditMachineInfo", "Operator")')">Düzenle</button>
                 <button type="button" class="btn btn-outline-warning" onclick="clearFilters()">Temizle</button>
             </div>
-
-            <div> 
-                @*//Ekranda gösterilmek istenen veriler  bu kısma girilicek*@
-                @if (ViewBag.FilteredAutoclaves != null)
-                {
-                    foreach (var autoclave in ViewBag.FilteredAutoclaves)
+            <table class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th>Makine Adı</th>
+                        <th>Makine Durumu</th>
+                        <th>Item No</th>
+                        <th>TC</th>
+                        <th>VP</th>
+                        <th>Start Date</th>
+                        <th>End Date</th>
+                        <th>Operator Note</th>
+                    </tr>
+                </thead>
+                <tbody>
+              @*              @foreach (var machineInfo in Model.MachineInfos)
                     {
-                        <div>
-                            <p>Makine Adı: @autoclave.MachineName</p>
-                            <p>Makine Durumu: @autoclave.MachineStatu</p>
-                        
-
-
-                        </div>
-                    }
-                }
-                else
-                {
-                    <p>Filtrelenmiş veri bulunamadı.</p>
-                }
+                        <tr>
+                            <td>@machineInfo.MachineName</td>
+                            <td>@machineInfo.MachineStatu</td>
+                            <td>@machineInfo.ItemNo</td>
+                            <td>@machineInfo.TcNumber</td>
+                            <td>@machineInfo.VpNumber</td>
+                            <td>@machineInfo.StartDate</td>
+                            <td>@machineInfo.EndDate</td>
+                            <td>@machineInfo.OperatorNote</td>
+                        </tr>
+                    }*@
+                </tbody>
+            </table>
+            <div>
             </div>
         </div>
     </div>
@@ -192,12 +210,8 @@
             document.getElementById('itemNo').value = '';
             document.getElementById('tc').value = '';
             document.getElementById('vp').value = '';
-
-            // Diğer temizleme işlemleri eklenebilir
         }
-                //function filterAppointments() {
-                //    // Seçilen filtrelerle ilgili veri çekme ve görüntüleme mantığını burada uygulayın
-                //}
+
     </script>
 </body>
 

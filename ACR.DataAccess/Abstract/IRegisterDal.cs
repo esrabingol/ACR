@@ -9,7 +9,9 @@ namespace ACR.DataAccess.Abstract
 {
     public interface IRegisterDal:IRepository<Users>
     {
+
 		bool PasswordSignIn(string userEmail, string userPassword, int roleId);
-		List<Users> FindByEmail(string email);
+		Task<Users> FindByEmail(string email);
+
 	}
 }

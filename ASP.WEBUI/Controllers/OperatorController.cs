@@ -1,9 +1,11 @@
 ﻿using ACR.Business.Abstract;
+using ACR.Business.Models;
 using ACR.Entity.Concrete;
 using ASP.WEBUI.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ApplicationModels;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Reflection.PortableExecutable;
 
 namespace ASP.WEBUI.Controllers
 {
@@ -53,23 +55,19 @@ namespace ASP.WEBUI.Controllers
         [HttpGet]
         public IActionResult ViewMachineInfo()
         {
-            return View(new OpMachineFilterModel());
+            var machines = _autoclaveService.GetValues();
+            var opMachineFilterModelDTO = new OpMachineFilterModelDTO { MachineNames = machines };
+            return View(opMachineFilterModelDTO);
         }
 
         //Makine Bilgilerini Görüntüleme İşlemleri
         [HttpPost]
-		public IActionResult ViewMachineInfo(OpMachineFilterModel opMachineFilterModel)
+		public IActionResult ViewMachineInfo(OpMachineFilterModelDTO opMachineFilterModel)
 		{
-			if (ModelState.IsValid)
-			{
-				var machineName = opMachineFilterModel.machineName;
-				var filteredAutoclaves = _autoclaveService.GetByName(machineName);
+            var filters = _autoclaveService.GetFilteredValues(opMachineFilterModel);
+            return View(filters);
 
-				// Filtrelenmiş Autoclave nesnelerini ViewBag veya Model ile View'e gönder
-				ViewBag.FilteredAutoclaves = filteredAutoclaves;
-			}
-			return View();
-		}
+        }
 
 
         [HttpGet]

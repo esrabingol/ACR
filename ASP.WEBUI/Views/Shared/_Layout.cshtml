@@ -35,7 +35,7 @@
                 @if (ViewContext.RouteData.Values["Controller"].ToString() == "Home" && ViewContext.RouteData.Values["Action"].ToString() == "Index")
                 {
                     <div class="ml-auto d-flex justify-content-between">
-                        <form action="@Url.Action("UserLogin", "User")" method="post">
+                        <form action="@Url.Action("UserLogin", "User")">
                             <button type="submit" class="btn btn-primary">Giriş Yap</button>
                         </form>
 

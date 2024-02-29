@@ -1,5 +1,7 @@
 ﻿using ACR.Business.Abstract;
+using ACR.Business.Models;
 using ACR.DataAccess.Abstract;
+using ACR.DataAccess.Concrete.EntityFramework;
 using ACR.Entity.Concrete;
 using System;
 using System.Collections.Generic;
@@ -45,16 +47,27 @@ namespace ACR.Business.Concrete
             return autolave;
         }
 
-        public List<Autoclave> GetList()
-        { 
-            return _autoclaveDal.GetAll().ToList();
+        public List<Autoclave> GetFilteredValues(OpMachineFilterModelDTO opMachineFilterModel)
+        {
+            var filteredValues = new Autoclave()
+            {
+                MachineName = opMachineFilterModel.machineName,
+                MachineStatu =opMachineFilterModel.machineStatu,
+                TcNumber = opMachineFilterModel.tc,
+                VpNumber = opMachineFilterModel.vp,
+                ItemNo = opMachineFilterModel.itemNo,
+                EndDate = opMachineFilterModel.endDate,
+                StartDate = opMachineFilterModel.startDate,
+                OperatorNote= opMachineFilterModel.operatorNote,
+            };
+           return _autoclaveDal.FindFilterResult(filteredValues);
         }
 
-        public List<Autoclave> GetByName(string machineName)
+        public IEnumerable<Autoclave> GetValues()
         {
-            var autoclaves = _autoclaveDal.GetAll();
-            var filteredAutoclaves = autoclaves.Where(a => a.MachineName == machineName).ToList();
-            return filteredAutoclaves;
+            var machines = _autoclaveDal.GetAll();
+            return machines.ToList();
         }
+
     }
 }

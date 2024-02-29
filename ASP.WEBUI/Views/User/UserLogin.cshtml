@@ -1,5 +1,5 @@
-﻿@using ASP.WEBUI.Models;
-@model UserLoginModel
+﻿@using ACR.Business.Models;
+@model UserLoginModelDTO
 @{
 	ViewData["Title"] = "UserLogin";
 }
@@ -28,10 +28,6 @@
 	<!--===============================================================================================-->
 </head>
 <body>
-	<div class="alert alert-success">
-
-		@TempData["SuccessMessage"]
-	</div>
 	<div class="limiter">
 		<div class="container-login100" style="background: whitesmoke;">
 			<div class="wrap-login100">
@@ -39,29 +35,27 @@
 					<img src="~/login/images/img-01.png" />
 				</div>
 			
-				<form class="login100-form validate-form">
+				<form asp-controller="User" asp-action="UserLogin" method="post" class="login100-form validate-form">
 					<span class="login100-form-title">
 						KULLANICI GİRİŞİ
 					</span>
 
 					<div class="wrap-input100 validate-input" data-validate="Valid email is required: ex@abc.xyz">
-						<input class="input100" type="text" name="email" placeholder="Mail Adresiniz">
+						<input asp-for="MailAdress" value="@Model.MailAdress" class="form-control" placeholder="Etkin Mail Adresiniz." />
 						<span class="focus-input100"></span>
 						<span class="symbol-input100">
-							<i class="fa fa-envelope" aria-hidden="true"></i>
 						</span>
 					</div>
 
 					<div class="wrap-input100 validate-input" data-validate="Password is required">
-						<input class="input100" type="password" name="pass" placeholder="Şifreniz">
+						<input asp-for="Password" value="@Model.Password" class="form-control" placeholder="Şifreniz" />
 						<span class="focus-input100"></span>
 						<span class="symbol-input100">
-							<i class="fa fa-lock" aria-hidden="true"></i>
 						</span>
 					</div>
 
 					<div class="container-login100-form-btn">
-						<button class="login100-form-btn">
+						<button type ="submit" class="login100-form-btn">
 							Giriş Yap
 						</button>
 					</div>

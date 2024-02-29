@@ -45,7 +45,6 @@ namespace ASP.WEBUI
             services.AddControllersWithViews();
 			services.AddRazorPages();
 		}
-		//hata nerde
 		public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
 		{
 			if (env.IsDevelopment())
@@ -68,7 +67,7 @@ namespace ASP.WEBUI
 			{
 				endpoints.MapControllerRoute(
 					name: "default",
-					pattern: "{controller=Home}/{action=Index}");
+					pattern: "{controller=Operator}/{action=Index}");
 
             });
         }

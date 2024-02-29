@@ -1,7 +1,6 @@
 ﻿using ACR.Business.Abstract;
 using ACR.Business.Models;
 using ACR.Entity.Concrete;
-using ASP.WEBUI.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -12,7 +11,7 @@ namespace ASP.WEBUI.Controllers
 	public class UserController : Controller
 	{
 		private IRegisterService _registerService;
-		private IRoleService _roleService; 
+		private IRoleService _roleService;
 
 		public UserController(IRegisterService registerService, IRoleService roleService)
 		{
@@ -44,7 +43,7 @@ namespace ASP.WEBUI.Controllers
 			}
 			else
 			{
-				ModelState.AddModelError("", "Registration failed. Please check your information and try again.");
+				ModelState.AddModelError("", "Kaydınız oluşturulamadı eksik kısımları tamamlayınız.");
 				return View(registerModel);
 			}
 
@@ -54,41 +53,20 @@ namespace ASP.WEBUI.Controllers
 		[HttpGet]
 		public IActionResult UserLogin()
 		{
-			return View();
+			return View(new UserLoginModelDTO());
 		}
 
 		[HttpPost]
-		public async Task<IActionResult> UserLogin(UserLoginModel loginModel, int roleId)
+		public async Task<IActionResult> UserLogin(UserLoginModelDTO loginModel)
 		{
-			if (ModelState.IsValid)
+			var userLogin =  _registerService.FindUser(loginModel);
+
+			if (userLogin != null)
 			{
-				var user = _registerService.FindByEmail(loginModel.Email);
-
-				if (user == null)
-				{
-					ModelState.AddModelError("", "Bu Email adresi ile eşleşen bir Email Adresi Bulunamadı");
-				}
-				else
-				{
-					var userLogin = _registerService.PasswordSignIn(loginModel.Email, loginModel.Password, roleId);
-					if (userLogin)
-					{
-						if (roleId == 1)
-						{
-							return RedirectToAction("Index", "Operator");
-						}
-						else if (roleId == 2)
-						{
-							return RedirectToAction("Index", "Requester");
-						}
-					}
-				}
-
-
-
+				return RedirectToAction("Index", "Operator");
 			}
-
 			return View();
+
 		}
 	}
 }
