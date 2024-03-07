@@ -58,8 +58,8 @@ namespace ACR.DataAccess.Concrete
 				.WithOne(r => r.Requester)
 				.HasForeignKey(r => r.RequesterId);
 
-			//Reservation - ReservationStatus ilişkisi
-			modelBuilder.Entity<Reservation>()
+            //Reservation - ReservationStatus ilişkisi
+            modelBuilder.Entity<Reservation>()
                 .HasOne(u => u.Status)
                 .WithOne(rs => rs.Reservation)
                 .HasForeignKey<ReservationStatus>(rs => rs.ReservationId);

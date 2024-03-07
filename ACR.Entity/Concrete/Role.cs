@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace ACR.Entity.Concrete
-{
+{ // Tamamlandı
     public class Role
     {
         public int Id { get; set; }

@@ -8,7 +8,7 @@ namespace ACR.Entity.Concrete
 {
     public class Users
     {
-        //Ekleme olmayacak.
+       //Tamamlandı
         public int Id { get; set; }
         public string Name { get; set; }
         public string Surname{ get; set; }

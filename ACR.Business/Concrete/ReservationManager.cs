@@ -26,6 +26,7 @@ namespace ACR.Business.Concrete
 
             var reservationAdd = new Reservation
             {
+
                 machineName = reReservationFilterModel.machineName,
                 projectName = reReservationFilterModel.projectName,
                 partName = reReservationFilterModel.partName,
@@ -35,6 +36,7 @@ namespace ACR.Business.Concrete
                 endDate = reReservationFilterModel.endDate,
                 startTime = reReservationFilterModel.startTime,
                 endTime = reReservationFilterModel.endTime,
+                //RequesterId = requesterId // bu şekilde alan dolucak
             };
 
             return _reservationDal.AddReservation(reservationAdd);

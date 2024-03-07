@@ -40,8 +40,7 @@ namespace ACR.Business.Concrete
                 ItemNo = editMachine.itemNo,
                 TcNumber = editMachine.tcNumber,
                 VpNumber = editMachine.vpNumber,
-                StartDate = editMachine.startDate,
-                EndDate = editMachine.endDate,
+  
                 OperatorNote = editMachine.operatorNote
             };
            return _autoclaveDal.UpdateMachine(autoclaveUpdate);
@@ -71,7 +70,6 @@ namespace ACR.Business.Concrete
                 OperatorNote = opMachineFilterModel.operatorNote,
             };
             return _autoclaveDal.FindFilterResult(filteredValues);
-
         }
 
         public IEnumerable<Autoclave> GetValues()

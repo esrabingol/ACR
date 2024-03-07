@@ -12,12 +12,14 @@ namespace ASP.WEBUI.Controllers
     {
         private IReservationService _reservationService;
         private IAutoclaveService _autoclaveService;
+        private IRegisterService _registerService;
 
-		public RequesterController(IAutoclaveService autoclaveService, IReservationService reservationService)
+		public RequesterController(IAutoclaveService autoclaveService, IReservationService reservationService, IRegisterService registerService)
 		{
 			_autoclaveService = autoclaveService;
 			_reservationService = reservationService;
-		}
+            _registerService = registerService;
+    }
 		public IActionResult Index()
         {
             return View(new ReIndexModel());
@@ -63,6 +65,7 @@ namespace ASP.WEBUI.Controllers
         [HttpGet]
         public IActionResult CreateReservation()
         {
+            //int requesterId = _registerService.GetCurrentUserId(); // bu şekilde mevcut kullanıcı alınıcak
             var machines = _autoclaveService.GetValues();
             var opCreateMachineModelDTO = new ReCreateReservationModelDTO { MachineNames = machines };
             return View(opCreateMachineModelDTO);
