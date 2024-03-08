@@ -66,7 +66,6 @@ namespace ASP.WEBUI.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-
         [HttpGet]
         public IActionResult ManageReservation()
         {

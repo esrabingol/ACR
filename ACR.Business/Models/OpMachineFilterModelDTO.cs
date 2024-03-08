@@ -1,12 +1,7 @@
 ﻿using ACR.Entity.Concrete;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ACR.Business.Models
-{ //Tamamlandu
+{
     public class OpMachineFilterModelDTO
     {
         public string? machineName { get; set; }

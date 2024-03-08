@@ -32,12 +32,10 @@ namespace ACR.Business.Concrete
 			_registerDal.Add(newUser);
 			return newUser;
 		}
-
         public void Delete(User register)
         {
             _registerDal.Delete(register);
         }
-
 		public async Task <User> FindUser(UserLoginModelDTO loginModel)
 		{
 			var findUser = new User()
@@ -57,12 +55,10 @@ namespace ACR.Business.Concrete
 		{
 			return _registerDal.PasswordSignIn(userEmail, userPassword, roleId);
 		}
-
 		public User Update(User register)
         {
              _registerDal.Update(register);
             return register;
         }
-
 	}
 }

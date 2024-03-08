@@ -20,6 +20,5 @@
         // sisteme giriş yapıp randevu oluşturmak istediğinde otomatik olarak hangi kullanıcının giriş yapıp oluşturmak istediği sisteme düşücek randevu ile beraber.
         public int RequesterId { get; set; }
         public virtual User Requester { get; set; }
-
     }
 }

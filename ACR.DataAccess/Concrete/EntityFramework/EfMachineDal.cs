@@ -11,10 +11,7 @@ namespace ACR.DataAccess.Concrete.EntityFramework
         }
         public List<Machine> FindFilterResult(Machine machine)
         {
-
-            using (var context = new ACRContext())
-            {
-                IQueryable<Machine> query = context.Machines;
+                IQueryable<Machine> query = _context.Machines;
 
                 if (!string.IsNullOrEmpty(machine.MachineName))
                 {
@@ -51,9 +48,6 @@ namespace ACR.DataAccess.Concrete.EntityFramework
                 }).ToList();
 
                 return machineInfos;
-            }
-
-
         }
         public List<Machine> GetListByCategoryId(int categoryId)
         {
@@ -62,11 +56,7 @@ namespace ACR.DataAccess.Concrete.EntityFramework
         }
         public IEnumerable<string> GetMachineNames()
         {
-            using (var context = new ACRContext())
-            {
-                return context.Machines.Select(a => a.MachineName).ToList();
-            }
-
+                return _context.Machines.Select(a => a.MachineName).ToList();
         }
         public Machine UpdateMachine(Machine autoclave)
         {

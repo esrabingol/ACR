@@ -14,8 +14,7 @@ namespace ACR.Business.Concrete
     public class RoleManager : IRoleService
     {
         private IRoleDal _roleDal;
-        
-        public RoleManager(IRoleDal roleDal) 
+        public RoleManager(IRoleDal roleDal)
         {
             _roleDal = roleDal;
         }
@@ -24,21 +23,19 @@ namespace ACR.Business.Concrete
             if (role != null)
             {
                 _roleDal.Add(role);
-                
+
             }
             else
             {
                 throw new ArgumentNullException(nameof(role), "Hata: Role nesnesi null olamaz.");
             }
         }
-
-		public IEnumerable<Role> GetRoles()
-		{
-			var roles = _roleDal.GetAll();
-			return roles.ToList();
-		}
-
-		public IEnumerable<Role> GetRolesWithSameName(string roleName)
+        public IEnumerable<Role> GetRoles()
+        {
+            var roles = _roleDal.GetAll();
+            return roles.ToList();
+        }
+        public IEnumerable<Role> GetRolesWithSameName(string roleName)
         {
             if (string.IsNullOrEmpty(roleName))
             {
@@ -49,7 +46,6 @@ namespace ACR.Business.Concrete
                 return _roleDal.GetRolesWithSameName(roleName);
             }
         }
-
         public void UpdateRole(Role role)
         {
             if (role == null)

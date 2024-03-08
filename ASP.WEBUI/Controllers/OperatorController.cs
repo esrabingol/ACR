@@ -17,7 +17,6 @@ namespace ASP.WEBUI.Controllers
             _reservationService = reservationService;
         }
 
-        //Operator anasayfa işlemleri
         public IActionResult Index()
         {
             return View(new OpIndexModel());
@@ -30,11 +29,11 @@ namespace ASP.WEBUI.Controllers
             {
                 var reservationFilter = new Reservation
                 {
-                    MachineName = indexModel.machineName,
-                    ProjectName = indexModel.projectName,
-                    PartName = indexModel.partName,
-                    StartDate = indexModel.startDate,
-                    EndDate = indexModel.endDate,
+                    MachineName = indexModel.MachineName,
+                    ProjectName = indexModel.ProjectName,
+                    PartName = indexModel.PartName,
+                    StartDate = indexModel.StartDate,
+                    EndDate = indexModel.EndDate,
                 };
                 var filterReservations = _reservationService.GetAllRezervations(reservationFilter);
                 indexModel.Results = filterReservations;
@@ -50,7 +49,6 @@ namespace ASP.WEBUI.Controllers
             return View(opMachineFilterModelDTO);
         }
 
-        //Makine Bilgilerini Görüntüleme İşlemleri
         [HttpPost]
         public IActionResult ViewMachineInfo(OpMachineFilterModelDTO opMachineFilterModel)
         {
@@ -62,7 +60,6 @@ namespace ASP.WEBUI.Controllers
             };
             return View(opMachineFilterModelDTO);
         }
-
 
         [HttpGet]
         public IActionResult EditMachineInfo()

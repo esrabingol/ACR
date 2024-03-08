@@ -7,7 +7,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-
 namespace ACR.Business.Abstract
 {
     public interface IRegisterService
@@ -18,6 +17,5 @@ namespace ACR.Business.Abstract
 		bool PasswordSignIn(string userEmail, string userPassword,int roleId);
 		Task<User> FindUser(UserLoginModelDTO loginModel);
         Task<int?> GetRoleIdByEmail(string email);
-
     }
 }

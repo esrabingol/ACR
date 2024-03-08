@@ -8,7 +8,6 @@ namespace ASP.WEBUI.Controllers
         {
             return View();
         }
-
         public IActionResult InfoUserID()
         {
             //Kimlik Bilgileri
@@ -23,6 +22,5 @@ namespace ASP.WEBUI.Controllers
         {
             return View();
         }
-    
     }
 }

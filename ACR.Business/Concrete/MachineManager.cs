@@ -5,7 +5,6 @@ using ACR.Entity.Concrete;
 
 namespace ACR.Business.Concrete
 {
-
     public class MachineManager : IMachineService
     {
         private IMachineDal _autoclaveDal;
@@ -13,18 +12,15 @@ namespace ACR.Business.Concrete
         {
             _autoclaveDal = autoclaveDal;
         }
-
         public Machine Add(Machine autoclave)
         {
             _autoclaveDal.Add(autoclave);
             return autoclave;
         }
-
         public void Delete(Machine autoclave)
         {
             _autoclaveDal.Delete(autoclave);
         }
-
         public Machine UpdateMachineInfo(OpEditMachineModelDTO editMachine)
         {
             var machineUpdate = new Machine
@@ -49,7 +45,6 @@ namespace ACR.Business.Concrete
             }
             return autolave;
         }
-
         public List<Machine> GetFilteredValues(OpMachineFilterModelDTO opMachineFilterModel)
         {
             var filteredValues = new Machine()
@@ -65,12 +60,10 @@ namespace ACR.Business.Concrete
             };
             return _autoclaveDal.FindFilterResult(filteredValues);
         }
-
         public IEnumerable<Machine> GetValues()
         {
             var machines = _autoclaveDal.GetAll();
             return machines.ToList();
         }
-
     }
 }
