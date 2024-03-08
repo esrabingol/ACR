@@ -51,8 +51,6 @@ namespace ACR.Business.Concrete
         public async Task<int?> GetRoleIdByEmail(string email)
         {
             var user = await _registerDal.FindByEmail(email);
-
-            // Eğer kullanıcı bulunursa, RoleId'yi döndür; bulunamazsa null döndür
             return user?.RoleId;
         }
         public bool PasswordSignIn(string userEmail, string userPassword, int roleId)

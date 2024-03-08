@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ACR.DataAccess.Migrations
 {
     [DbContext(typeof(ACRContext))]
-    [Migration("20240308115029_SecondMigration")]
-    partial class SecondMigration
+    [Migration("20240308130232_secondCommit")]
+    partial class secondCommit
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

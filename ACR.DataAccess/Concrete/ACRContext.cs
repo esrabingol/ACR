@@ -12,10 +12,10 @@ namespace ACR.DataAccess.Concrete
         {
 
         }
-        public DbSet<Machine> Machines { get; set;}
-        public DbSet<User> Users {get; set;}
-        public DbSet<Reservation> Reservations {get; set;}
-        public DbSet<Role> Roles {get; set;}
+        public DbSet<Machine> Machines { get; set; }
+        public DbSet<User> Users { get; set; }
+        public DbSet<Reservation> Reservations { get; set; }
+        public DbSet<Role> Roles { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
@@ -44,11 +44,18 @@ namespace ACR.DataAccess.Concrete
                 .WithMany(r => r.Users)
                 .HasForeignKey(r => r.RoleId);
 
-            //Users - Role ilişkisi
+            ////Users - Role ilişkisi
+            //modelBuilder.Entity<User>()
+            //    .HasMany(u => u.Reservations)
+            //    .WithOne(r => r.Requester)
+            //    .HasForeignKey(r => r.RequesterId);
+
             modelBuilder.Entity<User>()
                 .HasMany(u => u.Reservations)
                 .WithOne(r => r.Requester)
-                .HasForeignKey(r => r.RequesterId);
+                .HasForeignKey(r => r.RequesterId)
+                .OnDelete(DeleteBehavior.Cascade); // Cascade ile Requester silindiğinde ilişkili Reservations'lar da silinecek
+
 
             //Role - Users ilişkisi
             modelBuilder.Entity<Role>()

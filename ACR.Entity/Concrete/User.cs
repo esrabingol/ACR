@@ -10,6 +10,6 @@
         public string Password { get; set; }
         public Role Role { get; set; }
         public int RoleId { get; set; }
-        public virtual ICollection<Reservation> Reservations { get; set; }
+        public virtual ICollection<Reservation> Reservations { get; set; } = new List<Reservation>();
     }
 }
