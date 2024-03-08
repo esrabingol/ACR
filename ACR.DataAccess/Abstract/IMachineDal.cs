@@ -7,13 +7,13 @@ using System.Threading.Tasks;
 
 namespace ACR.DataAccess.Abstract
 {
-    public interface IAutoclaveDal :IRepository<Autoclave>
+    public interface IMachineDal :IRepository<Machine>
     {
-        public List<Autoclave> GetListByCategoryId(int categoryId);
+        public List<Machine> GetListByCategoryId(int categoryId);
 
-        List<Autoclave> FindFilterResult(Autoclave autoclave);
+        List<Machine> FindFilterResult(Machine autoclave);
 
         IEnumerable<string> GetMachineNames();
-        Autoclave UpdateMachine(Autoclave autoclave);
+        Machine UpdateMachine(Machine autoclave);
     }
 }

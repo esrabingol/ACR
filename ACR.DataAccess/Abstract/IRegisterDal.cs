@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace ACR.DataAccess.Abstract
 {
-    public interface IRegisterDal:IRepository<Users>
+    public interface IRegisterDal:IRepository<User>
     {
 
 		bool PasswordSignIn(string userEmail, string userPassword, int roleId);
-		Task<Users> FindByEmail(string email);
+		Task<User> FindByEmail(string email);
 
-	}
+    }
 }

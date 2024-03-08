@@ -18,9 +18,9 @@ namespace ACR.Business.Concrete
         {
             _registerDal = registerDal;
         }
-        public async Task<Users> Add(UserRegisterModelDTO registerModel)
+        public async Task<User> Add(UserRegisterModelDTO registerModel)
         {
-			var newUser = new Users()
+			var newUser = new User()
 			{
 				Name = registerModel.Name,
 				Surname = registerModel.SurName,
@@ -33,28 +33,34 @@ namespace ACR.Business.Concrete
 			return newUser;
 		}
 
-        public void Delete(Users register)
+        public void Delete(User register)
         {
             _registerDal.Delete(register);
         }
 
-		public async Task <Users> FindUser(UserLoginModelDTO loginModel)
+		public async Task <User> FindUser(UserLoginModelDTO loginModel)
 		{
-			var findUser = new Users()
+			var findUser = new User()
 			{
 				MailAdress = loginModel.MailAdress,
 				Password = loginModel.Password,
 			};
-			 return await _registerDal.FindByEmail(findUser.MailAdress);
-			
+			 var a = await _registerDal.FindByEmail(findUser.MailAdress);
+			return a;
 		}
+        public async Task<int?> GetRoleIdByEmail(string email)
+        {
+            var user = await _registerDal.FindByEmail(email);
 
-		public bool PasswordSignIn(string userEmail, string userPassword, int roleId)
+            // Eğer kullanıcı bulunursa, RoleId'yi döndür; bulunamazsa null döndür
+            return user?.RoleId;
+        }
+        public bool PasswordSignIn(string userEmail, string userPassword, int roleId)
 		{
 			return _registerDal.PasswordSignIn(userEmail, userPassword, roleId);
 		}
 
-		public Users Update(Users register)
+		public User Update(User register)
         {
              _registerDal.Update(register);
             return register;

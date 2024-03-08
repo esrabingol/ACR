@@ -3,24 +3,22 @@ using ACR.Business.Models;
 using ACR.Entity.Concrete;
 using ASP.WEBUI.Models;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.CodeAnalysis;
-using System.Drawing;
 
 namespace ASP.WEBUI.Controllers
 {
     public class RequesterController : Controller
     {
         private IReservationService _reservationService;
-        private IAutoclaveService _autoclaveService;
+        private IMachineService _machineService;
         private IRegisterService _registerService;
 
-		public RequesterController(IAutoclaveService autoclaveService, IReservationService reservationService, IRegisterService registerService)
-		{
-			_autoclaveService = autoclaveService;
-			_reservationService = reservationService;
+        public RequesterController(IMachineService machineService, IReservationService reservationService, IRegisterService registerService)
+        {
+            _machineService = machineService;
+            _reservationService = reservationService;
             _registerService = registerService;
-    }
-		public IActionResult Index()
+        }
+        public IActionResult Index()
         {
             return View(new ReIndexModel());
         }
@@ -28,7 +26,6 @@ namespace ASP.WEBUI.Controllers
         [HttpPost]
         public IActionResult Index(ReIndexModel indexModel)
         {
-            // TempData içinde SuccessMessage var mı kontrol et
             if (TempData.ContainsKey("SuccessMessageOne"))
             {
                 ViewBag.SuccessMessage = TempData["SuccessMessageOne"];
@@ -42,31 +39,22 @@ namespace ASP.WEBUI.Controllers
             {
                 var reservationFilter = new Reservation
                 {
-                    machineName = indexModel.machineName,
-                    projectName = indexModel.projectName,
-                    partName = indexModel.partName,
-                    startDate = indexModel.startDate,
-                    endDate = indexModel.endDate,
-                    startTime = indexModel.startTime,
-                    endTime = indexModel.endTime
+                    MachineName = indexModel.MachineName,
+                    ProjectName = indexModel.ProjectName,
+                    PartName = indexModel.PartName,
+                    StartDate = indexModel.StartDate,
+                    EndDate = indexModel.EndDate,
                 };
-
-                // Business katmanında bulunan bir servis metodu ile verileri filtrele
                 var filterReservations = _reservationService.GetAllRezervations(reservationFilter);
-                // Filtrelenmiş rezervasyonları model içine ekleyin
                 indexModel.Results = filterReservations;
             }
-
-            // Model geçerli değilse, aynı sayfayı tekrar göster
             return View(indexModel);
         }
 
-        //Randevu Oluşturma işlemleri
         [HttpGet]
         public IActionResult CreateReservation()
         {
-            //int requesterId = _registerService.GetCurrentUserId(); // bu şekilde mevcut kullanıcı alınıcak
-            var machines = _autoclaveService.GetValues();
+            var machines = _machineService.GetValues();
             var opCreateMachineModelDTO = new ReCreateReservationModelDTO { MachineNames = machines };
             return View(opCreateMachineModelDTO);
         }
@@ -75,16 +63,14 @@ namespace ASP.WEBUI.Controllers
         public IActionResult CreateReservation(ReCreateReservationModelDTO reservationModel)
         {
             var reservationMachineInfos = _reservationService.Add(reservationModel);
-
-            return View(reservationMachineInfos);
+            return RedirectToAction(nameof(Index));
         }
 
-        //Randevu Düzenleme İşlemleri
 
         [HttpGet]
         public IActionResult ManageReservation()
         {
-            var machines = _autoclaveService.GetValues();
+            var machines = _machineService.GetValues();
             var opManageMachineModelDTO = new ReManageReservationModelDTO { MachineNames = machines };
             return View(opManageMachineModelDTO);
         }

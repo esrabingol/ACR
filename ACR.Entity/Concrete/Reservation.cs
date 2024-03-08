@@ -1,41 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ACR.Entity.Concrete
+﻿namespace ACR.Entity.Concrete
 {
-    //Tamamlandı
-    public class Reservation
+    public class Reservation : BaseEntity
     {
-        public Reservation()
-        {
-            Status = new ReservationStatus(); // Varsayılan olarak bir ReservationStatus nesnesi oluştur
-        }
-
-        public int id { get; set; } //listeleme ve rezervasyonu çekme işleminde kolaylık sağlayacak.
-        public string projectName { get; set; }
-        public string machineName { get; set; }
-        public string partName { get; set; }
-        public string recipeCode { get; set; }
-        //datetime olmamalı??
-        public DateTime startDate { get; set; }
-        public DateTime endDate { get; set; }
-        public DateTime startTime { get; set; }
-        public DateTime endTime { get; set; }
-        public string? requestNote { get; set; } 
+        public string ProjectName { get; set; } = null!;
+        public string MachineName { get; set; } = null!;
+        public string PartName { get; set; } = null!;
+        public string RecipeCode { get; set; } = null!;
+        public DateTime StartDate { get; set; }
+        public DateTime EndDate { get; set; }
+        public string? RequestNote { get; set; }
+        public string? CancellationNote { get; set; }
 
         //Rezervasyon durumu kontrolü için
-        public ReservationStatus Status { get; set; } 
-
-        // Bir randevunun onaylayan operatörü temsil etmek için
-        public int? OperatorId { get; set; } //operator rezervasyon üzerinde değişiklik yapmak istediğinde ilgili operatörün id si gelicek.
-        public virtual  Users Operator { get; set; }
-
-        // Bir randevunun talep edeni temsil etmek için
-        public int RequesterId { get; set; } // sisteme giriş yapıp randevu oluşturmak istediğinde otomatik olarak hangi kullanıcının giriş yapıp oluşturmak istediği sisteme düşücek randevu ile beraber.
-        public virtual  Users Requester { get; set; }
+        public ReservationStatusType Status { get; set; }
+        //operator rezervasyon üzerinde değişiklik yapmak istediğinde ilgili operatörün id si gelicek.
+        public int? OperatorId { get; set; }
+        public virtual User Operator { get; set; }
+        // sisteme giriş yapıp randevu oluşturmak istediğinde otomatik olarak hangi kullanıcının giriş yapıp oluşturmak istediği sisteme düşücek randevu ile beraber.
+        public int RequesterId { get; set; }
+        public virtual User Requester { get; set; }
 
     }
 }

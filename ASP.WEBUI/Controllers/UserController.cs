@@ -30,7 +30,6 @@ namespace ASP.WEBUI.Controllers
 			var roles = _roleService.GetRoles();
 			var userRegisterModelDTO = new UserRegisterModelDTO { Roles = roles };
 			return View(userRegisterModelDTO);
-
 		}
 
 		[HttpPost]
@@ -46,7 +45,6 @@ namespace ASP.WEBUI.Controllers
 				ModelState.AddModelError("", "Kaydınız oluşturulamadı eksik kısımları tamamlayınız.");
 				return View(registerModel);
 			}
-
 		}
 
 
@@ -59,14 +57,25 @@ namespace ASP.WEBUI.Controllers
 		[HttpPost]
 		public async Task<IActionResult> UserLogin(UserLoginModelDTO loginModel)
 		{
-			var userLogin =  _registerService.FindUser(loginModel);
+            var userLogin = await _registerService.FindUser(loginModel);
+            var roleId = await _registerService.GetRoleIdByEmail(loginModel.MailAdress);
+            if (roleId.HasValue)
+            {
+                // RoleId'ye göre yönlendirme yapabilirsiniz
+                switch (roleId.Value)
+                {
+                    case 1:
+                        return RedirectToAction("Index", "Operator");
+                    case 2:
+                        return RedirectToAction("Index", "Requester");
+                    // Diğer roller için ek case'leri ekleyebilirsiniz
+                    default:
+                        return RedirectToAction("Index", "Home");
+                }
+            }
 
-			if (userLogin != null)
-			{
-				return RedirectToAction("Index", "Operator");
-			}
-			return View();
-
-		}
+            // Kullanıcı bulunamazsa, giriş sayfasını tekrar göster
+            return View();
+        }
 	}
 }

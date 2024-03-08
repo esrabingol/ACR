@@ -9,9 +9,8 @@ using System.Threading.Tasks;
 
 namespace ACR.DataAccess.Concrete.EntityFramework
 {
-    public class EfReservationDal : EfGenericRepository<Reservation, ACRContext>, IReservationDal
+    public class EfReservationDal : EfGenericRepository<Reservation>, IReservationDal
     {
-        ACRContext _context;
 		public EfReservationDal(ACRContext context) : base(context)
 		{
        

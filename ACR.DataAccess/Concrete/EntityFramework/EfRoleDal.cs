@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ACR.DataAccess.Concrete.EntityFramework
 {
-    public class EfRoleDal : EfGenericRepository<Role, ACRContext>, IRoleDal
+    public class EfRoleDal : EfGenericRepository<Role>, IRoleDal
     {
 		public EfRoleDal(ACRContext context) : base(context)
 		{

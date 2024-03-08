@@ -125,7 +125,7 @@
                         </a>
                     </div>
                     <label><strong>Makine Adı:</strong></label>
-                    <select asp-for="machineName" class="form-control" placeholder=" Seçimi">
+                    <select asp-for="MachineName" class="form-control" placeholder=" Seçimi">
                         <option value="" selected disabled>Seçiniz</option>
                         @if (Model.MachineNames != null)
                         {
@@ -136,37 +136,37 @@
                         }
                     </select>
   
-                    <label for="machineStatu">Makine Durumu:</label>
-                    <select id="machineStatu">
+                    <label for="MachineStatus">Makine Durumu:</label>
+                    <select id="MachineStatus">
                         <option value="">Aktif</option>
                         <option value="">Pasif</option>
                         <!-- Makine adlarını dinamik olarak ekleyin -->
                     </select>
 
-                    <label for="itemNo">Item No :</label>
-                    <input asp-for="itemNo" value="@Model.itemNo" class="form-control" placeholder="Item No giriniz." />
+                    <label for="ItemNo">Item No :</label>
+                    <input asp-for="ItemNo" value="@Model.ItemNo" class="form-control" placeholder="Item No giriniz." />
 
-                    <label for="tc">TC:</label>
-                    <input asp-for="tcNumber" value="@Model.tcNumber" class="form-control" placeholder="TC değerini giriniz." />
+                    <label for="TcNumber">TC:</label>
+                    <input asp-for="TcNumber" value="@Model.TcNumber" class="form-control" placeholder="TC değerini giriniz." />
 
-                    <label for="vp">VP:</label>
-                    <input asp-for="vpNumber" value="@Model.vpNumber" class="form-control" placeholder="VP değerini giriniz." />
+                    <label for="VpNumber">VP:</label>
+                    <input asp-for="VpNumber" value="@Model.VpNumber" class="form-control" placeholder="VP değerini giriniz." />
 
 
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <label class="form-label" for="StartDate">Bakım Başlangıç Tarihi:</label>
-                            <input asp-for="startDate" value="@Model.startDate" type="time" class="form-control" />
+                            <input asp-for="StartDate" value="@Model.StartDate" type="time" class="form-control" />
                         </div>
                         <div class="form-group col-md-6">
                             <label class="form-label" for="EndDate">Bakım Bitiş Tarihi:</label>
-                            <input asp-for="endDate" value="@Model.endDate" type="time" class="form-control" />
+                            <input asp-for="EndDate" value="@Model.EndDate" type="time" class="form-control" />
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label class="form-label" for="OperatorNote">Operator Notu:</label>
-                        <input asp-for="operatorNote" value="@Model.operatorNote" type="text" class="form-control" />
+                        <input asp-for="OperatorNote" value="@Model.OperatorNote" type="text" class="form-control" />
                     </div>
 
 

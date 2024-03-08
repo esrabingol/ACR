@@ -1,24 +1,18 @@
 ﻿using ACR.Entity.Concrete;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ACR.Business.Models
-{ //Tamamlandı
+{
     public class OpEditMachineModelDTO
     {
-        
-        public string machineName { get; set; }
-        public string machineStatu { get; set; }
-        public int itemNo { get; set; }
-        public int tcNumber { get; set; }
-        public int vpNumber { get; set; }
+        public string MachineName { get; set; } = null!;
+		public string MachineStatus { get; set; } = null!;
+		public int ItemNo { get; set; }
+        public int TcNumber { get; set; }
+        public int VpNumber { get; set; }
         //Bakımda olduğu zaman aralığı girilebilicek
-        public DateTime? startDate { get; set; } 
-        public DateTime? endDate { get; set; }
-        public string? operatorNote { get; set; }
-        public IEnumerable<Autoclave> MachineNames { get; set; }
-    }
+        public DateTime? StartDate { get; set; } 
+        public DateTime? EndDate { get; set; }
+        public string? OperatorNote { get; set; }
+        public IEnumerable<Machine> MachineNames { get; set; } = null!;
+	}
 }

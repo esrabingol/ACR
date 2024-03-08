@@ -3,28 +3,25 @@ using ACR.Business.Models;
 using ACR.Entity.Concrete;
 using ASP.WEBUI.Models;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.ApplicationModels;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using System.Reflection.PortableExecutable;
 
 namespace ASP.WEBUI.Controllers
 {
-	public class OperatorController : Controller
-	{
-		private IAutoclaveService _autoclaveService;
-		private IReservationService _reservationService;
+    public class OperatorController : Controller
+    {
+        private IMachineService _machineService;
+        private IReservationService _reservationService;
 
-		public OperatorController(IAutoclaveService autoclaveService, IReservationService reservationService)
-		{
-			_autoclaveService = autoclaveService;
-			_reservationService = reservationService;	
-		}
+        public OperatorController(IMachineService machineService, IReservationService reservationService)
+        {
+            _machineService = machineService;
+            _reservationService = reservationService;
+        }
 
-		//Operator anasayfa işlemleri
-		public IActionResult Index()
-		{
-			return View(new OpIndexModel());
-		}
+        //Operator anasayfa işlemleri
+        public IActionResult Index()
+        {
+            return View(new OpIndexModel());
+        }
 
         [HttpPost]
         public IActionResult Index(OpIndexModel indexModel)
@@ -33,100 +30,79 @@ namespace ASP.WEBUI.Controllers
             {
                 var reservationFilter = new Reservation
                 {
-                    machineName = indexModel.machineName,
-                    projectName = indexModel.projectName,
-                    partName = indexModel.partName,
-                    startDate = indexModel.startDate,
-                    endDate = indexModel.endDate,
-                    startTime = indexModel.startTime,
-                    endTime = indexModel.endTime
+                    MachineName = indexModel.machineName,
+                    ProjectName = indexModel.projectName,
+                    PartName = indexModel.partName,
+                    StartDate = indexModel.startDate,
+                    EndDate = indexModel.endDate,
                 };
-              
-                // Business katmanında bulunan bir servis metodu ile verileri filtrele
                 var filterReservations = _reservationService.GetAllRezervations(reservationFilter);
-                // Filtrelenmiş rezervasyonları model içine ekleyin
                 indexModel.Results = filterReservations;
             }
-
-            // Model geçerli değilse, aynı sayfayı tekrar göster
             return View(indexModel);
         }
 
         [HttpGet]
         public IActionResult ViewMachineInfo()
         {
-            var machines = _autoclaveService.GetValues();
+            var machines = _machineService.GetValues();
             var opMachineFilterModelDTO = new OpMachineFilterModelDTO { MachineNames = machines };
             return View(opMachineFilterModelDTO);
         }
 
         //Makine Bilgilerini Görüntüleme İşlemleri
         [HttpPost]
-		public IActionResult ViewMachineInfo(OpMachineFilterModelDTO opMachineFilterModel)
-		{
-            // Filtreleme işlemini gerçekleştir
-            var filteredMachineInfos = _autoclaveService.GetFilteredValues(opMachineFilterModel);
-
-            // View'e filtrelenmiş bilgileri gönder
+        public IActionResult ViewMachineInfo(OpMachineFilterModelDTO opMachineFilterModel)
+        {
+            var filteredMachineInfos = _machineService.GetFilteredValues(opMachineFilterModel);
             var opMachineFilterModelDTO = new OpMachineFilterModelDTO
             {
-                MachineNames = _autoclaveService.GetValues(), // Tüm makine isimlerini al
-                MachineInfos = filteredMachineInfos // Filtrelenmiş bilgileri gönder
+                MachineNames = _machineService.GetValues(),
+                MachineInfos = filteredMachineInfos
             };
-
             return View(opMachineFilterModelDTO);
-
         }
 
 
         [HttpGet]
         public IActionResult EditMachineInfo()
         {
-            var machines = _autoclaveService.GetValues();
+            var machines = _machineService.GetValues();
             var opEditMachineModelDTO = new OpEditMachineModelDTO { MachineNames = machines };
             return View(opEditMachineModelDTO);
         }
 
-        //Makine Bilgileri Düzenleme İşlemleri
         [HttpPost]
-		public IActionResult EditMachineInfo(OpEditMachineModelDTO editMachine)
-		{
-			    var updateAutoclave = _autoclaveService.UpdateMachineInfo(editMachine);
-                ViewBag.FilteredAutoclaves = updateAutoclave;
-                return RedirectToAction("Index");
-		}
+        public IActionResult EditMachineInfo(OpEditMachineModelDTO editMachine)
+        {
+            var updateAutoclave = _machineService.UpdateMachineInfo(editMachine);
+            ViewBag.FilteredAutoclaves = updateAutoclave;
+            return RedirectToAction("Index");
+        }
 
         [HttpGet]
         public IActionResult ManageReservation()
         {
-            //admin ürün ekleme sayfasını görüntüleyecek
             return View(new OpReservationFilterModel());
         }
 
-        //Rezervasyon Düzenleme İşlemi
         [HttpPost]
-		public IActionResult ManageReservation(OpReservationFilterModel opReservationFilter)
-		{
-		   if(ModelState.IsValid)
-			{
-				var reservationFilter = new Reservation
-				{
-					machineName = opReservationFilter.machineName,
-					projectName = opReservationFilter.projectName,
-					partName = opReservationFilter.partName,
-					startDate= opReservationFilter.startDate,
-					endDate = opReservationFilter.endDate,
-					startTime = opReservationFilter.startTime,
-					endTime= opReservationFilter.endTime
-				};
-
-				var filterReservation = _reservationService.GetAllRezervations(reservationFilter);
+        public IActionResult ManageReservation(OpReservationFilterModel opReservationFilter)
+        {
+            if (ModelState.IsValid)
+            {
+                var reservationFilter = new Reservation
+                {
+                    MachineName = opReservationFilter.MachineName,
+                    ProjectName = opReservationFilter.ProjectName,
+                    PartName = opReservationFilter.PartName,
+                    StartDate = opReservationFilter.StartDate,
+                    EndDate = opReservationFilter.EndDate,
+                };
+                var filterReservation = _reservationService.GetAllRezervations(reservationFilter);
                 ViewBag.FilteredReservations = filterReservation;
             }
-
             return View();
-		}
-
-
+        }
     }
 }

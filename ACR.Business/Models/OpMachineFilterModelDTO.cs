@@ -17,7 +17,7 @@ namespace ACR.Business.Models
         public DateTime? endDate { get; set; }
         public DateTime? startDate { get; set; }
         public string? operatorNote { get; set; }
-        public IEnumerable<Autoclave> MachineNames { get; set; }
-        public List<Autoclave> MachineInfos { get; set; }
+        public IEnumerable<Machine> MachineNames { get; set; }
+        public List<Machine> MachineInfos { get; set; }
     }
 }

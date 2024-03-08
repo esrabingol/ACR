@@ -12,12 +12,12 @@ namespace ACR.Business.Abstract
 {
     public interface IRegisterService
     {
-		Task<Users> Add(UserRegisterModelDTO register);
-		Users Update(Users register);
-        void Delete(Users register);
-		bool PasswordSignIn(string userEmail, string userPassword, int roleId);
-		Task<Users> FindUser(UserLoginModelDTO loginModel);
+		Task<User> Add(UserRegisterModelDTO register);
+		User Update(User register);
+        void Delete(User register);
+		bool PasswordSignIn(string userEmail, string userPassword,int roleId);
+		Task<User> FindUser(UserLoginModelDTO loginModel);
+        Task<int?> GetRoleIdByEmail(string email);
 
-
-	}
+    }
 }

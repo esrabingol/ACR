@@ -15,9 +15,7 @@ namespace ACR.Business.Concrete
     public class ReservationManager : IReservationService
     {
         private IReservationDal _reservationDal;
-        private IAutoclaveDal _autoclaveDal;
-
-        public ReservationManager( IReservationDal reservationDal)
+        public ReservationManager(IReservationDal reservationDal)
         {
             _reservationDal = reservationDal;
         }
@@ -27,95 +25,78 @@ namespace ACR.Business.Concrete
             var reservationAdd = new Reservation
             {
 
-                machineName = reReservationFilterModel.machineName,
-                projectName = reReservationFilterModel.projectName,
-                partName = reReservationFilterModel.partName,
-                recipeCode = reReservationFilterModel.recipeCode,
-                requestNote = reReservationFilterModel.requestNote,
-                startDate = reReservationFilterModel.startDate,
-                endDate = reReservationFilterModel.endDate,
-                startTime = reReservationFilterModel.startTime,
-                endTime = reReservationFilterModel.endTime,
-                //RequesterId = requesterId // bu şekilde alan dolucak
+                MachineName = reReservationFilterModel.MachineName,
+                ProjectName = reReservationFilterModel.ProjectName,
+                PartName = reReservationFilterModel.PartName,
+                RecipeCode = reReservationFilterModel.RecipeCode,
+                RequestNote = reReservationFilterModel.RequestNote,
+                StartDate = reReservationFilterModel.StartDate,
+                EndDate = reReservationFilterModel.EndDate,
             };
 
-            return _reservationDal.AddReservation(reservationAdd);
-        }
+            var a = _reservationDal.AddReservation(reservationAdd);
 
+            return a;
+        }
         public void Delete(Reservation rezervation)
         {
             _reservationDal.Delete(rezervation);
         }
-
         public List<Reservation> GetAllRezervations(Reservation reservation)
         {
-  
+
             var reservations = _reservationDal.GetAll();
 
-       
-            if (!string.IsNullOrWhiteSpace(reservation.machineName))
+            if (!string.IsNullOrWhiteSpace(reservation.MachineName))
             {
-                reservations = reservations.Where(r => r.machineName == reservation.machineName).ToList();
+                reservations = reservations.Where(r => r.MachineName == reservation.MachineName).ToList();
             }
 
-            if (!string.IsNullOrWhiteSpace(reservation.projectName))
+            if (!string.IsNullOrWhiteSpace(reservation.ProjectName))
             {
-                reservations = reservations.Where(r => r.projectName == reservation.projectName).ToList();
+                reservations = reservations.Where(r => r.ProjectName == reservation.ProjectName).ToList();
             }
-            if (!string.IsNullOrWhiteSpace(reservation.partName))
+            if (!string.IsNullOrWhiteSpace(reservation.PartName))
             {
-                reservations = reservations.Where(r => r.partName == reservation.partName).ToList();
-            }
-
-            if (!string.IsNullOrWhiteSpace(reservation.recipeCode))
-            {
-                reservations = reservations.Where(r => r.recipeCode == reservation.recipeCode).ToList();
+                reservations = reservations.Where(r => r.PartName == reservation.PartName).ToList();
             }
 
-            if (reservation.startDate != default(DateTime))
+            if (!string.IsNullOrWhiteSpace(reservation.RecipeCode))
             {
-                reservations = reservations.Where(r => r.startDate == reservation.startDate).ToList();
+                reservations = reservations.Where(r => r.RecipeCode == reservation.RecipeCode).ToList();
             }
 
-            if (reservation.endDate != default(DateTime))
+            if (reservation.StartDate != default(DateTime))
             {
-                reservations = reservations.Where(r => r.endDate == reservation.endDate).ToList();
+                reservations = reservations.Where(r => r.StartDate == reservation.StartDate).ToList();
             }
 
-            if (reservation.startTime != default(DateTime))
+            if (reservation.EndDate != default(DateTime))
             {
-                reservations = reservations.Where(r => r.startTime == reservation.startTime).ToList();
+                reservations = reservations.Where(r => r.EndDate == reservation.EndDate).ToList();
             }
 
-            if (reservation.endTime != default(DateTime))
-            {
-                reservations = reservations.Where(r => r.endTime == reservation.endTime).ToList();
-            }
             return reservations.ToList();
         }
-
         public Reservation GetRezervationById(int reservationId)
         {
             var reservation = _reservationDal.GetById(reservationId);
-            if(reservation== null) 
+            if (reservation == null)
             {
                 throw new Exception($"ID'si {reservationId} olan Autoclave bulunamadı.");
             }
             return reservation;
         }
-
         public Reservation UpdateReservation(ReManageReservationModelDTO reReservationUpdateModel)
         {
             var reservationUpdate = new Reservation
             {
-                machineName = reReservationUpdateModel.machineName,
-                projectName = reReservationUpdateModel.projectName,
-                recipeCode = reReservationUpdateModel.recipeCode,
-                requestNote = reReservationUpdateModel.requestNote,
-                startDate = reReservationUpdateModel.startDate,
-                endDate = reReservationUpdateModel.endDate,
-                startTime = reReservationUpdateModel.startTime,
-                endTime = reReservationUpdateModel.endTime
+                MachineName = reReservationUpdateModel.MachineName,
+                ProjectName = reReservationUpdateModel.ProjectName,
+                RecipeCode = reReservationUpdateModel.RecipeCode,
+                RequestNote = reReservationUpdateModel.RequestNote,
+                StartDate = reReservationUpdateModel.StartDate,
+                EndDate = reReservationUpdateModel.EndDate,
             };
             return _reservationDal.UpdateReservation(reservationUpdate);
         }

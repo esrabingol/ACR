@@ -75,7 +75,7 @@
         <form asp-controller="Requester" asp-action="ManageReservation" method="post">
             <div class="form-group">
                    <label><strong>Makine Adı:</strong></label>
-                <select asp-for="machineName" class="form-control" placeholder=" Seçimi">
+                <select asp-for="MachineName" class="form-control" placeholder=" Seçimi">
                     <option value="" selected disabled>Seçiniz</option>
                     @if (Model.MachineNames != null)
                     {
