@@ -39,15 +39,11 @@ namespace ASP.WEBUI.Controllers
 		}
 
 		[HttpPost]
-		public IActionResult ViewMachineInfo(OpMachineFilterModelDTO opMachineFilterModel)
+		public IActionResult ViewMachineInfo(OpMachineFilterModelDTO viewMachine)
 		{
-			var filteredMachineInfos = _machineService.GetFilteredValues(opMachineFilterModel);
-			var opMachineFilterModelDTO = new OpMachineFilterModelDTO
-			{
-				MachineNames = _machineService.GetValues(),
-				MachineInfos = filteredMachineInfos
-			};
-			return View(opMachineFilterModelDTO);
+			var filteredMachines = _machineService.GetFilteredValues(viewMachine);
+			viewMachine.Results = filteredMachines;
+			return View(viewMachine);
 		}
 
 		[HttpGet]

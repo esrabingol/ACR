@@ -59,37 +59,7 @@
 			<button type="button" class="btn btn-outline-warning" onclick="redirectTo('@Url.Action("ManageReservation", "Operator")')">Randevu İşlemleri</button>
 			<button type="button" class="btn btn-outline-danger">Temizle</button>
 		</div>
-		<div class="table-container">
-			<table class="table">
-				<thead>
-					<tr>
-						<th>Makine Adı</th>
-						<th>Proje Adı</th>
-						<th>Parça Adı</th>
-						<th>Reçete Kodu</th>
-						<th>Başlangıç Tarihi</th>
-						<th>Bitiş Tarihi</th>
-						<th>Talep Eden Notu</th>
-						<th>Talep Eden</th>
-					</tr>
-				</thead>
-				<tbody>
-					@foreach (var result in Model.Results)
-					{
-						<tr>
-							<td>@result.MachineName</td>
-							<td>@result.ProjectName</td>
-							<td>@result.PartName</td>
-							<td>@result.RecipeCode</td>
-							<td>@result.StartDate.ToString("yyyy-MM-dd HH:mm")</td>
-							<td>@result.EndDate.ToString("yyyy-MM-dd HH:mm")</td>
-							<td>@result.RequestNote</td>
-							@*			<td>@result.Requester.Name @result.Requester.Surname</td>*@
-						</tr>
-					}
-				</tbody>
-			</table>
-		</div>
+	
 		<div>
 		</div>
 		<script>
@@ -100,6 +70,37 @@
 		</script>
 
 
+	</div>
+	<div class="table-container">
+		<table class="table">
+			<thead>
+				<tr>
+					<th>Makine Adı</th>
+					<th>Proje Adı</th>
+					<th>Parça Adı</th>
+					<th>Reçete Kodu</th>
+					<th>Başlangıç Tarihi</th>
+					<th>Bitiş Tarihi</th>
+					<th>Talep Eden Notu</th>
+					<th>Talep Eden</th>
+				</tr>
+			</thead>
+			<tbody>
+				@foreach (var result in Model.Results)
+				{
+					<tr>
+						<td>@result.MachineName</td>
+						<td>@result.ProjectName</td>
+						<td>@result.PartName</td>
+						<td>@result.RecipeCode</td>
+						<td>@result.StartDate.ToString("yyyy-MM-dd HH:mm")</td>
+						<td>@result.EndDate.ToString("yyyy-MM-dd HH:mm")</td>
+						<td>@result.RequestNote</td>
+						@*			<td>@result.Requester.Name @result.Requester.Surname</td>*@
+					</tr>
+				}
+			</tbody>
+		</table>
 	</div>
 	</body>
 

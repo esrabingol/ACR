@@ -9,7 +9,7 @@ namespace ACR.Business.Abstract
         Machine UpdateMachineInfo(OpEditMachineModelDTO editMachine);
         void Delete(Machine autoclave);
         Machine GetById(int Id);
-        List<Machine> GetFilteredValues(OpMachineFilterModelDTO opMachineFilterModel);
+        List<Machine> GetFilteredValues(OpMachineFilterModelDTO viewMachine);
         IEnumerable<Machine> GetValues();
     }
 }

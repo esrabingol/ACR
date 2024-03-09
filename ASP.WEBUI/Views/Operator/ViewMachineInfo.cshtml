@@ -1,121 +1,126 @@
 ﻿@using ACR.Business.Models;
 @model OpMachineFilterModelDTO
 @{
-    ViewData["Title"] = "ViewMachineInfo";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+	ViewData["Title"] = "ViewMachineInfo";
+	Layout = "~/Views/Shared/_Layout.cshtml";
 }
-@*makine işlemleri sekmesi*@
 <!DOCTYPE html>
 <html lang="tr">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	<link href="~/css/viewmachineinfo.css" rel="stylesheet" />
 </head>
 
 <body>
-    <div class="main-container">
-        <div class="filter-section">
-            <form asp-controller="Operator" asp-action="ViewMachineInfo" method="post">
-                <div class="filter-options">
-                    <div class="d-flex justify-content-between align-items-center mb-3">
-                        <a href=@Url.Action("Index","Operator")>
-                            <span class="glyphicon glyphicon-circle-arrow-left" style="font-size: 24px;"></span>
-                        </a>
-                    </div>
-                    <label for="machineName">Makine Adı:</label>
-                    <select asp-for="machineName" class="form-control" placeholder=" Seçimi">
-                        <option value="" selected disabled>Seçiniz</option>
-                        @if (Model.MachineNames != null)
-                        {
-                            foreach (var item in Model.MachineNames)
-                            {
-                                <option>@item.MachineName</option>
-                            }
-                        }
-                    </select>
+	<div class="main-container">
+		<div class="filter-section">
+			<form asp-controller="Operator" asp-action="ViewMachineInfo" method="post">
+				<div class="filter-options">
+					<div class="d-flex justify-content-between align-items-center mb-3">
+						<a href=@Url.Action("Index","Operator")>
+							<span class="glyphicon glyphicon-circle-arrow-left" style="font-size: 24px;"></span>
+						</a>
+					</div>
+					<label for="machineName">Makine Adı:</label>
+					<select asp-for="MachineName" class="form-control" placeholder=" Seçimi">
+						<option value="" selected disabled>Seçiniz</option>
+						@if (Model.MachineNames != null)
+						{
+							foreach (var item in Model.MachineNames)
+							{
+								<option>@item.MachineName</option>
+							}
+						}
+					</select>
 
-                    <label for="machineStatu">Makine Durumu:</label>
-                    <select asp-for="machineStatu" class="form-control" placeholder="Makine Durumu Seçimi">
-                        <option value="" selected disabled>Seçiniz</option>
-                        <option value="Aktif">AKTİF</option>
-                        <option value="Pasif">PASİF</option>
-                      </select>
+					<label for="machineStatu">Makine Durumu:</label>
+					<select asp-for="MachineStatu" class="form-control" placeholder="Makine Durumu Seçimi">
+						<option value="" selected disabled>Seçiniz</option>
+						<option value="Aktif">AKTİF</option>
+						<option value="Pasif">PASİF</option>
+					</select>
 
-                    <label for="itemNo">Item No :</label>
-                    <input asp-for="itemNo" value="@Model.itemNo"  class="form-control" placeholder="Item No giriniz." />
+					<label for="ItemNo">Item No :</label>
+					<input asp-for="ItemNo" value="@Model.ItemNo" class="form-control" placeholder="Item No giriniz." />
 
-                    <label for="tc">TC:</label>
-                    <input asp-for="tc" value="@Model.tc" class="form-control" placeholder="TC değerini giriniz." />
+					<label for="Tc">TC:</label>
+					<input asp-for="Tc" value="@Model.Tc" class="form-control" placeholder="TC değerini giriniz." />
 
-                    <label for="vp">VP:</label>
-                    <input asp-for="vp" value="@Model.vp" class="form-control" placeholder="VP değerini giriniz." />
-                </div>
-                <div class="buttons-section">
-                    <button type="submit" class="btn btn-outline-primary">Makine Ara</button>
-                </div>
-            </form>
+					<label for="Vp">VP:</label>
+					<input asp-for="Vp" value="@Model.Vp" class="form-control" placeholder="VP değerini giriniz." />
 
-        </div>
-        <div class="results-section">
-            <div class="top-buttons">
-                <button type="button" class="btn btn-outline-secondary">Bilgi Getir</button>
-                <button type="button" class="btn btn-outline-success" onclick="redirectTo('@Url.Action("EditMachineInfo", "Operator")')">Düzenle</button>
-                <button type="button" class="btn btn-outline-warning" onclick="clearFilters()">Temizle</button>
-            </div>
-            <table class="table table-bordered table-striped">
-                <thead>
-                    <tr>
-                        <th>Makine Adı</th>
-                        <th>Makine Durumu</th>
-                        <th>Item No</th>
-                        <th>TC</th>
-                        <th>VP</th>
-                        <th>Start Date</th>
-                        <th>End Date</th>
-                        <th>Operator Note</th>
-                    </tr>
-                </thead>
-                <tbody>
-              @*              @foreach (var machineInfo in Model.MachineInfos)
-                    {
-                        <tr>
-                            <td>@machineInfo.MachineName</td>
-                            <td>@machineInfo.MachineStatu</td>
-                            <td>@machineInfo.ItemNo</td>
-                            <td>@machineInfo.TcNumber</td>
-                            <td>@machineInfo.VpNumber</td>
-                            <td>@machineInfo.StartDate</td>
-                            <td>@machineInfo.EndDate</td>
-                            <td>@machineInfo.OperatorNote</td>
-                        </tr>
-                    }*@
-                </tbody>
-            </table>
-            <div>
-            </div>
-        </div>
-    </div>
+					<label for="StartDate">Bakım Başlangıç Tarihi:</label>
+					<input asp-for="StartDate" value="@Model.StartDate" type="datetime-local" class="form-control" />
 
-    <script>
-        function redirectTo(url) {
-            window.location.href = url;
-        }
-        function clearFilters() {
-            // Filtreleme alanlarını temizle
-            document.getElementById('machineName').value = '';
-            document.getElementById('machineStatu').value = '';
-            document.getElementById('itemNo').value = '';
-            document.getElementById('tc').value = '';
-            document.getElementById('vp').value = '';
-        }
+					<label for="EndDate">Bakım Bitiş Tarihi:</label>
+					<input asp-for="EndDate" value="@Model.EndDate" type="datetime-local" class="form-control" />
+				</div>
+				<div class="buttons-section">
+					<button type="submit" class="btn btn-outline-primary">Makine Ara</button>
+				</div>
+			</form>
 
-    </script>
+		</div>
+		<div class="results-section">
+			<div class="top-buttons">
+				<button type="button" class="btn btn-outline-secondary">Bilgi Getir</button>
+				<button type="button" class="btn btn-outline-success" onclick="redirectTo('@Url.Action("EditMachineInfo", "Operator")')">Düzenle</button>
+				<button type="button" class="btn btn-outline-warning" onclick="clearFilters()">Temizle</button>
+			</div>
+			<div>
+			</div>
+		</div>
+		<div class="table-container">
+			<table class="table">
+				<thead>
+					<tr>
+						<th>Makine Adı</th>
+						<th>Makine Durumu</th>
+						<th>Item No</th>
+						<th>Tc Numarası</th>
+						<th>Vp Numarası</th>
+						<th>Başlangıç Tarihi</th>
+						<th>Bitiş Tarihi</th>
+						<th>Operator Notu</th>
+					</tr>
+				</thead>
+				<tbody>
+					@foreach (var result in Model.Results)
+					{
+						<tr>
+							<td>@result.MachineName</td>
+							<td>@result.MachineStatus</td>
+							<td>@result.ItemNo</td>
+							<td>@result.TcNumber</td>
+@*							<td>@result.StartDate.ToString("yyyy-MM-dd HH:mm")</td>
+							<td>@result.EndDate.ToString("yyyy-MM-dd HH:mm")</td>*@
+							<td>@result.OperatorNote</td>
+						</tr>
+					}
+				</tbody>
+			</table>
+		</div>
+	</div>
+
+	<script>
+		function redirectTo(url) {
+			window.location.href = url;
+		}
+		function clearFilters() {
+			document.getElementById('machineName').value = '';
+			document.getElementById('machineStatu').value = '';
+			document.getElementById('itemNo').value = '';
+			document.getElementById('tc').value = '';
+			document.getElementById('vp').value = '';
+		}
+
+	</script>
 </body>
 
 </html>

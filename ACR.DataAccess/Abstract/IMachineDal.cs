@@ -4,9 +4,8 @@ namespace ACR.DataAccess.Abstract
 {
     public interface IMachineDal : IRepository<Machine>
     {
-        public List<Machine> GetListByCategoryId(int categoryId);
-        List<Machine> FindFilterResult(Machine autoclave);
-        IEnumerable<string> GetMachineNames();
+        List<Machine> GetByMachineFiltered(List<Func<Machine, bool>> filters);
+		IEnumerable<string> GetMachineNames();
         Machine UpdateMachine(Machine autoclave);
     }
 }
