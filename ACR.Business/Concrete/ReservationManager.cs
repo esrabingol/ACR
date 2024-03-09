@@ -2,7 +2,6 @@
 using ACR.Business.Models;
 using ACR.DataAccess.Abstract;
 using ACR.Entity.Concrete;
-using System.Net.Http;
 
 namespace ACR.Business.Concrete
 {
@@ -38,41 +37,90 @@ namespace ACR.Business.Concrete
 		{
 			_reservationDal.Delete(rezervation);
 		}
-		public List<Reservation> GetAllRezervations(Reservation reservation)
+
+		public List<Reservation> GetAllRezervationsOperator(OpIndexModelDTO indexModel)
 		{
-
-			var reservations = _reservationDal.GetAll();
-
-			if (!string.IsNullOrWhiteSpace(reservation.MachineName))
+			var reservationFilter = new Reservation
 			{
-				reservations = reservations.Where(r => r.MachineName == reservation.MachineName).ToList();
-			}
+				MachineName = indexModel.MachineName,
+				ProjectName = indexModel.ProjectName,
+				RecipeCode = indexModel.RecipeCode,
+				PartName = indexModel.PartName,
+				RequestNote = indexModel.RequestNote,
+				StartDate = indexModel.StartDate,
+				EndDate = indexModel.EndDate,
+			};
 
-			if (!string.IsNullOrWhiteSpace(reservation.ProjectName))
-			{
-				reservations = reservations.Where(r => r.ProjectName == reservation.ProjectName).ToList();
-			}
-			if (!string.IsNullOrWhiteSpace(reservation.PartName))
-			{
-				reservations = reservations.Where(r => r.PartName == reservation.PartName).ToList();
-			}
+			var filters = new List<Func<Reservation, bool>>();
 
-			if (!string.IsNullOrWhiteSpace(reservation.RecipeCode))
-			{
-				reservations = reservations.Where(r => r.RecipeCode == reservation.RecipeCode).ToList();
-			}
+			if (!string.IsNullOrWhiteSpace(reservationFilter.MachineName))
+				filters.Add(r => r.MachineName == reservationFilter.MachineName);
 
-			if (reservation.StartDate != default(DateTime))
-			{
-				reservations = reservations.Where(r => r.StartDate == reservation.StartDate).ToList();
-			}
+			if (!string.IsNullOrWhiteSpace(reservationFilter.ProjectName))
+				filters.Add(r => r.ProjectName == reservationFilter.ProjectName);
 
-			if (reservation.EndDate != default(DateTime))
-			{
-				reservations = reservations.Where(r => r.EndDate == reservation.EndDate).ToList();
-			}
+			if (!string.IsNullOrWhiteSpace(reservationFilter.PartName))
+				filters.Add(r => r.PartName == reservationFilter.PartName);
 
-			return reservations.ToList();
+			if (!string.IsNullOrWhiteSpace(reservationFilter.RecipeCode))
+				filters.Add(r => r.RecipeCode == reservationFilter.RecipeCode);
+
+			if (reservationFilter.StartDate != default(DateTime))
+				filters.Add(r => r.StartDate == reservationFilter.StartDate);
+
+			if (reservationFilter.EndDate != default(DateTime))
+				filters.Add(r => r.EndDate == reservationFilter.EndDate);
+
+			var filteredReservations = _reservationDal.GetByFiltered(filters);
+
+			var viewModel = new ReIndexModelDTO
+			{
+				Results = filteredReservations,
+			};
+
+			return viewModel.Results;
+		}
+
+		public List<Reservation> GetAllRezervationsRequester(ReIndexModelDTO indexModel)
+		{
+			var reservationFilter = new Reservation
+			{
+				MachineName = indexModel.MachineName,
+				ProjectName = indexModel.ProjectName,
+				RecipeCode = indexModel.RecipeCode,
+				PartName = indexModel.PartName,
+				StartDate = indexModel.StartDate,
+				EndDate = indexModel.EndDate,
+			};
+
+			var filters = new List<Func<Reservation, bool>>();
+
+			if (!string.IsNullOrWhiteSpace(reservationFilter.MachineName))
+				filters.Add(r => r.MachineName == reservationFilter.MachineName);
+
+			if (!string.IsNullOrWhiteSpace(reservationFilter.ProjectName))
+				filters.Add(r => r.ProjectName == reservationFilter.ProjectName);
+
+			if (!string.IsNullOrWhiteSpace(reservationFilter.PartName))
+				filters.Add(r => r.PartName == reservationFilter.PartName);
+
+			if (!string.IsNullOrWhiteSpace(reservationFilter.RecipeCode))
+				filters.Add(r => r.RecipeCode == reservationFilter.RecipeCode);
+
+			if (reservationFilter.StartDate != default(DateTime))
+				filters.Add(r => r.StartDate == reservationFilter.StartDate);
+
+			if (reservationFilter.EndDate != default(DateTime))
+				filters.Add(r => r.EndDate == reservationFilter.EndDate);
+
+			var filteredReservations = _reservationDal.GetByFiltered(filters);
+
+			var viewModel = new ReIndexModelDTO
+			{
+				Results = filteredReservations,
+			};
+
+			return viewModel.Results;
 		}
 		public Reservation GetRezervationById(int reservationId)
 		{

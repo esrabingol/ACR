@@ -1,5 +1,5 @@
-﻿@using ASP.WEBUI.Models;
-@model OpIndexModel
+﻿@using ACR.Business.Models;
+@model OpIndexModelDTO
 @{
 	ViewData["Title"] = "Index";
 	Layout = "~/Views/Shared/_Layout.cshtml";
@@ -10,65 +10,94 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Randevu Filtreleme Ekranı</title>
-	<link href="~/css/opindex.css" rel="stylesheet"/>
+	<link href="~/css/opindex.css" rel="stylesheet" />
 </head>
 
 <body>
 	<div class="main-container">
-		<div class="filter-section">
+		<form asp-controller="Operator" asp-action="Index" method="post">
+			<div class="filter-section">
+				<div class="filter-options">
+					<label><strong>Makine Adı:</strong></label>
+					<select asp-for="MachineName" class="form-control" placeholder="Makine Seçimi">
+						<option value="" selected disabled>Seçiniz</option>
+						@if (Model.MachineNames != null)
+						{
+							foreach (var item in Model.MachineNames)
+							{
+								<option>@item.MachineName</option>
+							}
+						}
+					</select>
 
-			<div class="filter-options">
-				<label for="machineName">Makine Adı:</label>
-				<select id="machineName">
-					@*       @foreach (var machineName in ViewBag.MachineNames)
+					<label for="projectName">Proje Adı:</label>
+					<input asp-for="ProjectName" value="@Model.ProjectName" type="text" class="form-control" />
+
+					<label for="partName">Parça Adı:</label>
+					<input asp-for="PartName" value="@Model.PartName" type="text" class="form-control" />
+
+					<label for="recipeCode">Reçete Kodu:</label>
+					<input asp-for="RecipeCode" value="@Model.RecipeCode" type="text" class="form-control" />
+
+					<label for="startDate">Başlangıç Tarihi:</label>
+					<input asp-for="StartDate" value="@Model.StartDate" type="datetime-local" class="form-control" />
+
+					<label for="endDate">Bitiş Tarihi:</label>
+					<input asp-for="EndDate" value="@Model.EndDate" type="datetime-local" class="form-control" />
+
+				</div>
+				<div class="buttons-section">
+					<button type="submit" class="btn btn-outline-primary">Randevu Ara</button>
+				</div>
+			</div>
+		</form>
+	</div>
+	<div class="results-section">
+		<div class="top-buttons">
+			<button type="button" class="btn btn-outline-secondary">Bilgi Getir</button>
+			<button type="button" class="btn btn-outline-success" onclick="redirectTo('@Url.Action("ViewMachineInfo", "Operator")')">Makine İşlemleri</button>
+			<button type="button" class="btn btn-outline-warning" onclick="redirectTo('@Url.Action("ManageReservation", "Operator")')">Randevu İşlemleri</button>
+			<button type="button" class="btn btn-outline-danger">Temizle</button>
+		</div>
+		<div class="table-container">
+			<table class="table">
+				<thead>
+					<tr>
+						<th>Makine Adı</th>
+						<th>Proje Adı</th>
+						<th>Parça Adı</th>
+						<th>Reçete Kodu</th>
+						<th>Başlangıç Tarihi</th>
+						<th>Bitiş Tarihi</th>
+						<th>Talep Eden Notu</th>
+						<th>Talep Eden</th>
+					</tr>
+				</thead>
+				<tbody>
+					@foreach (var result in Model.Results)
 					{
-					<option value="@machineName">@machineName</option>
-					}*@
-				</select>
-
-				<label for="projectName">Proje Adı:</label>
-				<input type="text" id="projectName">
-
-				<label for="partName">Parça Adı:</label>
-				<input type="text" id="partName">
-
-				<label for="recipeCode">Reçete Kodu:</label>
-				<input type="text" id="recipeCode">
-
-				<label for="startDate">Başlangıç Tarihi:</label>
-				<input type="date" id="startDate">
-
-				<label for="endDate">Bitiş Tarihi:</label>
-				<input type="date" id="endDate">
-
-				<label for="startTime">Başlangıç Saati:</label>
-				<input type="time" id="startTime">
-
-				<label for="endTime">Bitiş Saati:</label>
-				<input type="time" id="endTime">
-			</div>
-			<div class="buttons-section">
-				<button type="button" class="btn btn-outline-primary" onclick="filterAppointments()">Randevu Ara</button>
-			</div>
+						<tr>
+							<td>@result.MachineName</td>
+							<td>@result.ProjectName</td>
+							<td>@result.PartName</td>
+							<td>@result.RecipeCode</td>
+							<td>@result.StartDate.ToString("yyyy-MM-dd HH:mm")</td>
+							<td>@result.EndDate.ToString("yyyy-MM-dd HH:mm")</td>
+							<td>@result.RequestNote</td>
+							@*			<td>@result.Requester.Name @result.Requester.Surname</td>*@
+						</tr>
+					}
+				</tbody>
+			</table>
 		</div>
+		<div>
 		</div>
-		<div class="results-section">
-			<div class="top-buttons">
-				<button type="button" class="btn btn-outline-secondary">Bilgi Getir</button>
-				<button type="button" class="btn btn-outline-success" onclick="redirectTo('@Url.Action("ViewMachineInfo", "Operator")')">Makine İşlemleri</button>
-				<button type="button" class="btn btn-outline-warning" onclick="redirectTo('@Url.Action("ManageReservation", "Operator")')">Randevu İşlemleri</button>
-				<button type="button" class="btn btn-outline-danger">Temizle</button>
-			</div>
-			</div>
-			<script>
+		<script>
 
-				function redirectTo(url) {
-					window.location.href = url;
-				}
-				function filterAppointments() {
-					// Seçilen filtrelerle ilgili veri çekme ve görüntüleme mantığını burada uygulayın
-				}
-			</script>
+			function redirectTo(url) {
+				window.location.href = url;
+			}
+		</script>
 
 </body>
 

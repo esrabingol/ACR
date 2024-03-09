@@ -1,93 +1,100 @@
-﻿@using ASP.WEBUI.Models;
-@model ReIndexModel
+﻿@using ACR.Business.Models;
+@model ReIndexModelDTO
 @{
-    ViewData["Title"] = "Index";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+	ViewData["Title"] = "Index";
+	Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Randevu Filtreleme Ekranı</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Randevu Filtreleme Ekranı</title>
 	<link href="~/css/reindex.css" rel="stylesheet" />
 </head>
 
 <body>
-    <div class="main-container">
-        <div class="filter-section">
-        
-            <div class="filter-options">
-                <label for="machineName">Makine Adı:</label>
-                <select id="machineName">
-                    @*       @foreach (var machineName in ViewBag.MachineNames)
-                    {
-                    <option value="@machineName">@machineName</option>
-                    }*@
-                </select>
+	<div class="main-container">
+			<form asp-controller="Requester" asp-action="Index" method="post">
+		<div class="filter-section">
+			<div class="filter-options">
+				<label><strong>Makine Adı:</strong></label>
+				<select asp-for="MachineName" class="form-control" placeholder="Makine Seçimi">
+					<option value="" selected disabled>Seçiniz</option>
+					@if (Model.MachineNames != null)
+					{
+						foreach (var item in Model.MachineNames)
+						{
+							<option>@item.MachineName</option>
+						}
+					}
+				</select>
 
-                <label for="projectName">Proje Adı:</label>
-                <input type="text" id="projectName">
+				<label for="projectName">Proje Adı:</label>
+				<input asp-for="ProjectName" value="@Model.ProjectName" type="text" class="form-control" />
 
-                <label for="partName">Parça Adı:</label>
-                <input type="text" id="partName">
+				<label for="partName">Parça Adı:</label>
+				<input asp-for="PartName" value="@Model.PartName" type="text" class="form-control" />
 
-                <label for="recipeCode">Reçete Kodu:</label>
-                <input type="text" id="recipeCode">
+				<label for="recipeCode">Reçete Kodu:</label>
+				<input asp-for="RecipeCode" value="@Model.RecipeCode" type="text" class="form-control" />
 
-                <label for="startDate">Başlangıç Tarihi:</label>
-                <input type="date" id="startDate">
+				<label for="startDate">Başlangıç Tarihi:</label>
+				<input asp-for="StartDate" value="@Model.StartDate" type="datetime-local" class="form-control" />
 
-                <label for="endDate">Bitiş Tarihi:</label>
-                <input type="date" id="endDate">
+				<label for="endDate">Bitiş Tarihi:</label>
+				<input asp-for="EndDate" value="@Model.EndDate" type="datetime-local" class="form-control" />
+			</div>
+			<div class="buttons-section">
+				<button type="submit" class="btn btn-outline-primary">Randevu Ara</button>
+			</div>
+		</div>
+		</form>
+		<div class="results-section">
+			<div class="top-buttons">
+				<button type="button" class="btn btn-outline-secondary">Bilgi Getir</button>
+				<button type="button" class="btn btn-outline-success" onclick="redirectTo('@Url.Action("ManageReservation","Requester")')">Randevu Güncelle</button>
+				<button type="button" class="btn btn-outline-primary" onclick="redirectTo('@Url.Action("CreateReservation", "Requester")')">Randevu Al</button>
+				<button type="button" class="btn btn-outline-warning">Temizle</button>
+				<button type="button" class="btn btn-outline-danger">Randevu İptal Et</button>
+			</div>
+			<div class="table-container">
+				<table class="table">
+					<thead>
+						<tr>
+							<th>Makine Adı</th>
+							<th>Proje Adı</th>
+							<th>Parça Adı</th>
+							<th>Reçete Kodu</th>
+							<th>Başlangıç Tarihi</th>
+							<th>Bitiş Tarihi</th>
+						</tr>
+					</thead>
+					<tbody>
+						@foreach (var result in Model.Results)
+						{
+							<tr>
+								<td>@result.MachineName</td>
+								<td>@result.ProjectName</td>
+								<td>@result.PartName</td>
+								<td>@result.RecipeCode</td>
+								<td>@result.StartDate.ToString("yyyy-MM-dd HH:mm")</td>
+								<td>@result.EndDate.ToString("yyyy-MM-dd HH:mm")</td>
+							</tr>
+						}
+					</tbody>
+				</table>
+			</div>
+			<div>
+			</div>
+		</div>
+	</div>
+	<script>
 
-                <label for="startTime">Başlangıç Saati:</label>
-                <input type="time" id="startTime">
-
-                <label for="endTime">Bitiş Saati:</label>
-                <input type="time" id="endTime">
-            </div>
-            <div class="buttons-section">
-                <button type="button" class="btn btn-outline-primary" onclick="filterAppointments()">Randevu Ara</button>
-            </div>
-        </div>
- @*       randevu başarılı oluşturulduğunda uyarı mesajını göster*@
-        @if (ViewBag.SuccessMessageOne != null)
-        {
-            <div class="alert alert-success">
-                @ViewBag.SuccessMessageOne
-            </div>
-        }
-        @if (ViewBag.SuccessMessageTwo != null)
-        {
-            <div class="alert alert-success">
-                @ViewBag.SuccessMessageTwo
-            </div>
-        }
-
-        <div class="results-section">
-            <div class="top-buttons">
-                <button type="button" class="btn btn-outline-secondary">Bilgi Getir</button> 
-                <button type="button" class="btn btn-outline-success" onclick="redirectTo('@Url.Action("ManageReservation","Requester")')">Randevu Güncelle</button>
-                <button type="button" class="btn btn-outline-primary" onclick="redirectTo('@Url.Action("CreateReservation", "Requester")')">Randevu Al</button>
-                <button type="button" class="btn btn-outline-warning">Temizle</button>
-                <button type="button" class="btn btn-outline-danger">Randevu İptal Et</button>
-            </div>
-            <div>
-
-            </div>
-        </div>
-    </div>
-
-    <script>
-    
-        function redirectTo(url) {
-            window.location.href = url;
-        }
-        function filterAppointments() {
-            // Seçilen filtrelerle ilgili veri çekme ve görüntüleme mantığını burada uygulayın
-        }
-    </script>
+		function redirectTo(url) {
+			window.location.href = url;
+		}
+	</script>
 </body>
 
 </html>
