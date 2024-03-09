@@ -1,10 +1,9 @@
-﻿@using ASP.WEBUI.Models;
-@model OpReservationFilterModel
+﻿@using ACR.Business.Models;
+@model OpReservationFilterModelDTO
 @{
 	ViewData["Title"] = "ManageReservation";
 	Layout = "~/Views/Shared/_Layout.cshtml";
 }
-@*randevu işlemleri*@
 <!DOCTYPE html>
 <html lang="tr">
 
@@ -28,37 +27,32 @@
 							<span class="glyphicon glyphicon-circle-arrow-left" style="font-size: 24px;"></span>
 						</a>
 					</div>
-					<label for="machineName">Makine Adı:</label>
-					<select id="machineName" name="machineName">
-						@*      @foreach (var machineName in ViewBag.MachineNames)
+					<label><strong>Makine Adı:</strong></label>
+					<select asp-for="MachineName" class="form-control" placeholder="Makine Seçimi">
+						<option value="" selected disabled>Seçiniz</option>
+						@if (Model.MachineNames != null)
 						{
-						<option value="@machineName">@machineName</option>
-						}*@
+							foreach (var item in Model.MachineNames)
+							{
+								<option>@item.MachineName</option>
+							}
+						}
 					</select>
 
 					<label for="projectName">Proje Adı:</label>
-					<input type="text" id="projectName" name="projectName">
+					<input asp-for="ProjectName" value="@Model.ProjectName" type="text" class="form-control" />
 
 					<label for="partName">Parça Adı:</label>
-					<input type="text" id="partName" name="partName">
+					<input asp-for="PartName" value="@Model.PartName" type="text" class="form-control" />
 
 					<label for="recipeCode">Reçete Kodu:</label>
-					<input type="text" id="recipeCode" name="recipeCode">
-
-					<label for="recipeCode">Parça Adı:</label>
-					<input type="text" id="partName" name="partName">
+					<input asp-for="RecipeCode" value="@Model.RecipeCode" type="text" class="form-control" />
 
 					<label for="startDate">Başlangıç Tarihi:</label>
-					<input type="date" id="startDate" name="startDate">
+					<input asp-for="StartDate" value="@Model.StartDate" type="datetime-local" class="form-control" />
 
 					<label for="endDate">Bitiş Tarihi:</label>
-					<input type="date" id="endDate" name="endDate">
-
-					<label for="startTime">Başlangıç Saati:</label>
-					<input type="time" id="startTime" name="startTime">
-
-					<label for="endTime">Bitiş Saati:</label>
-					<input type="time" id="endTime" name="endTime">
+					<input asp-for="EndDate" value="@Model.EndDate" type="datetime-local" class="form-control" />
 				</div>
 				<div class="buttons-section">
 					<button type="submit" class="btn btn-outline-primary">Randevu Ara</button>
@@ -75,14 +69,41 @@
 			</div>
 		</div>
 	</div>
-
+	<div class="table">
+		<table class="table">
+			<thead>
+				<tr>
+					<th>Makine Adı</th>
+					<th>Proje Adı</th>
+					<th>Parça Adı</th>
+					<th>Reçete Kodu</th>
+					<th>Başlangıç Tarihi</th>
+					<th>Bitiş Tarihi</th>
+					<th>Talep Eden Notu</th>
+					<th>Talep Eden</th>
+				</tr>
+			</thead>
+			<tbody>
+				@foreach (var result in Model.Results)
+				{
+					<tr>
+						<td>@result.MachineName</td>
+						<td>@result.ProjectName</td>
+						<td>@result.PartName</td>
+						<td>@result.RecipeCode</td>
+						<td>@result.StartDate.ToString("yyyy-MM-dd HH:mm")</td>
+						<td>@result.EndDate.ToString("yyyy-MM-dd HH:mm")</td>
+						<td>@result.RequestNote</td>
+						@*			<td>@result.Requester.Name @result.Requester.Surname</td>*@
+					</tr>
+				}
+			</tbody>
+		</table>
+	</div>
 	<script>
 		function redirectTo(url) {
 			window.location.href = url;
 		}
-				//function filterAppointments() {
-				//    // Seçilen filtrelerle ilgili veri çekme ve görüntüleme mantığını burada uygulayın
-				//}
 	</script>
 </body>
 

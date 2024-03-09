@@ -7,6 +7,7 @@ namespace ACR.Business.Abstract
     {
         List<Reservation> GetAllRezervationsRequester(ReIndexModelDTO indexModel);
 		List<Reservation> GetAllRezervationsOperator(OpIndexModelDTO indexModel);
+		List<Reservation> GetAllRezervationsToManage(OpReservationFilterModelDTO indexModel);
 		Reservation GetRezervationById(int reservationId);
         Reservation Add(ReCreateReservationModelDTO reReservationFilterModel);
         void Delete(Reservation rezervation);

@@ -15,7 +15,6 @@ namespace ASP.WEBUI.Controllers
 			_machineService = machineService;
 			_reservationService = reservationService;
 		}
-
 		public IActionResult Index()
 		{
 			var machines = _machineService.GetValues();
@@ -70,26 +69,17 @@ namespace ASP.WEBUI.Controllers
 		[HttpGet]
 		public IActionResult ManageReservation()
 		{
-			return View(new OpReservationFilterModel());
+			var machines = _machineService.GetValues();
+			var opCreateIndexModelDTO = new OpReservationFilterModelDTO { MachineNames = machines };
+			return View(opCreateIndexModelDTO);
 		}
 
-		//[HttpPost]
-		//public IActionResult ManageReservation(OpReservationFilterModel opReservationFilter)
-		//{
-		//    if (ModelState.IsValid)
-		//    {
-		//        var reservationFilter = new Reservation
-		//        {
-		//            MachineName = opReservationFilter.MachineName,
-		//            ProjectName = opReservationFilter.ProjectName,
-		//            PartName = opReservationFilter.PartName,
-		//            StartDate = opReservationFilter.StartDate,
-		//            EndDate = opReservationFilter.EndDate,
-		//        };
-		//        var filterReservation = _reservationService.GetAllRezervations(reservationFilter);
-		//        ViewBag.FilteredReservations = filterReservation;
-		//    }
-		//    return View();
-		//}
+		[HttpPost]
+		public IActionResult ManageReservation(OpReservationFilterModelDTO indexModel)
+		{
+			var filterReservations = _reservationService.GetAllRezervationsToManage(indexModel);
+			indexModel.Results = filterReservations;
+			return View(indexModel);
+		}
 	}
 }
