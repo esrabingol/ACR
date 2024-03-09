@@ -35,7 +35,15 @@ namespace ASP.WEBUI
 
             services.AddControllersWithViews();
             services.AddRazorPages();
-        }
+
+			services.AddDistributedMemoryCache(); // Choose your distributed cache provider in a production environment
+			//services.AddSession(options =>
+			//{
+			//	options.IdleTimeout = TimeSpan.FromMinutes(120); // Set session timeout as needed
+			//	options.Cookie.HttpOnly = true;
+			//	options.Cookie.IsEssential = true;
+			//});
+		}
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
@@ -47,8 +55,8 @@ namespace ASP.WEBUI
                 app.UseExceptionHandler("/Home/Error");
                 app.UseHsts();
             }
-
-            app.UseHttpsRedirection();
+			//app.UseSession();
+			app.UseHttpsRedirection();
             app.UseStaticFiles();
 
             app.UseRouting();
@@ -58,10 +66,12 @@ namespace ASP.WEBUI
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}");
+                    pattern: "{controller=User}/{action=UserLogin}");
 
             });
-        }
+
+		
+		}
     }
 }
 

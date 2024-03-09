@@ -17,5 +17,6 @@ namespace ACR.Business.Abstract
 		bool PasswordSignIn(string userEmail, string userPassword,int roleId);
 		Task<User> FindUser(UserLoginModelDTO loginModel);
         Task<int?> GetRoleIdByEmail(string email);
-    }
+
+	}
 }

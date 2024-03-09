@@ -38,7 +38,6 @@ namespace ACR.DataAccess.Concrete
                 .HasForeignKey(r => r.RequesterId)
                 .OnDelete(DeleteBehavior.Cascade);
 
-
             //Role - Users ilişkisi
             modelBuilder.Entity<Role>()
                 .HasMany(u => u.Users)

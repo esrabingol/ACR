@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.Win32;
 using System.Net;
 using System.Net.Mail;
+using System.Security.Claims;
 
 namespace ACR.Business.Concrete
 {
@@ -51,7 +52,7 @@ namespace ACR.Business.Concrete
             var user = await _registerDal.FindByEmail(email);
             return user?.RoleId;
         }
-        public bool PasswordSignIn(string userEmail, string userPassword, int roleId)
+		public bool PasswordSignIn(string userEmail, string userPassword, int roleId)
 		{
 			return _registerDal.PasswordSignIn(userEmail, userPassword, roleId);
 		}

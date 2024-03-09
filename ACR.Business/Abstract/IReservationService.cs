@@ -10,5 +10,6 @@ namespace ACR.Business.Abstract
         Reservation Add(ReCreateReservationModelDTO reReservationFilterModel);
         void Delete(Reservation rezervation);
         Reservation UpdateReservation(ReManageReservationModelDTO reReservationUpdateModel);
-    }
+
+	}
 }

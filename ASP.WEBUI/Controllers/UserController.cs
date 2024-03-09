@@ -51,24 +51,21 @@ namespace ASP.WEBUI.Controllers
         [HttpPost]
         public async Task<IActionResult> UserLogin(UserLoginModelDTO loginModel)
         {
-            var userLogin = await _registerService.FindUser(loginModel);
+			
+			var userLogin = await _registerService.FindUser(loginModel);
             var roleId = await _registerService.GetRoleIdByEmail(loginModel.MailAdress);
             if (roleId.HasValue)
             {
-                // RoleId'ye göre yönlendirme yapabilirsiniz
                 switch (roleId.Value)
                 {
                     case 1:
                         return RedirectToAction("Index", "Operator");
                     case 2:
                         return RedirectToAction("Index", "Requester");
-                    // Diğer roller için ek case'leri ekleyebilirsiniz
                     default:
                         return RedirectToAction("Index", "Home");
                 }
             }
-
-            // Kullanıcı bulunamazsa, giriş sayfasını tekrar göster
             return View();
         }
     }

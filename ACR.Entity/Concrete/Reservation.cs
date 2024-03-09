@@ -11,7 +11,6 @@
         public DateTime EndDate { get; set; }
         public string? RequestNote { get; set; }
         public string? CancellationNote { get; set; }
-
         //Rezervasyon durumu kontrolü için
         public ReservationStatusType Status { get; set; }
         //operator rezervasyon üzerinde değişiklik yapmak istediğinde ilgili operatörün id si gelicek.

@@ -62,7 +62,7 @@ namespace ASP.WEBUI.Controllers
         [HttpPost]
         public IActionResult CreateReservation(ReCreateReservationModelDTO reservationModel)
         {
-            var reservationMachineInfos = _reservationService.Add(reservationModel);
+			var reservationMachineInfos = _reservationService.Add(reservationModel);
             return RedirectToAction(nameof(Index));
         }
 
