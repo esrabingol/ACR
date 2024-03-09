@@ -12,43 +12,65 @@
 	<title>Randevu Filtreleme Ekranı</title>
 	<link href="~/css/reindex.css" rel="stylesheet" />
 </head>
+<style>
+	body {
+		margin: 0;
+		padding: 0;
+	}
 
+	.table-container {
+		width: 100vw;
+		height: 100vh;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		overflow-x: auto;
+	}
+
+	.table {
+		width: 180%;
+		color: #212529;
+		text-align: left;
+		margin-left: -40%;
+		margin-top: -29%;
+	}
+</style>
 <body>
 	<div class="main-container">
-			<form asp-controller="Requester" asp-action="Index" method="post">
-		<div class="filter-section">
-			<div class="filter-options">
-				<label><strong>Makine Adı:</strong></label>
-				<select asp-for="MachineName" class="form-control" placeholder="Makine Seçimi">
-					<option value="" selected disabled>Seçiniz</option>
-					@if (Model.MachineNames != null)
-					{
-						foreach (var item in Model.MachineNames)
+		<form asp-controller="Requester" asp-action="Index" method="post">
+			<div class="filter-section">
+				<div class="filter-options">
+					<label><strong>Makine Adı:</strong></label>
+					<select asp-for="MachineName" class="form-control" placeholder="Makine Seçimi">
+						<option value="" selected disabled>Seçiniz</option>
+						@if (Model.MachineNames != null)
 						{
-							<option>@item.MachineName</option>
+							foreach (var item in Model.MachineNames)
+							{
+								<option>@item.MachineName</option>
+							}
 						}
-					}
-				</select>
+					</select>
 
-				<label for="projectName">Proje Adı:</label>
-				<input asp-for="ProjectName" value="@Model.ProjectName" type="text" class="form-control" />
+					<label for="projectName">Proje Adı:</label>
+					<input asp-for="ProjectName" value="@Model.ProjectName" type="text" class="form-control" />
 
-				<label for="partName">Parça Adı:</label>
-				<input asp-for="PartName" value="@Model.PartName" type="text" class="form-control" />
+					<label for="partName">Parça Adı:</label>
+					<input asp-for="PartName" value="@Model.PartName" type="text" class="form-control" />
 
-				<label for="recipeCode">Reçete Kodu:</label>
-				<input asp-for="RecipeCode" value="@Model.RecipeCode" type="text" class="form-control" />
+					<label for="recipeCode">Reçete Kodu:</label>
+					<input asp-for="RecipeCode" value="@Model.RecipeCode" type="text" class="form-control" />
 
-				<label for="startDate">Başlangıç Tarihi:</label>
-				<input asp-for="StartDate" value="@Model.StartDate" type="datetime-local" class="form-control" />
+					<label for="startDate">Başlangıç Tarihi:</label>
+					<input asp-for="StartDate" value="@Model.StartDate" type="datetime-local" class="form-control" />
 
-				<label for="endDate">Bitiş Tarihi:</label>
-				<input asp-for="EndDate" value="@Model.EndDate" type="datetime-local" class="form-control" />
+					<label for="endDate">Bitiş Tarihi:</label>
+					<input asp-for="EndDate" value="@Model.EndDate" type="datetime-local" class="form-control" />
+				</div>
+				<div class="buttons-section">
+					<button type="submit" class="btn btn-outline-primary">Randevu Ara</button>
+				</div>
 			</div>
-			<div class="buttons-section">
-				<button type="submit" class="btn btn-outline-primary">Randevu Ara</button>
-			</div>
-		</div>
 		</form>
 		<div class="results-section">
 			<div class="top-buttons">
@@ -58,33 +80,33 @@
 				<button type="button" class="btn btn-outline-warning">Temizle</button>
 				<button type="button" class="btn btn-outline-danger">Randevu İptal Et</button>
 			</div>
-			<div class="table-container">
-				<table class="table">
-					<thead>
+			<!--Table-->
+			<table class="table table-hover table-fixed">
+				<thead>
+					<tr>
+						<th>Makine Adı</th>
+						<th>Proje Adı</th>
+						<th>Parça Adı</th>
+						<th>Reçete Kodu</th>
+						<th>Başlangıç Tarihi</th>
+						<th>Bitiş Tarihi</th>
+					</tr>
+				</thead>
+				<tbody>
+					@foreach (var result in Model.Results)
+					{
 						<tr>
-							<th>Makine Adı</th>
-							<th>Proje Adı</th>
-							<th>Parça Adı</th>
-							<th>Reçete Kodu</th>
-							<th>Başlangıç Tarihi</th>
-							<th>Bitiş Tarihi</th>
+							<td>@result.MachineName</td>
+							<td>@result.ProjectName</td>
+							<td>@result.PartName</td>
+							<td>@result.RecipeCode</td>
+							<td>@result.StartDate.ToString("dd-MM-yyyy HH:mm")</td>
+							<td>@result.EndDate.ToString("dd-MM-yyyy HH:mm")</td>
 						</tr>
-					</thead>
-					<tbody>
-						@foreach (var result in Model.Results)
-						{
-							<tr>
-								<td>@result.MachineName</td>
-								<td>@result.ProjectName</td>
-								<td>@result.PartName</td>
-								<td>@result.RecipeCode</td>
-								<td>@result.StartDate.ToString("yyyy-MM-dd HH:mm")</td>
-								<td>@result.EndDate.ToString("yyyy-MM-dd HH:mm")</td>
-							</tr>
-						}
-					</tbody>
-				</table>
-			</div>
+					}
+				</tbody>
+			</table>
+		
 			<div>
 			</div>
 		</div>

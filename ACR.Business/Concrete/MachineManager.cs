@@ -35,7 +35,6 @@ namespace ACR.Business.Concrete
                 OperatorNote = editMachine.OperatorNote
             };
             return _machineDal.UpdateMachine(machineUpdate);
-
         }
         public Machine GetById(int Id)
         {

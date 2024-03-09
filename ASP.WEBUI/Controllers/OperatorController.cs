@@ -1,6 +1,5 @@
 ﻿using ACR.Business.Abstract;
 using ACR.Business.Models;
-using ASP.WEBUI.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ASP.WEBUI.Controllers
@@ -59,7 +58,7 @@ namespace ASP.WEBUI.Controllers
 		{
 			var updateAutoclave = _machineService.UpdateMachineInfo(editMachine);
 			ViewBag.FilteredAutoclaves = updateAutoclave;
-			return RedirectToAction("Index");
+			return RedirectToAction("Index","Operator");
 		}
 
 		[HttpGet]

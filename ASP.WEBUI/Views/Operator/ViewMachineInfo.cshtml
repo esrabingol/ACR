@@ -73,39 +73,40 @@
 				<button type="button" class="btn btn-outline-success" onclick="redirectTo('@Url.Action("EditMachineInfo", "Operator")')">Düzenle</button>
 				<button type="button" class="btn btn-outline-warning" onclick="clearFilters()">Temizle</button>
 			</div>
+			<div class="table-container">
+				<table class="table">
+					<thead>
+						<tr>
+							<th>Makine Adı</th>
+							<th>Makine Durumu</th>
+							<th>Item No</th>
+							<th>Tc Numarası</th>
+							<th>Vp Numarası</th>
+							<th>Başlangıç Tarihi</th>
+							<th>Bitiş Tarihi</th>
+							<th>Operator Notu</th>
+						</tr>
+					</thead>
+					<tbody>
+						@foreach (var result in Model.Results)
+						{
+							<tr>
+								<td>@result.MachineName</td>
+								<td>@result.MachineStatus</td>
+								<td>@result.ItemNo</td>
+								<td>@result.TcNumber</td>
+								@*							<td>@result.StartDate.ToString("yyyy-MM-dd HH:mm")</td>
+							<td>@result.EndDate.ToString("yyyy-MM-dd HH:mm")</td>*@
+								<td>@result.OperatorNote</td>
+							</tr>
+						}
+					</tbody>
+				</table>
+			</div>
 			<div>
 			</div>
 		</div>
-		<div class="table-container">
-			<table class="table">
-				<thead>
-					<tr>
-						<th>Makine Adı</th>
-						<th>Makine Durumu</th>
-						<th>Item No</th>
-						<th>Tc Numarası</th>
-						<th>Vp Numarası</th>
-						<th>Başlangıç Tarihi</th>
-						<th>Bitiş Tarihi</th>
-						<th>Operator Notu</th>
-					</tr>
-				</thead>
-				<tbody>
-					@foreach (var result in Model.Results)
-					{
-						<tr>
-							<td>@result.MachineName</td>
-							<td>@result.MachineStatus</td>
-							<td>@result.ItemNo</td>
-							<td>@result.TcNumber</td>
-@*							<td>@result.StartDate.ToString("yyyy-MM-dd HH:mm")</td>
-							<td>@result.EndDate.ToString("yyyy-MM-dd HH:mm")</td>*@
-							<td>@result.OperatorNote</td>
-						</tr>
-					}
-				</tbody>
-			</table>
-		</div>
+	
 	</div>
 
 	<script>
