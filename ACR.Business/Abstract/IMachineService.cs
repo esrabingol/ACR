@@ -5,8 +5,8 @@ namespace ACR.Business.Abstract
 {
     public interface IMachineService
     { 
-        Machine Add(Machine autoclave);
         Machine UpdateMachineInfo(OpEditMachineModelDTO editMachine);
+        Machine AddNewMachineInfo(OpAddNewMachineModelDTO addMachine);
         void Delete(Machine autoclave);
         Machine GetById(int Id);
         List<Machine> GetFilteredValues(OpMachineFilterModelDTO viewMachine);

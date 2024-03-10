@@ -70,7 +70,9 @@
 		<div class="results-section">
 			<div class="top-buttons">
 				<button type="button" class="btn btn-outline-secondary">Bilgi Getir</button>
-				<button type="button" class="btn btn-outline-success" onclick="redirectTo('@Url.Action("EditMachineInfo", "Operator")')">Düzenle</button>
+				<button type="button" class="btn btn-outline-success" onclick="redirectTo('@Url.Action("AddNewMachine","Operator")')">Makine Ekle</button>
+				<button type="button" class="btn btn-outline-primary" onclick="redirectTo('@Url.Action("EditMachineInfo", "Operator")')">Makine Düzenle</button>
+				<button type="button" class="btn btn-outline-danger" onclick="#">Makine Sil </button>
 				<button type="button" class="btn btn-outline-warning" onclick="clearFilters()">Temizle</button>
 			</div>
 			<div class="table-container">
@@ -95,8 +97,8 @@
 								<td>@result.MachineStatus</td>
 								<td>@result.ItemNo</td>
 								<td>@result.TcNumber</td>
-								@*							<td>@result.StartDate.ToString("yyyy-MM-dd HH:mm")</td>
-							<td>@result.EndDate.ToString("yyyy-MM-dd HH:mm")</td>*@
+							    <td>@result.StartDate.Value.ToString("yyyy-MM-dd HH:mm")</td>
+								<td>@result.EndDate.Value.ToString("yyyy-MM-dd HH:mm")</td>
 								<td>@result.OperatorNote</td>
 							</tr>
 						}

@@ -15,19 +15,6 @@ namespace ACR.DataAccess.Concrete.EntityFramework
             var user = _context.Users.FirstOrDefaultAsync(i => i.MailAdress.ToLower() == email.ToLower());
             return user;
         }
-		//public async Task<int> GetUserIdFromAuthentication(int id)
-		//{
-		//	var user = await _context.Users.FirstOrDefaultAsync(i => i.Id == id);
-
-		//	if (user != null)
-		//	{
-		//		return user.Id;
-		//	}
-
-		//	// Kullanıcı bulunamazsa -1 veya başka bir değer dönebilirsiniz.
-		//	return -1;
-		//}
-
 		public bool PasswordSignIn(string userEmail, string userPassword, int roleId)
         {
             var userLogin = _context.Users

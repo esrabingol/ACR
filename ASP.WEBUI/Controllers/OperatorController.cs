@@ -56,25 +56,23 @@ namespace ASP.WEBUI.Controllers
 		[HttpPost]
 		public IActionResult EditMachineInfo(OpEditMachineModelDTO editMachine)
 		{
-			var updateAutoclave = _machineService.UpdateMachineInfo(editMachine);
-			ViewBag.FilteredAutoclaves = updateAutoclave;
-			return RedirectToAction("Index","Operator");
+			var updateMachine = _machineService.UpdateMachineInfo(editMachine);
+			ViewBag.FilteredAutoclaves = updateMachine;
+			return RedirectToAction("Index", "Operator");
 		}
 
 		[HttpGet]
-		public IActionResult ManageReservation()
+		public IActionResult AddNewMachine()
 		{
-			var machines = _machineService.GetValues();
-			var opCreateIndexModelDTO = new OpReservationFilterModelDTO { MachineNames = machines };
-			return View(opCreateIndexModelDTO);
+			return View(new OpAddNewMachineModelDTO());
 		}
 
 		[HttpPost]
-		public IActionResult ManageReservation(OpReservationFilterModelDTO indexModel)
+		public IActionResult AddNewMachine(OpAddNewMachineModelDTO addMachine)
 		{
-			var filterReservations = _reservationService.GetAllRezervationsToManage(indexModel);
-			indexModel.Results = filterReservations;
-			return View(indexModel);
+			var addNewMachine = _machineService.AddNewMachineInfo(addMachine);
+			return RedirectToAction("ViewMachineInfo", "Operator");
+
 		}
 	}
 }

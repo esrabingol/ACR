@@ -37,12 +37,6 @@ namespace ASP.WEBUI
             services.AddRazorPages();
 
 			services.AddDistributedMemoryCache(); // Choose your distributed cache provider in a production environment
-			//services.AddSession(options =>
-			//{
-			//	options.IdleTimeout = TimeSpan.FromMinutes(120); // Set session timeout as needed
-			//	options.Cookie.HttpOnly = true;
-			//	options.Cookie.IsEssential = true;
-			//});
 		}
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
@@ -55,7 +49,6 @@ namespace ASP.WEBUI
                 app.UseExceptionHandler("/Home/Error");
                 app.UseHsts();
             }
-			//app.UseSession();
 			app.UseHttpsRedirection();
             app.UseStaticFiles();
 

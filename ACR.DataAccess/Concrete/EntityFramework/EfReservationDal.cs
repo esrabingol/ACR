@@ -1,5 +1,9 @@
 ﻿using ACR.DataAccess.Abstract;
 using ACR.Entity.Concrete;
+using Microsoft.EntityFrameworkCore;
+using System;
+using System.Linq;
+using System.Linq.Expressions;
 
 namespace ACR.DataAccess.Concrete.EntityFramework
 {
@@ -15,7 +19,7 @@ namespace ACR.DataAccess.Concrete.EntityFramework
 			_context.SaveChanges();
 			return reservation;
 		}
-		public List<Reservation> GetByFiltered(List<Func<Reservation, bool>> filters)
+		public List<Reservation> GetByFiltered(List<Func<Reservation, bool>> filters, Expression<Func<Reservation, object>> expression = null)
 		{
 			IQueryable<Reservation> query = _context.Reservations.AsQueryable();
 
@@ -23,6 +27,9 @@ namespace ACR.DataAccess.Concrete.EntityFramework
 			{
 				query = query.Where(filter).AsQueryable();
 			}
+
+			if(expression != null)
+				query = query.Include(expression);
 
 			return query.ToList();
 		}

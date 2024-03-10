@@ -12,11 +12,6 @@ namespace ACR.Business.Concrete
         {
             _machineDal = machineDal;
         }
-        public Machine Add(Machine autoclave)
-        {
-            _machineDal.Add(autoclave);
-            return autoclave;
-        }
         public void Delete(Machine autoclave)
         {
             _machineDal.Delete(autoclave);
@@ -38,12 +33,12 @@ namespace ACR.Business.Concrete
         }
         public Machine GetById(int Id)
         {
-            var autolave = _machineDal.GetById(Id);
-            if (autolave == null)
+            var machine = _machineDal.GetById(Id);
+            if (machine == null)
             {
                 throw new Exception($"ID'si {Id} olan Autoclave bulunamadı.");
             }
-            return autolave;
+            return machine;
         }
         public List<Machine> GetFilteredValues(OpMachineFilterModelDTO viewMachine)
         {
@@ -94,6 +89,18 @@ namespace ACR.Business.Concrete
         {
             var machines = _machineDal.GetAll();
             return machines.ToList();
+        }
+		public Machine AddNewMachineInfo(OpAddNewMachineModelDTO addMachine)
+		{
+            var machineAdd = new Machine
+            {
+                MachineName = addMachine.MachineName,
+                MachineStatus = addMachine.MachineStatus,
+                ItemNo= addMachine.ItemNo,
+                TcNumber= addMachine.TcNumber,
+                VpNumber = addMachine.VpNumber,
+            };
+            return _machineDal.AddMachine(machineAdd);
         }
     }
 }

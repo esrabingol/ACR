@@ -1,10 +1,11 @@
 ﻿@using ACR.Business.Models;
-@model OpEditMachineModelDTO
-@*makine işlemlerinden sonra düzenle kısmı*@
+@model OpAddNewMachineModelDTO
 @{
-	ViewData["Title"] = "Index";
-	Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "AddNewMachine";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
+
 <!DOCTYPE html>
 <html lang="tr">
 
@@ -21,7 +22,7 @@
 <body>
 	<div class="main-container">
 		<div class="filter-section">
-			<form asp-controller="Operator" asp-action="EditMachineInfo" method="post">
+			<form asp-controller="Operator" asp-action="AddNewMachine" method="post">
 				<div class="filter-options">
 					<div class="d-flex justify-content-between align-items-center mb-3">
 						<a href=@Url.Action("ViewMachineInfo","Operator")>
@@ -29,16 +30,8 @@
 						</a>
 					</div>
 					<label><strong>Makine Adı:</strong></label>
-					<select asp-for="MachineName" class="form-control" placeholder=" Seçimi">
-						<option value="" selected disabled>Seçiniz</option>
-						@if (Model.MachineNames != null)
-						{
-							foreach (var item in Model.MachineNames)
-							{
-								<option>@item.MachineName</option>
-							}
-						}
-					</select>
+					<input asp-for="MachineName" value="@Model.MachineName" type="text" class="form-control" />
+
 					<label for="machineStatu">Makine Durumu:</label>
 					<select asp-for="MachineStatus" class="form-control" placeholder="Makine Durumu Seçimi">
 						<option value="" selected disabled>Seçiniz</option>
@@ -55,25 +48,9 @@
 					<label for="Vp">VP:</label>
 					<input asp-for="VpNumber" value="@Model.VpNumber" class="form-control" placeholder="VP değerini giriniz." />
 
-					<div class="form-row">
-						<div class="form-group col-md-6">
-							<label class="form-label" for="StartDate">Bakım Başlangıç Tarihi:</label>
-							<input asp-for="StartDate" value="@Model.StartDate" type="datetime-local" class="form-control" />
-						</div>
-						<div class="form-group col-md-6">
-							<label class="form-label" for="EndDate">Bakım Bitiş Tarihi:</label>
-							<input asp-for="EndDate" value="@Model.EndDate" type="datetime-local" class="form-control" />
-						</div>
-					</div>
-
-					<div class="form-group">
-						<label class="form-label" for="OperatorNote">Operator Notu:</label>
-						<input asp-for="OperatorNote" value="@Model.OperatorNote" type="text" class="form-control" />
-					</div>
-
 				</div>
 				<div class="buttons-section">
-					<button type="submit" class="btn btn-outline-primary">Güncelle</button>
+					<button type="submit" class="btn btn-outline-primary">Ekle</button>
 				</div>
 			</form>
 
@@ -88,3 +65,4 @@
 </body>
 
 </html>
+

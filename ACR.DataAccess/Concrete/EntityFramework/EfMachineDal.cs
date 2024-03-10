@@ -8,6 +8,13 @@ namespace ACR.DataAccess.Concrete.EntityFramework
 		public EfMachineDal(ACRContext context) : base(context)
 		{
 		}
+
+		public Machine AddMachine(Machine machine)
+		{
+			_context.Machines.Add(machine);
+			_context.SaveChanges();
+			return machine;
+		}
 		public List<Machine> GetByMachineFiltered(List<Func<Machine, bool>> filters)
 		{
 			IQueryable<Machine> query = _context.Machines.AsQueryable();
@@ -23,11 +30,11 @@ namespace ACR.DataAccess.Concrete.EntityFramework
 		{
 			return _context.Machines.Select(a => a.MachineName).ToList();
 		}
-		public Machine UpdateMachine(Machine autoclave)
+		public Machine UpdateMachine(Machine machine)
 		{
-			_context.Machines.Update(autoclave);
+			_context.Machines.Update(machine);
 			_context.SaveChanges();
-			return autoclave;
+			return machine;
 		}
 	}
 }

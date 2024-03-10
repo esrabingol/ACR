@@ -6,6 +6,7 @@ namespace ACR.DataAccess.Abstract
     {
         List<Machine> GetByMachineFiltered(List<Func<Machine, bool>> filters);
 		IEnumerable<string> GetMachineNames();
-        Machine UpdateMachine(Machine autoclave);
+        Machine UpdateMachine(Machine machine);
+        Machine AddMachine(Machine machine);
     }
 }

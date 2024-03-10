@@ -69,7 +69,7 @@ namespace ACR.Business.Concrete
 			if (reservationFilter.EndDate != default(DateTime))
 				filters.Add(r => r.EndDate == reservationFilter.EndDate);
 
-			var filteredReservations = _reservationDal.GetByFiltered(filters);
+			var filteredReservations = _reservationDal.GetByFiltered(filters,f=>f.Requester);
 
 			var viewModel = new ReIndexModelDTO
 			{
@@ -79,47 +79,6 @@ namespace ACR.Business.Concrete
 			return viewModel.Results;
 		}
 		public List<Reservation> GetAllRezervationsRequester(ReIndexModelDTO indexModel)
-		{
-			var reservationFilter = new Reservation
-			{
-				MachineName = indexModel.MachineName,
-				ProjectName = indexModel.ProjectName,
-				RecipeCode = indexModel.RecipeCode,
-				PartName = indexModel.PartName,
-				StartDate = indexModel.StartDate,
-				EndDate = indexModel.EndDate,
-			};
-
-			var filters = new List<Func<Reservation, bool>>();
-
-			if (!string.IsNullOrWhiteSpace(reservationFilter.MachineName))
-				filters.Add(r => r.MachineName == reservationFilter.MachineName);
-
-			if (!string.IsNullOrWhiteSpace(reservationFilter.ProjectName))
-				filters.Add(r => r.ProjectName == reservationFilter.ProjectName);
-
-			if (!string.IsNullOrWhiteSpace(reservationFilter.PartName))
-				filters.Add(r => r.PartName == reservationFilter.PartName);
-
-			if (!string.IsNullOrWhiteSpace(reservationFilter.RecipeCode))
-				filters.Add(r => r.RecipeCode == reservationFilter.RecipeCode);
-
-			if (reservationFilter.StartDate != default(DateTime))
-				filters.Add(r => r.StartDate == reservationFilter.StartDate);
-
-			if (reservationFilter.EndDate != default(DateTime))
-				filters.Add(r => r.EndDate == reservationFilter.EndDate);
-
-			var filteredReservations = _reservationDal.GetByFiltered(filters);
-
-			var viewModel = new ReIndexModelDTO
-			{
-				Results = filteredReservations,
-			};
-
-			return viewModel.Results;
-		}
-		public List<Reservation> GetAllRezervationsToManage(OpReservationFilterModelDTO indexModel)
 		{
 			var reservationFilter = new Reservation
 			{
