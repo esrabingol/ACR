@@ -2,6 +2,7 @@
 using ACR.DataAccess.Helper;
 using ACR.Entity.Concrete;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
 using System.Linq.Expressions;
 
 namespace ACR.DataAccess.Concrete.EntityFramework
@@ -37,13 +38,18 @@ namespace ACR.DataAccess.Concrete.EntityFramework
             _context.Entry(entity).State = EntityState.Modified;
             _context.SaveChanges();
         }
-        public List<T> GetAll(List<Func<Reservation, bool>> filters, params Expression<Func<T, object>>[] expression)
+        public List<T> GetAll(List<Func<T, bool>> filters, params Expression<Func<T, object>>[] expression)
         {
             var query = _context.Set<T>().AsQueryable();
-
+                       
             if (expression != null)
             {
                 query = query.IncludeMultiple(expression);
+            }
+
+            foreach (var filter in filters)
+            {
+                query = query.Where(filter).AsQueryable();
             }
 
             return query.ToList();

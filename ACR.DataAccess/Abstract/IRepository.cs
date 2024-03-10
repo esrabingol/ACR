@@ -7,7 +7,7 @@ namespace ACR.DataAccess.Abstract
     {
         T GetById(int Id);
         IEnumerable<T> GetAll();
-        List<T> GetAll(List<Func<Reservation, bool>> filters,params Expression<Func<T, object>>[] expression);
+        List<T> GetAll(List<Func<T, bool>> filters, params Expression<Func<T, object>>[] expression);
         void Add(T entity);
         void Update(T entity);
         void Delete(T entity);
