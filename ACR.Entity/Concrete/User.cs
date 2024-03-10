@@ -8,7 +8,7 @@
         public string MailAdress { get; set; }
         public long PhoneNumber { get; set; }
         public string Password { get; set; }
-        public Role Role { get; set; }
+        public virtual Role Role { get; set; }
         public int RoleId { get; set; }
         public virtual ICollection<Reservation> Reservations { get; set; } = new List<Reservation>();
     }
