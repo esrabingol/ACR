@@ -72,7 +72,11 @@ namespace ACR.Business.Concrete
 			if (reservationFilter.EndDate != default(DateTime))
 				filters.Add(r => r.EndDate == reservationFilter.EndDate);
 
-			var filteredReservations = _reservationDal.GetByFiltered(filters, f => f.Requester);
+			//rezervasyon bilgileri çekilirken onunla ilişkili requester bilgiside çekilir
+			var filteredReservations = _reservationDal.GetAll(filters, f => f.Requester);
+
+			//operarator bilgilerinede ihtiyaç varsa böyle kulllabilirsin
+			//_reservationDal.GetAll(filters, f => f.Requester,f=>f.Operator);
 
 			var viewModel = new ReIndexModelDTO
 			{
@@ -113,7 +117,7 @@ namespace ACR.Business.Concrete
 			if (reservationFilter.EndDate != default(DateTime))
 				filters.Add(r => r.EndDate == reservationFilter.EndDate);
 
-			var filteredReservations = _reservationDal.GetByFiltered(filters);
+			var filteredReservations = _reservationDal.GetAll(filters, o => o.Operator);
 
 			var viewModel = new ReIndexModelDTO
 			{
