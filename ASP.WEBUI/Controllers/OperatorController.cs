@@ -1,5 +1,6 @@
 ﻿using ACR.Business.Abstract;
 using ACR.Business.Models;
+using ACR.Entity.Concrete;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ASP.WEBUI.Controllers
@@ -55,7 +56,7 @@ namespace ASP.WEBUI.Controllers
 
 		[HttpPost]
 		public IActionResult EditMachineInfo(OpEditMachineModelDTO editMachine)
-		{
+		{ 
 			var updateMachine = _machineService.UpdateMachineInfo(editMachine);
 			ViewBag.FilteredAutoclaves = updateMachine;
 			return RedirectToAction("Index", "Operator");

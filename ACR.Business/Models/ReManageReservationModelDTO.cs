@@ -4,6 +4,7 @@ namespace ACR.Business.Models
 {
     public class ReManageReservationModelDTO
     {
+        public int Id { get; set; }
         public string MachineName { get; set; }
         public string ProjectName { get; set; }
         public string RecipeCode { get; set; }
@@ -12,5 +13,6 @@ namespace ACR.Business.Models
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
         public IEnumerable<Machine> MachineNames { get; set; }
+
     }
 }

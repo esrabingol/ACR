@@ -2,6 +2,7 @@
 using ACR.Business.Models;
 using ACR.DataAccess.Abstract;
 using ACR.Entity.Concrete;
+using Microsoft.EntityFrameworkCore;
 
 namespace ACR.Business.Concrete
 {
@@ -28,14 +29,16 @@ namespace ACR.Business.Concrete
 				RequesterId = 2
 			};
 
-			var a = _reservationDal.AddReservation(reservationAdd);
+			var reservation = _reservationDal.AddReservation(reservationAdd);
 
-			return a;
+			return reservation;
 		}
 		public void Delete(Reservation rezervation)
 		{
 			_reservationDal.Delete(rezervation);
 		}
+
+
 		public List<Reservation> GetAllRezervationsOperator(OpIndexModelDTO indexModel)
 		{
 			var reservationFilter = new Reservation
@@ -69,7 +72,7 @@ namespace ACR.Business.Concrete
 			if (reservationFilter.EndDate != default(DateTime))
 				filters.Add(r => r.EndDate == reservationFilter.EndDate);
 
-			var filteredReservations = _reservationDal.GetByFiltered(filters,f=>f.Requester);
+			var filteredReservations = _reservationDal.GetByFiltered(filters, f => f.Requester);
 
 			var viewModel = new ReIndexModelDTO
 			{
@@ -132,6 +135,7 @@ namespace ACR.Business.Concrete
 		{
 			var reservationUpdate = new Reservation
 			{
+				Id = reReservationUpdateModel.Id,
 				MachineName = reReservationUpdateModel.MachineName,
 				ProjectName = reReservationUpdateModel.ProjectName,
 				RecipeCode = reReservationUpdateModel.RecipeCode,

@@ -18,6 +18,7 @@ namespace ASP.WEBUI.Controllers
 		}
 		public IActionResult Index()
 		{
+
 			var machines = _machineService.GetValues();
 			var opCreateIndexModelDTO = new ReIndexModelDTO { MachineNames = machines };
 			return View(opCreateIndexModelDTO);
@@ -61,5 +62,6 @@ namespace ASP.WEBUI.Controllers
 
 			return View(updateReservation);
 		}
+
 	}
 }

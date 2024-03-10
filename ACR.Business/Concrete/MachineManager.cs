@@ -18,6 +18,7 @@ namespace ACR.Business.Concrete
         }
         public Machine UpdateMachineInfo(OpEditMachineModelDTO editMachine)
         {
+            
             var machineUpdate = new Machine
             {
                 MachineName = editMachine.MachineName,
@@ -28,6 +29,7 @@ namespace ACR.Business.Concrete
                 StartDate = editMachine.StartDate,
                 EndDate = editMachine.EndDate,
                 OperatorNote = editMachine.OperatorNote
+                
             };
             return _machineDal.UpdateMachine(machineUpdate);
         }

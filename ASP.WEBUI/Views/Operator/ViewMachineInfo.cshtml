@@ -97,8 +97,8 @@
 								<td>@result.MachineStatus</td>
 								<td>@result.ItemNo</td>
 								<td>@result.TcNumber</td>
-							    <td>@result.StartDate.Value.ToString("yyyy-MM-dd HH:mm")</td>
-								<td>@result.EndDate.Value.ToString("yyyy-MM-dd HH:mm")</td>
+@*							    <td>@result.StartDate.Value.ToString("yyyy-MM-dd HH:mm")</td>
+								<td>@result.EndDate.Value.ToString("yyyy-MM-dd HH:mm")</td>*@
 								<td>@result.OperatorNote</td>
 							</tr>
 						}
@@ -115,13 +115,8 @@
 		function redirectTo(url) {
 			window.location.href = url;
 		}
-		function clearFilters() {
-			document.getElementById('machineName').value = '';
-			document.getElementById('machineStatu').value = '';
-			document.getElementById('itemNo').value = '';
-			document.getElementById('tc').value = '';
-			document.getElementById('vp').value = '';
-		}
+
+	
 
 	</script>
 </body>

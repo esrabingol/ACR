@@ -2,7 +2,7 @@
 {
     public class Machine : BaseEntity
     {
-        public string MachineName { get; set; } = null!;
+		public string MachineName { get; set; } = null!;
         public string MachineStatus { get; set; } = null!;
         public int? ItemNo { get; set; }
         public int? TcNumber { get; set; }
