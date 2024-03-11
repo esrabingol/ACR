@@ -1,5 +1,8 @@
 ﻿@using ACR.Business.Models;
+@using ACR.Entity.Concrete;
 @model ReIndexModelDTO
+
+
 @{
 	ViewData["Title"] = "Index";
 	Layout = "~/Views/Shared/_Layout.cshtml";
@@ -85,12 +88,14 @@
 				<thead>
 					<tr>
 						<th>#</th>
+						<th></th>
 						<th>Makine Adı</th>
 						<th>Proje Adı</th>
 						<th>Parça Adı</th>
 						<th>Reçete Kodu</th>
 						<th>Başlangıç Tarihi</th>
 						<th>Bitiş Tarihi</th>
+
 						<th>Onaylayan Operator</th>
 					</tr>
 				</thead>
@@ -98,7 +103,30 @@
 					@foreach (var result in Model.Results)
 					{
 						<tr>
-							<td><input type="checkbox" /></td>
+							<td><input type="checkbox" @result.Id /></td>
+							<td>
+								@if (result.Status != null)
+								{
+									if (@result.Status == ReservationStatusType.Pending)
+									{
+										<span class="badge badge-primary">Beklemede</span>
+									}
+									else if (@result.Status == ReservationStatusType.Confirmed)
+									{
+										<span class="badge badge-success">Onaylandı</span>
+									}
+									else if (@result.Status == ReservationStatusType.Cancelled)
+									{
+										<span class="badge badge-danger">İptal Edildi</span>
+									}
+									else
+									{
+										<span class="badge badge-warning">Geçersiz Durum</span>
+									}
+								}
+								
+							</td>
+
 							<td>@result.MachineName</td>
 							<td>@result.ProjectName</td>
 							<td>@result.PartName</td>
@@ -106,6 +134,7 @@
 							<td>@result.StartDate.ToString("dd-MM-yyyy HH:mm")</td>
 							<td>@result.EndDate.ToString("dd-MM-yyyy HH:mm")</td>
 							<td>@result.Operator?.Name @result.Operator?.Surname</td>
+
 						</tr>
 					}
 				</tbody>
