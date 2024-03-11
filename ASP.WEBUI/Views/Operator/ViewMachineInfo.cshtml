@@ -69,7 +69,7 @@
 		</div>
 		<div class="results-section">
 			<div class="top-buttons">
-				<button type="button" class="btn btn-outline-secondary">Bilgi Getir</button>
+				<button type="button" class="btn btn-outline-secondary" onclick="redirectTo('@Url.Action("GetAllMachines","Operator")')">Bilgi Getir</button>
 				<button type="button" class="btn btn-outline-success" onclick="redirectTo('@Url.Action("AddNewMachine","Operator")')">Makine Ekle</button>
 				<button type="button" class="btn btn-outline-primary" onclick="redirectTo('@Url.Action("EditMachineInfo", "Operator")')">Makine Düzenle</button>
 				<button type="button" class="btn btn-outline-danger" onclick="#">Makine Sil </button>
@@ -79,6 +79,7 @@
 				<table class="table">
 					<thead>
 						<tr>
+							<th>#</th>
 							<th>Makine Adı</th>
 							<th>Makine Durumu</th>
 							<th>Item No</th>
@@ -93,6 +94,7 @@
 						@foreach (var result in Model.Results)
 						{
 							<tr>
+								<td><input type="checkbox" /></td>
 								<td>@result.MachineName</td>
 								<td>@result.MachineStatus</td>
 								<td>@result.ItemNo</td>

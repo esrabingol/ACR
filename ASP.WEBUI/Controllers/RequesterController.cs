@@ -63,5 +63,15 @@ namespace ASP.WEBUI.Controllers
 			return View(updateReservation);
 		}
 
+		[HttpGet]
+		public IActionResult GetAllReservations()
+		{
+			var allReservations = _reservationService.GetAllReservations();
+			var reIndexModel = new ReIndexModelDTO
+			{
+				Results = allReservations
+			};
+			return View("Index", reIndexModel);
+		}
 	}
 }

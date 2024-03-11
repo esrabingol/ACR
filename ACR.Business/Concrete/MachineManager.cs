@@ -5,52 +5,52 @@ using ACR.Entity.Concrete;
 
 namespace ACR.Business.Concrete
 {
-    public class MachineManager : IMachineService
-    {
-        private IMachineDal _machineDal;
-        public MachineManager(IMachineDal machineDal)
-        {
-            _machineDal = machineDal;
-        }
-        public void Delete(Machine autoclave)
-        {
-            _machineDal.Delete(autoclave);
-        }
-        public Machine UpdateMachineInfo(OpEditMachineModelDTO editMachine)
-        {
-            
-            var machineUpdate = new Machine
-            {
-                MachineName = editMachine.MachineName,
-                MachineStatus = editMachine.MachineStatus,
-                ItemNo = editMachine.ItemNo,
-                TcNumber = editMachine.TcNumber,
-                VpNumber = editMachine.VpNumber,
-                StartDate = editMachine.StartDate,
-                EndDate = editMachine.EndDate,
-                OperatorNote = editMachine.OperatorNote
-                
-            };
-            return _machineDal.UpdateMachine(machineUpdate);
-        }
-        public Machine GetById(int Id)
-        {
-            var machine = _machineDal.GetById(Id);
-            if (machine == null)
-            {
-                throw new Exception($"ID'si {Id} olan Autoclave bulunamadı.");
-            }
-            return machine;
-        }
-        public List<Machine> GetFilteredValues(OpMachineFilterModelDTO viewMachine)
-        {
+	public class MachineManager : IMachineService
+	{
+		private IMachineDal _machineDal;
+		public MachineManager(IMachineDal machineDal)
+		{
+			_machineDal = machineDal;
+		}
+		public void Delete(Machine autoclave)
+		{
+			_machineDal.Delete(autoclave);
+		}
+		public Machine UpdateMachineInfo(OpEditMachineModelDTO editMachine)
+		{
+
+			var machineUpdate = new Machine
+			{
+				MachineName = editMachine.MachineName,
+				MachineStatus = editMachine.MachineStatus,
+				ItemNo = editMachine.ItemNo,
+				TcNumber = editMachine.TcNumber,
+				VpNumber = editMachine.VpNumber,
+				StartDate = editMachine.StartDate,
+				EndDate = editMachine.EndDate,
+				OperatorNote = editMachine.OperatorNote
+
+			};
+			return _machineDal.UpdateMachine(machineUpdate);
+		}
+		public Machine GetById(int Id)
+		{
+			var machine = _machineDal.GetById(Id);
+			if (machine == null)
+			{
+				throw new Exception($"ID'si {Id} olan Autoclave bulunamadı.");
+			}
+			return machine;
+		}
+		public List<Machine> GetFilteredValues(OpMachineFilterModelDTO viewMachine)
+		{
 			var machineFilter = new Machine
 			{
 				MachineName = viewMachine.MachineName,
-                MachineStatus = viewMachine.MachineStatu,
-                ItemNo = viewMachine.ItemNo,
-                TcNumber = viewMachine.Tc,
-                VpNumber =viewMachine.Vp,
+				MachineStatus = viewMachine.MachineStatu,
+				ItemNo = viewMachine.ItemNo,
+				TcNumber = viewMachine.Tc,
+				VpNumber = viewMachine.Vp,
 				StartDate = viewMachine.StartDate, //bakım başlangıç zamanı
 				EndDate = viewMachine.EndDate, // bakım bitiş zamanı
 			};
@@ -60,17 +60,17 @@ namespace ACR.Business.Concrete
 			if (!string.IsNullOrWhiteSpace(machineFilter.MachineName))
 				filters.Add(r => r.MachineName == machineFilter.MachineName);
 
-            if (!string.IsNullOrEmpty(machineFilter.MachineStatus))
-                filters.Add(r => r.MachineStatus == machineFilter.MachineStatus);
+			if (!string.IsNullOrEmpty(machineFilter.MachineStatus))
+				filters.Add(r => r.MachineStatus == machineFilter.MachineStatus);
 
-            if (machineFilter.ItemNo.HasValue)
-                filters.Add(r => r.ItemNo == machineFilter.ItemNo);
+			if (machineFilter.ItemNo.HasValue)
+				filters.Add(r => r.ItemNo == machineFilter.ItemNo);
 
-            if (machineFilter.TcNumber.HasValue)
-                filters.Add(r => r.TcNumber == machineFilter.TcNumber);
+			if (machineFilter.TcNumber.HasValue)
+				filters.Add(r => r.TcNumber == machineFilter.TcNumber);
 
-            if (machineFilter.VpNumber.HasValue)
-                filters.Add(r => r.VpNumber == machineFilter.VpNumber);
+			if (machineFilter.VpNumber.HasValue)
+				filters.Add(r => r.VpNumber == machineFilter.VpNumber);
 
 			if (machineFilter.StartDate != default(DateTime))
 				filters.Add(r => r.StartDate == machineFilter.StartDate);
@@ -87,22 +87,27 @@ namespace ACR.Business.Concrete
 
 			return viewModel.Results;
 		}
-        public IEnumerable<Machine> GetValues()
-        {
-            var machines = _machineDal.GetAll();
-            return machines.ToList();
-        }
+		public IEnumerable<Machine> GetValues()
+		{
+			var machines = _machineDal.GetAll();
+			return machines.ToList();
+		}
 		public Machine AddNewMachineInfo(OpAddNewMachineModelDTO addMachine)
 		{
-            var machineAdd = new Machine
-            {
-                MachineName = addMachine.MachineName,
-                MachineStatus = addMachine.MachineStatus,
-                ItemNo= addMachine.ItemNo,
-                TcNumber= addMachine.TcNumber,
-                VpNumber = addMachine.VpNumber,
-            };
-            return _machineDal.AddMachine(machineAdd);
-        }
-    }
+			var machineAdd = new Machine
+			{
+				MachineName = addMachine.MachineName,
+				MachineStatus = addMachine.MachineStatus,
+				ItemNo = addMachine.ItemNo,
+				TcNumber = addMachine.TcNumber,
+				VpNumber = addMachine.VpNumber,
+			};
+			return _machineDal.AddMachine(machineAdd);
+		}
+		public List<Machine> GetAllMachines()
+		{
+			var allMachines = _machineDal.GetAll().OrderByDescending(r => r.StartDate).ToList();
+			return allMachines.ToList();
+		}
+	}
 }

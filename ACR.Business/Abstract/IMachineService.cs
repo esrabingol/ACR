@@ -11,5 +11,6 @@ namespace ACR.Business.Abstract
         Machine GetById(int Id);
         List<Machine> GetFilteredValues(OpMachineFilterModelDTO viewMachine);
         IEnumerable<Machine> GetValues();
-    }
+        List<Machine> GetAllMachines();
+	}
 }

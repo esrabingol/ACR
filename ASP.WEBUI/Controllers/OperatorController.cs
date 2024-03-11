@@ -1,6 +1,5 @@
 ﻿using ACR.Business.Abstract;
 using ACR.Business.Models;
-using ACR.Entity.Concrete;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ASP.WEBUI.Controllers
@@ -56,7 +55,7 @@ namespace ASP.WEBUI.Controllers
 
 		[HttpPost]
 		public IActionResult EditMachineInfo(OpEditMachineModelDTO editMachine)
-		{ 
+		{
 			var updateMachine = _machineService.UpdateMachineInfo(editMachine);
 			ViewBag.FilteredAutoclaves = updateMachine;
 			return RedirectToAction("Index", "Operator");
@@ -74,6 +73,28 @@ namespace ASP.WEBUI.Controllers
 			var addNewMachine = _machineService.AddNewMachineInfo(addMachine);
 			return RedirectToAction("ViewMachineInfo", "Operator");
 
+		}
+
+		[HttpGet]
+		public IActionResult GetAllReservations()
+		{
+			var allreservations = _reservationService.GetAllReservations();
+			var opIndexModel = new OpIndexModelDTO
+			{
+				Results = allreservations
+			};
+			return View("Index", opIndexModel);
+		}
+
+		[HttpGet]
+		public IActionResult GetAllMachines()
+		{
+			var allmachines = _machineService.GetAllMachines();
+			var opMachineModel = new OpMachineFilterModelDTO
+			{
+				Results = allmachines
+			};
+			return View("ViewMachineInfo", opMachineModel);
 		}
 	}
 }

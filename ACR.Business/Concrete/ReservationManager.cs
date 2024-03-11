@@ -9,7 +9,6 @@ namespace ACR.Business.Concrete
 	public class ReservationManager : IReservationService
 	{
 		private IReservationDal _reservationDal;
-
 		public ReservationManager(IReservationDal reservationDal)
 		{
 			_reservationDal = reservationDal;
@@ -37,8 +36,11 @@ namespace ACR.Business.Concrete
 		{
 			_reservationDal.Delete(rezervation);
 		}
-
-
+		public List<Reservation> GetAllReservations()
+		{
+			var reservations = _reservationDal.GetAll().OrderByDescending(r => r.StartDate).ToList();
+			return reservations.ToList();
+		}
 		public List<Reservation> GetAllRezervationsOperator(OpIndexModelDTO indexModel)
 		{
 			var reservationFilter = new Reservation
