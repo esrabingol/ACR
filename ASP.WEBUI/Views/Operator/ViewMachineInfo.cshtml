@@ -77,6 +77,8 @@
 					<button type="submit" class="btn btn-outline-danger" id="deleteButton">Makine Sil</button>
 				</form>
 
+
+
 				<button type="button" class="btn btn-outline-warning" onclick="#">Temizle</button>
 			</div>
 			<div class="table-container">
@@ -127,7 +129,9 @@
 			$("#deleteButton").on("click", function () {
 				var selectedMachineId = $("input[name='selectedMachineId']:checked").val();
 				if (selectedMachineId) {
+
 					$("input[name='Id']").val(selectedMachineId);
+					// Formu submit et
 					$("form").submit();
 				} else {
 					alert("Lütfen bir makine seçin.");

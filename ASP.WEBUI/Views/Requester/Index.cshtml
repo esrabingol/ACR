@@ -103,7 +103,7 @@
 					@foreach (var result in Model.Results)
 					{
 						<tr>
-							<td><input type="checkbox" @result.Id /></td>
+							<td><input type="checkbox" name="selectedReservationId" value="@result.Id" /></td>
 							<td>
 								@if (result.Status != null)
 								{
@@ -126,7 +126,6 @@
 								}
 								
 							</td>
-
 							<td>@result.MachineName</td>
 							<td>@result.ProjectName</td>
 							<td>@result.PartName</td>

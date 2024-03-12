@@ -111,7 +111,7 @@ namespace ASP.WEBUI.Controllers
 			var machine = _machineService.GetBySelectedMachine(deleteMachine);
 			if (machine == null)
 			{
-				return RedirectToAction("Index");
+				return RedirectToAction("ViewMachineInfo");
 			}
             return View("DeleteMachine", machine);
         } 

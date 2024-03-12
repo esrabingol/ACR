@@ -1,8 +1,8 @@
 ﻿using ACR.Business.Abstract;
 using ACR.Business.Models;
 using ACR.DataAccess.Abstract;
+using ACR.DataAccess.Concrete.EntityFramework;
 using ACR.Entity.Concrete;
-using Microsoft.EntityFrameworkCore;
 
 namespace ACR.Business.Concrete
 {
