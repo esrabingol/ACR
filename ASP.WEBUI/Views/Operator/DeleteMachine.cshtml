@@ -1,0 +1,84 @@
+﻿@model ACR.Entity.Concrete.Machine
+
+@{
+	ViewData["Title"] = "DeleteMachine";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+    Launch demo modal
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Makine Bilgileri</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="container-fluid">
+                    <form>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label asp-for="MachineName">Makine Adı:</label>
+                                <input asp-for="MachineName" class="form-control" disabled />
+                            </div>
+                            <div class="col-md-6">
+                                <label asp-for="MachineStatus">Makine Durumu:</label>
+                                <input asp-for="MachineStatus" class="form-control" disabled />
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label asp-for="ItemNo">Item No:</label>
+                                <input asp-for="ItemNo" class="form-control" disabled />
+                            </div>
+                            <div class="col-md-6">
+                                <label asp-for="TcNumber">TC Numarası:</label>
+                                <input asp-for="TcNumber" class="form-control" disabled />
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label asp-for="VpNumber">VP Numarası:</label>
+                                <input asp-for="VpNumber" class="form-control" disabled />
+                            </div>
+                            <div class="col-md-6">
+                                <label asp-for="StartDate">Başlangıç Tarihi:</label>
+                                <input asp-for="StartDate" class="form-control" disabled />
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label asp-for="EndDate">Bitiş Tarihi:</label>
+                                <input asp-for="EndDate" class="form-control" disabled />
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label asp-for="OperatorNote">Operator Notu:</label>
+                                <input asp-for="OperatorNote" class="form-control" disabled />
+                            </div>
+                        </div>
+
+                    </form>
+                    <br />
+                    <form action="@Url.Action("DeleteMachine", "Operator")" method="post">
+                        <input asp-for="Id" value="@Model.Id" type="hidden" />
+                        <button type="submit" class="btn btn-outline-danger" id="deleteButton">Makine Sil</button>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

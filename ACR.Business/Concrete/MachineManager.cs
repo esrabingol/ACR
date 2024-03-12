@@ -33,14 +33,21 @@ namespace ACR.Business.Concrete
 			};
 			return _machineDal.UpdateMachine(machineUpdate);
 		}
-		public Machine GetById(int Id)
+		public Machine GetBySelectedMachine(OpMachineFilterModelDTO filterModel)
 		{
-			var machine = _machineDal.GetById(Id);
-			if (machine == null)
+			var machineFind = new Machine
 			{
-				throw new Exception($"ID'si {Id} olan Autoclave bulunamadı.");
-			}
-			return machine;
+				Id = filterModel.Id,
+				MachineName = filterModel.MachineName,
+				MachineStatus = filterModel.MachineStatu,
+				ItemNo = filterModel.ItemNo,
+				TcNumber = filterModel.Tc,
+				VpNumber = filterModel.Vp,
+				StartDate = filterModel.StartDate,
+				EndDate = filterModel.EndDate,
+				OperatorNote = filterModel.OperatorNote
+			};
+			return _machineDal.GetSelectedMachineInfo(machineFind);
 		}
 		public List<Machine> GetFilteredValues(OpMachineFilterModelDTO viewMachine)
 		{

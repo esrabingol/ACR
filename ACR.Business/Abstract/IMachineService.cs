@@ -8,7 +8,7 @@ namespace ACR.Business.Abstract
         Machine UpdateMachineInfo(OpEditMachineModelDTO editMachine);
         Machine AddNewMachineInfo(OpAddNewMachineModelDTO addMachine);
         void Delete(Machine autoclave);
-        Machine GetById(int Id);
+        Machine GetBySelectedMachine(OpMachineFilterModelDTO deleteMachine);
         List<Machine> GetFilteredValues(OpMachineFilterModelDTO viewMachine);
         IEnumerable<Machine> GetValues();
         List<Machine> GetAllMachines();

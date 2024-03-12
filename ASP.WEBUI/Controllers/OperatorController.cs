@@ -1,6 +1,8 @@
 ﻿using ACR.Business.Abstract;
 using ACR.Business.Models;
+using ACR.Entity.Concrete;
 using Microsoft.AspNetCore.Mvc;
+using System.Reflection.PortableExecutable;
 
 namespace ASP.WEBUI.Controllers
 {
@@ -96,5 +98,22 @@ namespace ASP.WEBUI.Controllers
 			};
 			return View("ViewMachineInfo", opMachineModel);
 		}
+
+		[HttpGet]	
+		public IActionResult DeleteMachine()
+		{
+			return View(new OpMachineFilterModelDTO());
+		}
+
+		[HttpPost]
+		public IActionResult DeleteMachine(OpMachineFilterModelDTO deleteMachine)
+		{
+			var machine = _machineService.GetBySelectedMachine(deleteMachine);
+			if (machine == null)
+			{
+				return RedirectToAction("Index");
+			}
+            return View("DeleteMachine", machine);
+        } 
 	}
 }

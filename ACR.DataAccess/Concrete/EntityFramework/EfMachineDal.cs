@@ -30,6 +30,21 @@ namespace ACR.DataAccess.Concrete.EntityFramework
 		{
 			return _context.Machines.Select(a => a.MachineName).ToList();
 		}
+
+		public Machine GetSelectedMachineInfo(Machine findMachine)
+		{
+			int machineId = findMachine.Id;
+			Machine selectedMachine = _context.Set<Machine>().Find(machineId); 
+			if(selectedMachine != null)
+			{
+				return selectedMachine;
+			}
+			else
+			{
+				return null;
+			}
+		}
+
 		public Machine UpdateMachine(Machine machine)
 		{
 			_context.Machines.Update(machine);

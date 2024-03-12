@@ -4,6 +4,7 @@ namespace ACR.Business.Models
 {
 	public class OpMachineFilterModelDTO
 	{
+		public int Id { get; set; }
 		public string? MachineName { get; set; }
 		public string? MachineStatu { get; set; }
 		public int? ItemNo { get; set; }

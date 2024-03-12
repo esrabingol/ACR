@@ -11,7 +11,8 @@ namespace ACR.Business.Models
 		public string RequestNote { get; set; }
 		public DateTime StartDate { get; set; }
 		public DateTime EndDate { get; set; }
-		public List<Reservation> Results { get; set; } = new List<Reservation>();
+        public List<Reservation> Results { get; set; } = new List<Reservation>();
 		public IEnumerable<Machine> MachineNames { get; set; } = null!;
+
 	}
 }

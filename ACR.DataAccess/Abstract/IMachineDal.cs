@@ -8,5 +8,6 @@ namespace ACR.DataAccess.Abstract
 		IEnumerable<string> GetMachineNames();
         Machine UpdateMachine(Machine machine);
         Machine AddMachine(Machine machine);
-    }
+        Machine GetSelectedMachineInfo(Machine findMachine);
+	}
 }
