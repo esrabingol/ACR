@@ -8,7 +8,6 @@ namespace ACR.DataAccess.Concrete.EntityFramework
 		public EfMachineDal(ACRContext context) : base(context)
 		{
 		}
-
 		public Machine AddMachine(Machine machine)
 		{
 			_context.Machines.Add(machine);
@@ -43,11 +42,20 @@ namespace ACR.DataAccess.Concrete.EntityFramework
 				return null;
 			}
 		}
-		public Machine UpdateMachine(int Id)
+		public Machine UpdateMachine(Machine machines)
 		{
-			Machine machine = _context.Set<Machine>().Find(Id);
+			var machine = _context.Set<Machine>().Find(machines.Id);
 			if(machine != null)
 			{
+				machine.MachineName = machines.MachineName;
+				machine.MachineStatus = machines.MachineStatus;
+				machine.ItemNo = machines.ItemNo;
+				machine.TcNumber = machines.TcNumber;
+				machine.VpNumber = machines.VpNumber;
+				machine.StartDate = machines.StartDate;
+				machine.EndDate = machines.EndDate;
+				machine.OperatorNote = machines.OperatorNote;
+
 				_context.Machines.Update(machine);
 				_context.SaveChanges();
 			}

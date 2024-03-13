@@ -2,7 +2,6 @@
 using ACR.Business.Models;
 using ACR.Entity.Concrete;
 using Microsoft.AspNetCore.Mvc;
-using System.Reflection.PortableExecutable;
 
 namespace ASP.WEBUI.Controllers
 {
@@ -22,7 +21,6 @@ namespace ASP.WEBUI.Controllers
 			var opCreateIndexModelDTO = new OpIndexModelDTO { MachineNames = machines };
 			return View(opCreateIndexModelDTO); ;
 		}
-
 		[HttpPost]
 		public IActionResult Index(OpIndexModelDTO indexModel)
 		{
@@ -38,7 +36,6 @@ namespace ASP.WEBUI.Controllers
 			var opMachineFilterModelDTO = new OpMachineFilterModelDTO { MachineNames = machines };
 			return View(opMachineFilterModelDTO);
 		}
-
 		[HttpPost]
 		public IActionResult ViewMachineInfo(OpMachineFilterModelDTO viewMachine)
 		{
@@ -63,9 +60,10 @@ namespace ASP.WEBUI.Controllers
 
 		}
 		[HttpPost]
-		public IActionResult EditMachineInfo()
+		public IActionResult EditMachineInfo(Machine updatedMachine)
 		{
-			return View();
+			var machine = _machineService.UpdateMachineInfo(updatedMachine);
+			return View(machine);
 		}
 
 		[HttpGet]
@@ -73,7 +71,6 @@ namespace ASP.WEBUI.Controllers
 		{
 			return View(new OpAddNewMachineModelDTO());
 		}
-
 		[HttpPost]
 		public IActionResult AddNewMachine(OpAddNewMachineModelDTO addMachine)
 		{
@@ -104,8 +101,7 @@ namespace ASP.WEBUI.Controllers
 			return View("ViewMachineInfo", opMachineModel);
 		}
 
-		
-		[HttpGet]	
+		[HttpGet]
 		public IActionResult DeleteMachine(OpMachineFilterModelDTO deleteMachine)
 		{
 			var machine = _machineService.GetBySelectedMachine(deleteMachine);
@@ -115,7 +111,6 @@ namespace ASP.WEBUI.Controllers
 			}
 			return View("DeleteMachine", machine);
 		}
-
 		[HttpPost]
 		public IActionResult DeleteMachine(int Id)
 		{
