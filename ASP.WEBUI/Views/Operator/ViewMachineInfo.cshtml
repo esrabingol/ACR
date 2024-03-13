@@ -72,7 +72,7 @@
 				<button type="button" class="btn btn-outline-secondary" onclick="redirectTo('@Url.Action("GetAllMachines","Operator")')">Bilgi Getir</button>
 				<button type="button" class="btn btn-outline-success" onclick="redirectTo('@Url.Action("AddNewMachine","Operator")')">Makine Ekle</button>
 				<button type="button" class="btn btn-outline-primary" onclick="redirectTo('@Url.Action("EditMachineInfo", "Operator")')">Makine Düzenle</button>
-				<form action="@Url.Action("DeleteMachine", "Operator")" method="post">
+				<form action="@Url.Action("DeleteMachine", "Operator")" method="get">
 					<input asp-for="Id" value="@Model.Id" type="hidden" />
 					<button type="submit" class="btn btn-outline-danger" id="deleteButton">Makine Sil</button>
 				</form>

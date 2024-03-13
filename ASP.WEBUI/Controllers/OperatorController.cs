@@ -99,13 +99,8 @@ namespace ASP.WEBUI.Controllers
 			return View("ViewMachineInfo", opMachineModel);
 		}
 
+		
 		[HttpGet]	
-		public IActionResult DeleteMachine()
-		{
-			return View(new OpMachineFilterModelDTO());
-		}
-
-		[HttpPost]
 		public IActionResult DeleteMachine(OpMachineFilterModelDTO deleteMachine)
 		{
 			var machine = _machineService.GetBySelectedMachine(deleteMachine);
@@ -113,7 +108,14 @@ namespace ASP.WEBUI.Controllers
 			{
 				return RedirectToAction("ViewMachineInfo");
 			}
-            return View("DeleteMachine", machine);
-        } 
+			return View("DeleteMachine", machine);
+		}
+
+		[HttpPost]
+		public IActionResult DeleteMachine(int Id)
+		{
+			var machine = _machineService.GetBySelectedMachineToId(Id);
+			return View(machine);
+		}
 	}
 }

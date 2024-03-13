@@ -9,5 +9,6 @@ namespace ACR.DataAccess.Abstract
         Machine UpdateMachine(Machine machine);
         Machine AddMachine(Machine machine);
         Machine GetSelectedMachineInfo(Machine findMachine);
-	}
+        Machine GetByIdToDelete(int Id);
+    }
 }

@@ -38,7 +38,9 @@ namespace ACR.Business.Concrete
 		}
 		public List<Reservation> GetAllReservations()
 		{
-			var reservations = _reservationDal.GetAll().OrderByDescending(r => r.StartDate).ToList();
+			var reservations = _reservationDal.GetAll()
+				.OrderByDescending(r => r.StartDate).ToList();
+
 			return reservations.ToList();
 		}
 		public List<Reservation> GetAllRezervationsOperator(OpIndexModelDTO indexModel)
@@ -77,7 +79,7 @@ namespace ACR.Business.Concrete
 			//rezervasyon bilgileri çekilirken onunla ilişkili requester bilgiside çekilir
 			var filteredReservations = _reservationDal.GetAll(filters, f => f.Requester);
 
-			//operarator bilgilerinede ihtiyaç varsa böyle kulllabilirsin
+			//operarator bilgilerinede ihtiyaç varsa böyle kullanabilirsin
 			//_reservationDal.GetAll(filters, f => f.Requester,f=>f.Operator);
 
 			var viewModel = new ReIndexModelDTO

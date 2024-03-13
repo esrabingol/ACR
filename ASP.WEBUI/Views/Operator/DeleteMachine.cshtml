@@ -44,32 +44,27 @@
                                 <input asp-for="TcNumber" class="form-control" disabled />
                             </div>
                         </div>
-
                         <div class="row">
                             <div class="col-md-6">
-                                <label asp-for="VpNumber">VP Numarası:</label>
+                                <label asp-for="VpNumber">Vp Numarası:</label>
                                 <input asp-for="VpNumber" class="form-control" disabled />
-                            </div>
+                                <div class="col-md-6">
+                                    <label asp-for="OperatorNote">Operator Notu:</label>
+                                    <input asp-for="OperatorNote" class="form-control" disabled value="@(string.IsNullOrEmpty(Model.OperatorNote) ? "Mevcut bilgi yok" : Model.OperatorNote)" />
+                                </div>
+                        </div>
+                        <div class="row">
                             <div class="col-md-6">
                                 <label asp-for="StartDate">Başlangıç Tarihi:</label>
-                                <input asp-for="StartDate" class="form-control" disabled />
+                                <input asp-for="StartDate" class="form-control" disabled value="@(Model.StartDate.HasValue ? Model.StartDate.Value.ToString() : "Mevcut bilgi yok")" />
                             </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-md-12">
+                                 <div class="col-md-6">
                                 <label asp-for="EndDate">Bitiş Tarihi:</label>
-                                <input asp-for="EndDate" class="form-control" disabled />
+                                <input asp-for="EndDate" class="form-control" disabled value="@(Model.EndDate.HasValue ? Model.EndDate.Value.ToString() : "Mevcut bilgi yok")" />
                             </div>
                         </div>
 
-                        <div class="row">
-                            <div class="col-md-12">
-                                <label asp-for="OperatorNote">Operator Notu:</label>
-                                <input asp-for="OperatorNote" class="form-control" disabled />
-                            </div>
-                        </div>
-
+                  
                     </form>
                     <br />
                     <form action="@Url.Action("DeleteMachine", "Operator")" method="post">
