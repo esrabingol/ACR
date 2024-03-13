@@ -48,19 +48,24 @@ namespace ASP.WEBUI.Controllers
 		}
 
 		[HttpGet]
+		public IActionResult EditMachineInfo(OpMachineFilterModelDTO editMachine)
+		{
+			//var machines = _machineService.GetValues();
+			//var opEditMachineModelDTO = new OpEditMachineModelDTO { MachineNames = machines };
+			//return View(opEditMachineModelDTO);
+
+			var machine = _machineService.GetBySelectedMachine(editMachine);
+			if (machine == null)
+			{
+				return RedirectToAction("ViewMachineInfo");
+			}
+			return View("EditMachineInfo", machine);
+
+		}
+		[HttpPost]
 		public IActionResult EditMachineInfo()
 		{
-			var machines = _machineService.GetValues();
-			var opEditMachineModelDTO = new OpEditMachineModelDTO { MachineNames = machines };
-			return View(opEditMachineModelDTO);
-		}
-
-		[HttpPost]
-		public IActionResult EditMachineInfo(OpEditMachineModelDTO editMachine)
-		{
-			var updateMachine = _machineService.UpdateMachineInfo(editMachine);
-			ViewBag.FilteredAutoclaves = updateMachine;
-			return RedirectToAction("Index", "Operator");
+			return View();
 		}
 
 		[HttpGet]

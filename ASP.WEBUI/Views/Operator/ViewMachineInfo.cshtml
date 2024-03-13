@@ -71,10 +71,14 @@
 			<div class="top-buttons">
 				<button type="button" class="btn btn-outline-secondary" onclick="redirectTo('@Url.Action("GetAllMachines","Operator")')">Bilgi Getir</button>
 				<button type="button" class="btn btn-outline-success" onclick="redirectTo('@Url.Action("AddNewMachine","Operator")')">Makine Ekle</button>
-				<button type="button" class="btn btn-outline-primary" onclick="redirectTo('@Url.Action("EditMachineInfo", "Operator")')">Makine Düzenle</button>
+@*				<button type="button" class="btn btn-outline-primary" onclick="redirectTo('@Url.Action("EditMachineInfo", "Operator")')">Makine Düzenle</button>*@
+				<form action="@Url.Action("EditMachineInfo", "Operator")" method="get">
+					<input asp-for="Id" value="@Model.Id" type="hidden" />
+					<button type="submit" class="btn btn-outline-primary" id="allButton">Makine Düzenle</button>
+				</form>
 				<form action="@Url.Action("DeleteMachine", "Operator")" method="get">
 					<input asp-for="Id" value="@Model.Id" type="hidden" />
-					<button type="submit" class="btn btn-outline-danger" id="deleteButton">Makine Sil</button>
+					<button type="submit" class="btn btn-outline-danger" id="allButton">Makine Sil</button>
 				</form>
 
 
@@ -126,7 +130,7 @@
 		}
 
 		$(document).ready(function () {
-			$("#deleteButton").on("click", function () {
+			$("#allButton").on("click", function () {
 				var selectedMachineId = $("input[name='selectedMachineId']:checked").val();
 				if (selectedMachineId) {
 

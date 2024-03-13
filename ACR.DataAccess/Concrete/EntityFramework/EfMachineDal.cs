@@ -43,11 +43,14 @@ namespace ACR.DataAccess.Concrete.EntityFramework
 				return null;
 			}
 		}
-		public Machine UpdateMachine(Machine machine)
+		public Machine UpdateMachine(int Id)
 		{
-			//Id si bulunarak güncelleme işlemi gerçekleşicek
-			_context.Machines.Update(machine);
-			_context.SaveChanges();
+			Machine machine = _context.Set<Machine>().Find(Id);
+			if(machine != null)
+			{
+				_context.Machines.Update(machine);
+				_context.SaveChanges();
+			}
 			return machine;
 		}
         public Machine GetByIdToDelete(int Id)

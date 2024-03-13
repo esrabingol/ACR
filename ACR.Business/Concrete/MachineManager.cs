@@ -16,22 +16,22 @@ namespace ACR.Business.Concrete
         {
             _machineDal.Delete(autoclave);
         }
-        public Machine UpdateMachineInfo(OpEditMachineModelDTO editMachine)
+        public Machine UpdateMachineInfo(OpMachineFilterModelDTO editMachine)
         {
-
             var machineUpdate = new Machine
-            {
+			{
+                Id = editMachine.Id,
                 MachineName = editMachine.MachineName,
-                MachineStatus = editMachine.MachineStatus,
+                MachineStatus = editMachine.MachineStatu,
                 ItemNo = editMachine.ItemNo,
-                TcNumber = editMachine.TcNumber,
-                VpNumber = editMachine.VpNumber,
+                TcNumber = editMachine.Tc,
+                VpNumber = editMachine.Vp,
                 StartDate = editMachine.StartDate,
                 EndDate = editMachine.EndDate,
                 OperatorNote = editMachine.OperatorNote
 
             };
-            return _machineDal.UpdateMachine(machineUpdate);
+            return _machineDal.UpdateMachine(machineUpdate.Id);
         }
         public Machine GetBySelectedMachine(OpMachineFilterModelDTO filterModel)
         {
@@ -116,7 +116,6 @@ namespace ACR.Business.Concrete
             var allMachines = _machineDal.GetAll().OrderByDescending(r => r.StartDate).ToList();
             return allMachines.ToList();
         }
-
         public Machine GetBySelectedMachineToId(int Id)
         {
          return  _machineDal.GetByIdToDelete(Id); 

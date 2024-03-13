@@ -1,8 +1,7 @@
-﻿@using ACR.Business.Models;
-@model OpEditMachineModelDTO
+﻿@model ACR.Entity.Concrete.Machine
 @*makine işlemlerinden sonra düzenle kısmı*@
 @{
-	ViewData["Title"] = "Index";
+	ViewData["Title"] = "EditMachineInfo";
 	Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <!DOCTYPE html>
@@ -29,16 +28,17 @@
 						</a>
 					</div>
 					<label><strong>Makine Adı:</strong></label>
-					<select asp-for="MachineName" class="form-control" placeholder=" Seçimi">
+					<input asp-for="MachineName" value="@Model.MachineName" class="form-control" placeholder="Makine Adı giriniz." />
+				@*	<select asp-for="MachineName" class="form-control" placeholder=" Seçimi">
 						<option value="" selected disabled>Seçiniz</option>
-						@if (Model.MachineNames != null)
+						@if (Model.MachineName != null)
 						{
-							foreach (var item in Model.MachineNames)
+							foreach (var item in Model.MachineName)
 							{
-								<option>@item.MachineName</option>
+								<option>@item.MachineName </option>
 							}
 						}
-					</select>
+					</select>*@
 					<label for="machineStatu">Makine Durumu:</label>
 					<select asp-for="MachineStatus" class="form-control" placeholder="Makine Durumu Seçimi">
 						<option value="" selected disabled>Seçiniz</option>
@@ -73,7 +73,7 @@
 
 				</div>
 				<div class="buttons-section">
-					<button type="submit" class="btn btn-outline-primary">Makineyi Güncelle</button>
+					<button type="submit" class="btn btn-outline-primary">Düzenlemeleri Güncelle</button>
 				</div>
 			</form>
 
