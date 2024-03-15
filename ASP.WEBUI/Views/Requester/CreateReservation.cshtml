@@ -24,7 +24,7 @@
 		<form asp-controller="Requester" asp-action="CreateReservation" method="post">
 			<div class="form-group">
 				<label><strong>Makine Adı:</strong></label>
-				<select asp-for="MachineName" class="form-control" placeholder="Makine Seçimi">
+				<select asp-for="MachineName" class="form-control" placeholder="Makine Seçimi" required>
 					<option value="" selected disabled>Seçiniz</option>
 					@if (Model.MachineNames != null)
 					{
@@ -39,19 +39,19 @@
 
 			<div class="form-group">
 				<label class="form-label" for="projectName">Proje Adı:</label>
-				<input asp-for="ProjectName" value="@Model.ProjectName" type="text" class="form-control" />
+				<input asp-for="ProjectName" value="@Model.ProjectName" type="text" class="form-control" required />
 				<span class="required-note">*zorunlu alan</span>
 			</div>
 
 			<div class="form-group">
 				<label class="form-label" for="recipeCode">Reçete Kodu:</label>
-				<input asp-for="RecipeCode" value="@Model.RecipeCode" type="text" class="form-control" />
+				<input asp-for="RecipeCode" value="@Model.RecipeCode" type="text" class="form-control" required />
 				<span class="required-note">*zorunlu alan</span>
 			</div>
 
 			<div class="form-group">
 				<label class="form-label" for="partName">Parça Adı:</label>
-				<input asp-for="PartName" value="@Model.PartName" type="text" class="form-control" />
+				<input asp-for="PartName" value="@Model.PartName" type="text" class="form-control" required />
 					<span class="required-note">*zorunlu alan</span>
 			</div>
 
@@ -63,13 +63,13 @@
 			<div class="form-row">
 				<div class="form-group col-md-6">
 					<label class="form-label" for="startDate">Başlangıç Saati:</label>
-					<input asp-for="StartDate" value="@Model.StartDate" type="datetime-local" class="form-control" />
+					<input asp-for="StartDate" value="@Model.StartDate" type="datetime-local" class="form-control" required />
 					<span class="required-note">*zorunlu alan</span>
 				</div>
 
 				<div class="form-group col-md-6">
 					<label class="form-label" for="endTime">Bitiş Saati:</label>
-					<input asp-for="EndDate" value="@Model.EndDate" type="datetime-local" class="form-control" />
+					<input asp-for="EndDate" value="@Model.EndDate" type="datetime-local" class="form-control" required />
 					<span class="required-note">*zorunlu alan</span>
 				</div>
 			</div>

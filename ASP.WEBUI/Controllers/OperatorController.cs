@@ -63,6 +63,10 @@ namespace ASP.WEBUI.Controllers
 		public IActionResult EditMachineInfo(Machine updatedMachine)
 		{
 			var machine = _machineService.UpdateMachineInfo(updatedMachine);
+			if(machine != null)
+			{
+				TempData["SuccessMessage"] = "Güncelleme işlemi başarıyla tamamlandı.";
+			}
 			return View(machine);
 		}
 

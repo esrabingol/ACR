@@ -34,14 +34,14 @@
 				<div class="login100-pic js-tilt" data-tilt>
 					<img src="~/login/images/img-01.png" />
 				</div>
-				@if (TempData["SuccessMessage"] != null)
-				{
-					<div class="alert alert-success" role="alert">
-						@TempData["SuccessMessage"]
-					</div>
-				}
-				<form asp-controller="User" asp-action="UserLogin" method="post" class="login100-form validate-form">
 
+				<form asp-controller="User" asp-action="UserLogin" method="post" class="login100-form validate-form">
+					@if (TempData["SuccessMessage"] != null)
+					{
+						<div class="alert alert-success" role="alert">
+							@TempData["SuccessMessage"]
+						</div>
+					}
 					<span class="login100-form-title">
 						KULLANICI GİRİŞİ
 					</span>

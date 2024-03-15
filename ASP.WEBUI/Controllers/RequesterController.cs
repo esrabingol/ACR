@@ -44,7 +44,12 @@ namespace ASP.WEBUI.Controllers
 		[HttpPost]
 		public IActionResult CreateReservation(ReCreateReservationModelDTO reservationModel)
 		{
-			var reservationMachineInfos = _reservationService.Add(reservationModel);
+			var reservationInfo = _reservationService.Add(reservationModel);
+			if(reservationInfo != null)
+			{
+				TempData["SuccessMessage"] = "Randevunuz Başarıyla Oluşturulmuştur.";
+				TempData["WarningMessage"] = "Sistem üzerinden randevu takip işlemi sağlayabilirsiniz.";
+			}
 			return RedirectToAction(nameof(Index));
 		}
 
@@ -64,7 +69,10 @@ namespace ASP.WEBUI.Controllers
 		public IActionResult ManageReservation(Reservation updateReservation)
 		{
 			var reservation = _reservationService.UpdateReservation(updateReservation);
-
+			if (reservation != null)
+			{
+				TempData["SuccessMessage"] = "Güncelleme işlemi başarıyla tamamlandı.";
+			}
 			return View(reservation);
 		}
 

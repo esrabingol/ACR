@@ -27,42 +27,48 @@
 							<span class="glyphicon glyphicon-circle-arrow-left" style="font-size: 24px;"></span>
 						</a>
 					</div>
+					@if (TempData["SuccessMessage"] != null)
+					{
+						<div class="alert alert-success" role="alert">
+							@TempData["SuccessMessage"]
+						</div>
+					}
 					<label><strong>Makine Adı:</strong></label>
-					<input asp-for="MachineName" value="@Model.MachineName" class="form-control" placeholder="Makine Adı giriniz." />
-				@*	<select asp-for="MachineName" class="form-control" placeholder=" Seçimi">
-						<option value="" selected disabled>Seçiniz</option>
-						@if (Model.MachineName != null)
-						{
-							foreach (var item in Model.MachineName)
-							{
-								<option>@item.MachineName </option>
-							}
-						}
+					<input asp-for="MachineName" value="@Model.MachineName" class="form-control" placeholder="Makine Adı giriniz." required />
+					@*	<select asp-for="MachineName" class="form-control" placeholder=" Seçimi">
+					<option value="" selected disabled>Seçiniz</option>
+					@if (Model.MachineName != null)
+					{
+					foreach (var item in Model.MachineName)
+					{
+					<option>@item.MachineName </option>
+					}
+					}
 					</select>*@
 					<label for="machineStatu">Makine Durumu:</label>
-					<select asp-for="MachineStatus" class="form-control" placeholder="Makine Durumu Seçimi">
+					<select asp-for="MachineStatus" class="form-control" placeholder="Makine Durumu Seçimi" required>
 						<option value="" selected disabled>Seçiniz</option>
 						<option value="Aktif">AKTİF</option>
 						<option value="Pasif">PASİF</option>
 					</select>
 
 					<label for="ItemNo">Item No :</label>
-					<input asp-for="ItemNo" value="@Model.ItemNo" class="form-control" placeholder="Item No giriniz." />
+					<input asp-for="ItemNo" value="@Model.ItemNo" class="form-control" placeholder="Item No giriniz." required />
 
 					<label for="Tc">TC:</label>
-					<input asp-for="TcNumber" value="@Model.TcNumber" class="form-control" placeholder="TC değerini giriniz." />
+					<input asp-for="TcNumber" value="@Model.TcNumber" class="form-control" placeholder="TC değerini giriniz." required />
 
 					<label for="Vp">VP:</label>
-					<input asp-for="VpNumber" value="@Model.VpNumber" class="form-control" placeholder="VP değerini giriniz." />
+					<input asp-for="VpNumber" value="@Model.VpNumber" class="form-control" placeholder="VP değerini giriniz." required />
 
 					<div class="form-row">
 						<div class="form-group col-md-6">
 							<label class="form-label" for="StartDate">Bakım Başlangıç Tarihi:</label>
-							<input asp-for="StartDate" value="@Model.StartDate" type="datetime-local" class="form-control" />
+							<input asp-for="StartDate" value="@Model.StartDate" type="datetime-local" class="form-control"  />
 						</div>
 						<div class="form-group col-md-6">
 							<label class="form-label" for="EndDate">Bakım Bitiş Tarihi:</label>
-							<input asp-for="EndDate" value="@Model.EndDate" type="datetime-local" class="form-control" />
+							<input asp-for="EndDate" value="@Model.EndDate" type="datetime-local" class="form-control"  />
 						</div>
 					</div>
 
@@ -73,7 +79,7 @@
 
 				</div>
 				<div class="buttons-section">
-					<button type="submit" class="btn btn-outline-primary">Düzenlemeleri Güncelle</button>
+					<button type="submit" class="btn btn-outline-primary">Güncelle</button>
 				</div>
 			</form>
 

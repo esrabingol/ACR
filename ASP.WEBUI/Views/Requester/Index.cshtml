@@ -40,6 +40,18 @@
 	}
 </style>
 <body>
+	@if (TempData["SuccessMessage"] != null)
+	{
+		<div class="alert alert-success" role="alert">
+			@TempData["SuccessMessage"]
+		</div>
+	}
+	@if (TempData["WarningMessage"] != null)
+	{
+		<div class="alert alert-warning" role="alert">
+			@TempData["WarningMessage"]
+		</div>
+	}
 	<div class="main-container">
 		<form asp-controller="Requester" asp-action="Index" method="post">
 			<div class="filter-section">
