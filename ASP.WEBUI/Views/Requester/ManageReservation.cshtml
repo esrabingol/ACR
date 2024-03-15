@@ -1,5 +1,4 @@
-﻿@using ACR.Business.Models;
-@model ReManageReservationModelDTO
+﻿@model ACR.Entity.Concrete.Reservation
 @{
     ViewData["Title"] = "ManageReservation";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -26,17 +25,18 @@
             </a>
         </div>
         <form asp-controller="Requester" asp-action="ManageReservation" method="post">
+            <input asp-for="Id" value="@Model.Id" type="hidden" />
             <div class="form-group">
                    <label><strong>Makine Adı:</strong></label>
                 <select asp-for="MachineName" class="form-control" placeholder=" Seçimi">
                     <option value="" selected disabled>Seçiniz</option>
-                    @if (Model.MachineNames != null)
+           @*         @if (Model.MachineNames != null)
                     {
                         foreach (var item in Model.MachineNames)
                         {
                             <option>@item.MachineName</option>
                         }
-                    }
+                    }*@
                 </select>
             </div>
 

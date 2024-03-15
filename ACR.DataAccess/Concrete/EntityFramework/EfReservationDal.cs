@@ -1,5 +1,6 @@
 ﻿using ACR.DataAccess.Abstract;
 using ACR.Entity.Concrete;
+using System.Reflection.PortableExecutable;
 
 namespace ACR.DataAccess.Concrete.EntityFramework
 {
@@ -15,10 +16,38 @@ namespace ACR.DataAccess.Concrete.EntityFramework
 			_context.SaveChanges();
 			return reservation;
 		}
-		public Reservation UpdateReservation(Reservation reservation)
+
+		public Reservation GetSelectedReservationInfo(Reservation reservationFind)
 		{
-			_context.Reservations.Update(reservation);
-			_context.SaveChanges();
+			int reservationId = reservationFind.Id;
+			Reservation selectedReservation = _context.Set<Reservation>().Find(reservationId);
+			if (selectedReservation != null)
+			{
+				return selectedReservation;
+
+			}
+			else
+			{
+				return null;
+			}
+		}
+
+		public Reservation UpdateReservation(Reservation updateReservation)
+		{
+			var reservation = _context.Set<Reservation>().Find(updateReservation.Id);
+			if (reservation != null)
+			{
+				reservation.Id = updateReservation.Id;
+				reservation.MachineName = updateReservation.MachineName;
+				reservation.ProjectName=updateReservation.ProjectName;
+				reservation.PartName = updateReservation.PartName;
+				reservation.StartDate = updateReservation.StartDate;
+				reservation.EndDate = updateReservation.EndDate;
+				reservation.RequestNote = updateReservation.RequestNote;
+
+				_context.Reservations.Update(reservation);
+				_context.SaveChanges();
+			}
 			return reservation;
 		}
 	}

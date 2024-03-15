@@ -130,6 +130,22 @@ namespace ACR.Business.Concrete
 
 			return viewModel.Results;
 		}
+		public Reservation GetBySelectedReservation(ReIndexModelDTO manageReservationModel)
+		{
+			var reservationFind = new Reservation
+			{
+				Id = manageReservationModel.Id,
+				MachineName = manageReservationModel.MachineName,
+				ProjectName = manageReservationModel.ProjectName,
+				PartName = manageReservationModel.PartName,
+				RecipeCode = manageReservationModel.RecipeCode,
+				StartDate= manageReservationModel.StartDate,
+				EndDate= manageReservationModel.EndDate,
+				RequestNote = manageReservationModel.RequestNote,
+			};
+			return _reservationDal.GetSelectedReservationInfo(reservationFind);
+
+		}
 		public Reservation GetRezervationById(int reservationId)
 		{
 			var reservation = _reservationDal.GetById(reservationId);
@@ -139,19 +155,9 @@ namespace ACR.Business.Concrete
 			}
 			return reservation;
 		}
-		public Reservation UpdateReservation(ReManageReservationModelDTO reReservationUpdateModel)
+		public Reservation UpdateReservation(Reservation reReservationUpdateModel)
 		{
-			var reservationUpdate = new Reservation
-			{
-				Id = reReservationUpdateModel.Id,
-				MachineName = reReservationUpdateModel.MachineName,
-				ProjectName = reReservationUpdateModel.ProjectName,
-				RecipeCode = reReservationUpdateModel.RecipeCode,
-				RequestNote = reReservationUpdateModel.RequestNote,
-				StartDate = reReservationUpdateModel.StartDate,
-				EndDate = reReservationUpdateModel.EndDate,
-			};
-			return _reservationDal.UpdateReservation(reservationUpdate);
+			return _reservationDal.UpdateReservation(reReservationUpdateModel);
 		}
 	}
 }

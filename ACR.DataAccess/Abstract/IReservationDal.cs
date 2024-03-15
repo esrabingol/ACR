@@ -6,6 +6,7 @@ namespace ACR.DataAccess.Abstract
 	public interface IReservationDal : IRepository<Reservation>
 	{
 		Reservation AddReservation(Reservation reservation);
-		Reservation UpdateReservation(Reservation reservation);
+		Reservation UpdateReservation(Reservation updateReservation);
+		Reservation GetSelectedReservationInfo(Reservation reservationFind);
 	}
 }

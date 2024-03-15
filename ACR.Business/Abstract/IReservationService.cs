@@ -10,7 +10,8 @@ namespace ACR.Business.Abstract
 		Reservation GetRezervationById(int reservationId);
         Reservation Add(ReCreateReservationModelDTO reReservationFilterModel);
         void Delete(Reservation rezervation);
-        Reservation UpdateReservation(ReManageReservationModelDTO reReservationUpdateModel);
+        Reservation UpdateReservation(Reservation updateReservation);
         List<Reservation> GetAllReservations();
+        Reservation GetBySelectedReservation(ReIndexModelDTO manageReservationModel);
 	}
 }

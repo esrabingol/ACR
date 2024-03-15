@@ -1,5 +1,6 @@
 ﻿using ACR.Business.Abstract;
 using ACR.Business.Models;
+using ACR.Entity.Concrete;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ASP.WEBUI.Controllers
@@ -48,19 +49,27 @@ namespace ASP.WEBUI.Controllers
 		}
 
 		[HttpGet]
-		public IActionResult ManageReservation()
+		public IActionResult ManageReservation(ReIndexModelDTO manageReservationModel)
 		{
-			var machines = _machineService.GetValues();
-			var opManageMachineModelDTO = new ReManageReservationModelDTO { MachineNames = machines };
-			return View(opManageMachineModelDTO);
+			//var machines = _machineService.GetValues();
+			//var opManageMachineModelDTO = new ReManageReservationModelDTO { MachineNames = machines };
+			//return View(opManageMachineModelDTO);
+
+			var reservation = _reservationService.GetBySelectedReservation(manageReservationModel);
+			if (reservation == null)
+			{
+				return RedirectToAction("Index");
+			}
+			return View("ManageReservation", reservation);
+
 		}
 
 		[HttpPost]
-		public IActionResult ManageReservation(ReManageReservationModelDTO manageReservationModel)
+		public IActionResult ManageReservation(Reservation updateReservation)
 		{
-			var updateReservation = _reservationService.UpdateReservation(manageReservationModel);
+			var reservation = _reservationService.UpdateReservation(updateReservation);
 
-			return View(updateReservation);
+			return View(reservation);
 		}
 
 		[HttpGet]
