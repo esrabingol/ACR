@@ -66,7 +66,7 @@
 			</form>
 
 		</div>
-		<div class="results-section" >
+		<div class="results-section">
 			<div class="top-buttons">
 				<button type="button" class="btn btn-outline-secondary" onclick="redirectTo('@Url.Action("GetAllMachines","Operator")')">Bilgi Getir</button>
 				<button type="button" class="btn btn-outline-success" onclick="redirectTo('@Url.Action("AddNewMachine","Operator")')">Makine Ekle</button>
@@ -79,80 +79,47 @@
 					<button type="submit" class="btn btn-outline-danger" id="deleteButton">Makine Sil</button>
 				</form>
 
-				<button type="button" class="btn btn-outline-warning" onclick="#">Temizle</button>
+				<button type="button" class="btn btn-outline-warning" id=clearButton>Temizle</button>
 			</div>
-			<div class="table-container">
-				<table class="table">
-					<thead>
+			<table class="table table-hover table-fixed" style="width:1100px;">
+				<thead>
+					<tr>
+						<th>#</th>
+						<th>Makine Adı</th>
+						<th>Makine Durumu</th>
+						<th>Item No</th>
+						<th>Tc Numarası</th>
+						<th>Vp Numarası</th>
+						<th>Başlangıç Tarihi</th>
+						<th>Bitiş Tarihi</th>
+						<th>Operator Notu</th>
+					</tr>
+				</thead>
+				<tbody>
+
+					@foreach (var result in Model.Results)
+					{
 						<tr>
-							<th>#</th>
-							<th>Makine Adı</th>
-							<th>Makine Durumu</th>
-							<th>Item No</th>
-							<th>Tc Numarası</th>
-							<th>Vp Numarası</th>
-							<th>Başlangıç Tarihi</th>
-							<th>Bitiş Tarihi</th>
-							<th>Operator Notu</th>
+							<td><input type="checkbox" name="selectedMachineId" value="@result.Id" /></td>
+							<td>@result.MachineName</td>
+							<td>@result.MachineStatus</td>
+							<td>@result.ItemNo</td>
+							<td>@result.TcNumber</td>
+							<td>@result.VpNumber</td>
+							@*							<td>@result.StartDate.Value.ToString("yyyy-MM-dd HH:mm")</td>
+						<td>@result.EndDate.Value.ToString("yyyy-MM-dd HH:mm")</td>*@
+							<td>@result.OperatorNote</td>
 						</tr>
-					</thead>
-					<tbody>
-						@foreach (var result in Model.Results)
-						{
-							<tr>
-								<td><input type="checkbox" name="selectedMachineId" value="@result.Id" /></td>
-								<td>@result.MachineName</td>
-								<td>@result.MachineStatus</td>
-								<td>@result.ItemNo</td>
-								<td>@result.TcNumber</td>
-								<td>@result.VpNumber</td>
-								@*							    <td>@result.StartDate.Value.ToString("yyyy-MM-dd HH:mm")</td>
-							<td>@result.EndDate.Value.ToString("yyyy-MM-dd HH:mm")</td>*@
-								<td>@result.OperatorNote</td>
-							</tr>
-						}
-					</tbody>
-				</table>
-			</div>
+					}
+				</tbody>
+			</table>
 			<div>
 			</div>
 		</div>
 
 	</div>
 
-	<script>
-		function redirectTo(url) {
-			window.location.href = url;
-		}
-
-		$(document).ready(function () {
-			$("#editButton").on("click", function () {
-				var selectedMachineId = $("input[name='selectedMachineId']:checked").val();
-				if (selectedMachineId) {
-
-					$("input[name='Id']").val(selectedMachineId);
-					// Formu submit et
-					$("form").submit();
-				} else {
-					alert("Lütfen bir makine seçin.");
-				}
-			});
-		});
-
-		$(document).ready(function () {
-			$("#deleteButton").on("click", function () {
-				var selectedMachineId = $("input[name='selectedMachineId']:checked").val();
-				if (selectedMachineId) {
-
-					$("input[name='Id']").val(selectedMachineId);
-					// Formu submit et
-					$("form").submit();
-				} else {
-					alert("Lütfen bir makine seçin.");
-				}
-			});
-		});
-	</script>
+	<script src="~/js/opviewmachine.js"></script>
 </body>
 
 </html>

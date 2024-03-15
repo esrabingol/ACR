@@ -14,6 +14,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Randevu Filtreleme Ekranı</title>
 	<link href="~/css/reindex.css" rel="stylesheet" />
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <style>
 	body {
@@ -78,13 +79,13 @@
 		<div class="results-section">
 			<div class="top-buttons">
 				<button type="button" class="btn btn-outline-secondary" onclick="redirectTo('@Url.Action("GetAllReservations","Requester")')">Bilgi Getir</button>
-@*				<button type="button" class="btn btn-outline-success" onclick="redirectTo('@Url.Action("ManageReservation","Requester")')">Randevu Güncelle</button>*@
+				@*				<button type="button" class="btn btn-outline-success" onclick="redirectTo('@Url.Action("ManageReservation","Requester")')">Randevu Güncelle</button>*@
 				<form id="manageReservationForm" asp-controller="Requester" asp-action="ManageReservation" method="get">
 					<button type="button" class="btn btn-outline-success" onclick="submitFormWithSelectedReservation()">Randevu Güncelle</button>
 					<input type="hidden" id="selectedReservationId" name="id" value="" />
 				</form>
 				<button type="button" class="btn btn-outline-primary" onclick="redirectTo('@Url.Action("CreateReservation", "Requester")')">Randevu Al</button>
-				<button type="button" class="btn btn-outline-warning">Temizle</button>
+				<button type="button" class="btn btn-outline-warning" id="clearButton">Temizle</button>
 				<button type="button" class="btn btn-outline-danger">Randevu İptal Et</button>
 			</div>
 			<!--Table-->
@@ -128,7 +129,7 @@
 										<span class="badge badge-warning">Geçersiz Durum</span>
 									}
 								}
-								
+
 							</td>
 							<td>@result.MachineName</td>
 							<td>@result.ProjectName</td>
@@ -148,31 +149,7 @@
 			</div>
 		</div>
 	</div>
-	<script>
-
-		function redirectTo(url) {
-			window.location.href = url;
-		}
-		function submitFormWithSelectedReservation() {
-			// Seçilen checkbox'ı bul
-			var selectedReservation = document.querySelector('input[name="selectedReservationId"]:checked');
-
-			// Eğer hiçbir checkbox seçili değilse uyarı ver ve işlemi durdur
-			if (!selectedReservation) {
-				alert("Lütfen bir randevu seçin.");
-				return;
-			}
-
-			// Seçilen randevu ID'yi al
-			var reservationId = selectedReservation.value;
-
-			// Seçilen randevu ID'sini gizli input'a ata
-			document.getElementById('selectedReservationId').value = reservationId;
-
-			// Formu gönder
-			document.getElementById('manageReservationForm').submit();
-		}
-	</script>
+	<script src="~/js/reindex.js"></script>
 </body>
 
 </html>
