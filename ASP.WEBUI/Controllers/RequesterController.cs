@@ -51,10 +51,6 @@ namespace ASP.WEBUI.Controllers
 		[HttpGet]
 		public IActionResult ManageReservation(ReIndexModelDTO manageReservationModel)
 		{
-			//var machines = _machineService.GetValues();
-			//var opManageMachineModelDTO = new ReManageReservationModelDTO { MachineNames = machines };
-			//return View(opManageMachineModelDTO);
-
 			var reservation = _reservationService.GetBySelectedReservation(manageReservationModel);
 			if (reservation == null)
 			{
