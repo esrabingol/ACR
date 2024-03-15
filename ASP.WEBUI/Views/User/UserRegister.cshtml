@@ -16,7 +16,12 @@
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 	<link href="~/register/css/style.css" rel="stylesheet" />
 </head>
-
+<style>
+	.container
+	{
+		max-width: 1340px;
+	}
+</style>
 <body>
 	<section class="ftco-section" style="padding : 0em 0">
 		<div class="container">
@@ -30,40 +35,56 @@
 						<h3 class="text-center mb-4">KULLANICI KAYIT EKRANI</h3>
 
 						<form asp-controller="User" asp-action="UserRegister" method="post" class="signup-form">
-							<div class="form-group mb-3">
-								<label class="label" for="Name">Adınız</label>
-								<input asp-for="Name" value="@Model.Name" class="form-control" placeholder="İsim" />
+							<div class="row">
+								<div class="col-md-6">
+									<div class="form-group mb-3">
+										<label class="label" for="Name">Adınız</label>
+										<input asp-for="Name" value="@Model.Name" class="form-control" placeholder="İsim" />
+									</div>
+								</div>
+								<div class="col-md-6">
+									<div class="form-group mb-3">
+										<label class="label" for="LastName">Soyadınız</label>
+										<input asp-for="SurName" value="@Model.SurName" class="form-control" placeholder="Soyisim" />
+									</div>
+								</div>
 							</div>
-							<div class="form-group mb-3">
-								<label class="label" for="LastName">Soyadınız</label>
-								<input asp-for="SurName" value="@Model.SurName" class="form-control" placeholder="Soyisim" />
+							<div class="row">
+								<div class="col-md-6">
+									<div class="form-group mb-3">
+										<label class="label" for="MailAdress">Mail Adresiniz</label>
+										<input asp-for="MailAdress" value="@Model.MailAdress" class="form-control" placeholder="MailAdresiniz" />
+									</div>
+								</div>
+								<div class="col-md-6">
+									<div class="form-group mb-3">
+										<label class="label" for="PhoneNumber">Telefon Numaranız</label>
+										<input asp-for="PhoneNumber" value="@Model.PhoneNumber" class="form-control" placeholder="Örn: 0555 555 5555" />
+									</div>
+								</div>
 							</div>
-							<div class="form-group mb-3">
-								<label class="label" for="MailAdress">Mail Adresiniz</label>
-								<input asp-for="MailAdress" value="@Model.MailAdress" class="form-control" placeholder="MailAdresiniz" />
-
-							</div>
-							<div class="form-group mb-3">
-								<label class="label" for="PhoneNumber">Telefon Numaranız</label>
-								<input asp-for="PhoneNumber" value="@Model.PhoneNumber" class="form-control" placeholder="Telefon Numaranız" />
-							</div>
-							<div class="form-group mb-3">
-								<label class="label" for="Password">Şifreniz</label>
-								<input asp-for="Password" value="@Model.Password" class="form-control" placeholder="Şifreniz" />
-								<span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password"></span>
-							</div>
-							<div class="form-group d-md-flex">
-								<label for="userRoleSelect" class="w-100 text-left">Kullanıcı Rolü:</label>
-								<div class="w-100 text-left">
-									<select asp-for="RoleId" class="form-control" placeholder="Departman Seçimi">
-										@if (Model.Roles != null)
-										{
-											foreach (var role in Model.Roles)
+							<div class="row">
+								<div class="col-md-6">
+									<div class="form-group mb-3">
+										<label class="label" for="Password">Şifreniz</label>
+										<input asp-for="Password" value="@Model.Password" class="form-control" placeholder="Şifreniz" />
+										<span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password"></span>
+									</div>
+								</div>
+								<div class="col-md-6">
+									<div class="form-group mb-3">
+										<label for="userRoleSelect" class="label">Kullanıcı Rolü:</label>
+										<select asp-for="RoleId" class="form-control" placeholder="Departman Seçimi">
+											<option value="">Seçiniz</option>
+											@if (Model.Roles != null)
 											{
-												<option value="@role.Id">@role.RoleName</option>
+												foreach (var role in Model.Roles)
+												{
+													<option value="@role.Id">@role.RoleName</option>
+												}
 											}
-										}
-									</select>
+										</select>
+									</div>
 								</div>
 							</div>
 							<div class="form-group d-md-flex">
@@ -90,6 +111,13 @@
 	<script src="~/register/js/popper.js"></script>
 	<script src="~/register/js/bootstrap.min.js"></script>
 	<script src="~/register/js/main.js"></script>
+	<script>
+	document.addEventListener('DOMContentLoaded', function() {
+	var phoneNumberInput = document.querySelector('input[name="PhoneNumber"]');
+	phoneNumberInput.value = "0555 555 5555"; // Örnek bir telefon numarası
+	});
+	</script>
+
 </body>
 </html>
 

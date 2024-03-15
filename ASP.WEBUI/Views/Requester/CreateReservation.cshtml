@@ -34,6 +34,7 @@
 						}
 					}
 				</select>
+				<span class="required-note">*zorunlu alan</span>
 			</div>
 
 			<div class="form-group">
@@ -51,10 +52,11 @@
 			<div class="form-group">
 				<label class="form-label" for="partName">Parça Adı:</label>
 				<input asp-for="PartName" value="@Model.PartName" type="text" class="form-control" />
+					<span class="required-note">*zorunlu alan</span>
 			</div>
 
 			<div class="form-group">
-				<label class="form-label" for="requestNote">Talep Eden Notu:</label>
+				<label class="form-label" for="requestNote">Randevu Notu:</label>
 				<input asp-for="RequestNote" value="@Model.RequestNote" type="text" class="form-control" />
 			</div>
 
@@ -62,11 +64,13 @@
 				<div class="form-group col-md-6">
 					<label class="form-label" for="startDate">Başlangıç Saati:</label>
 					<input asp-for="StartDate" value="@Model.StartDate" type="datetime-local" class="form-control" />
+					<span class="required-note">*zorunlu alan</span>
 				</div>
 
 				<div class="form-group col-md-6">
 					<label class="form-label" for="endTime">Bitiş Saati:</label>
 					<input asp-for="EndDate" value="@Model.EndDate" type="datetime-local" class="form-control" />
+					<span class="required-note">*zorunlu alan</span>
 				</div>
 			</div>
 
