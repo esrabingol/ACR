@@ -33,7 +33,8 @@ namespace ASP.WEBUI.Controllers
             var newUser = await _registerService.Add(registerModel);
             if (newUser != null)
             {
-                return RedirectToAction("UserLogin");
+				TempData["SuccessMessage"] = "Kaydınız başarıyla oluşturuldu.";
+				return RedirectToAction("UserLogin");
             }
             else
             {

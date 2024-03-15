@@ -39,13 +39,13 @@
 								<div class="col-md-6">
 									<div class="form-group mb-3">
 										<label class="label" for="Name">Adınız</label>
-										<input asp-for="Name" value="@Model.Name" class="form-control" placeholder="İsim" />
+										<input asp-for="Name" value="@Model.Name" class="form-control" placeholder="İsim" required />
 									</div>
 								</div>
 								<div class="col-md-6">
 									<div class="form-group mb-3">
 										<label class="label" for="LastName">Soyadınız</label>
-										<input asp-for="SurName" value="@Model.SurName" class="form-control" placeholder="Soyisim" />
+										<input asp-for="SurName" value="@Model.SurName" class="form-control" placeholder="Soyisim" required />
 									</div>
 								</div>
 							</div>
@@ -53,13 +53,13 @@
 								<div class="col-md-6">
 									<div class="form-group mb-3">
 										<label class="label" for="MailAdress">Mail Adresiniz</label>
-										<input asp-for="MailAdress" value="@Model.MailAdress" class="form-control" placeholder="MailAdresiniz" />
+										<input asp-for="MailAdress" value="@Model.MailAdress" class="form-control" placeholder="MailAdresiniz" required />
 									</div>
 								</div>
 								<div class="col-md-6">
 									<div class="form-group mb-3">
 										<label class="label" for="PhoneNumber">Telefon Numaranız</label>
-										<input asp-for="PhoneNumber" value="@Model.PhoneNumber" class="form-control" placeholder="Örn: 0555 555 5555" />
+										<input asp-for="PhoneNumber" value="@Model.PhoneNumber" class="form-control" placeholder="Örn: 0555 555 5555" required />
 									</div>
 								</div>
 							</div>
@@ -67,14 +67,14 @@
 								<div class="col-md-6">
 									<div class="form-group mb-3">
 										<label class="label" for="Password">Şifreniz</label>
-										<input asp-for="Password" value="@Model.Password" class="form-control" placeholder="Şifreniz" />
+										<input asp-for="Password" value="@Model.Password" class="form-control" placeholder="Şifreniz" required />
 										<span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password"></span>
 									</div>
 								</div>
 								<div class="col-md-6">
 									<div class="form-group mb-3">
 										<label for="userRoleSelect" class="label">Kullanıcı Rolü:</label>
-										<select asp-for="RoleId" class="form-control" placeholder="Departman Seçimi">
+										<select asp-for="RoleId" class="form-control" placeholder="Departman Seçimi" required>
 											<option value="">Seçiniz</option>
 											@if (Model.Roles != null)
 											{

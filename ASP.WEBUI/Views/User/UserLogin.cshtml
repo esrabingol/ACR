@@ -34,7 +34,12 @@
 				<div class="login100-pic js-tilt" data-tilt>
 					<img src="~/login/images/img-01.png" />
 				</div>
-			
+				@if (TempData["SuccessMessage"] != null)
+				{
+					<div class="alert alert-success" role="alert">
+						@TempData["SuccessMessage"]
+					</div>
+				}
 				<form asp-controller="User" asp-action="UserLogin" method="post" class="login100-form validate-form">
 
 					<span class="login100-form-title">
@@ -42,21 +47,21 @@
 					</span>
 
 					<div class="wrap-input100 validate-input" data-validate="Valid email is required: ex@abc.xyz">
-						<input asp-for="MailAdress" value="@Model.MailAdress" class="form-control" placeholder="Etkin Mail Adresiniz." />
+						<input asp-for="MailAdress" value="@Model.MailAdress" class="form-control" placeholder="Etkin Mail Adresiniz." required />
 						<span class="focus-input100"></span>
 						<span class="symbol-input100">
 						</span>
 					</div>
 
 					<div class="wrap-input100 validate-input" data-validate="Password is required">
-						<input asp-for="Password" value="@Model.Password" class="form-control" placeholder="Şifreniz" />
+						<input asp-for="Password" value="@Model.Password" class="form-control" placeholder="Şifreniz" required />
 						<span class="focus-input100"></span>
 						<span class="symbol-input100">
 						</span>
 					</div>
 
 					<div class="container-login100-form-btn">
-						<button type ="submit" class="login100-form-btn">
+						<button type="submit" class="login100-form-btn">
 							Giriş Yap
 						</button>
 					</div>
@@ -98,5 +103,6 @@
 	</script>
 	<!--===============================================================================================-->
 	<script src="~/login/js/main.js"></script>
+
 </body>
 </html>
