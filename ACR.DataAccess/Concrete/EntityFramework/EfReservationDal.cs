@@ -1,6 +1,5 @@
 ﻿using ACR.DataAccess.Abstract;
 using ACR.Entity.Concrete;
-using System.Reflection.PortableExecutable;
 
 namespace ACR.DataAccess.Concrete.EntityFramework
 {
@@ -39,7 +38,7 @@ namespace ACR.DataAccess.Concrete.EntityFramework
 			{
 				reservation.Id = updateReservation.Id;
 				reservation.MachineName = updateReservation.MachineName;
-				reservation.ProjectName=updateReservation.ProjectName;
+				reservation.ProjectName = updateReservation.ProjectName;
 				reservation.PartName = updateReservation.PartName;
 				reservation.StartDate = updateReservation.StartDate;
 				reservation.EndDate = updateReservation.EndDate;

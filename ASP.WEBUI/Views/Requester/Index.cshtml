@@ -2,7 +2,6 @@
 @using ACR.Entity.Concrete;
 @model ReIndexModelDTO
 
-
 @{
 	ViewData["Title"] = "Index";
 	Layout = "~/Views/Shared/_Layout.cshtml";
@@ -52,6 +51,8 @@
 			@TempData["WarningMessage"]
 		</div>
 	}
+
+
 	<div class="main-container">
 		<form asp-controller="Requester" asp-action="Index" method="post">
 			<div class="filter-section">
@@ -59,13 +60,22 @@
 					<label><strong>Makine Adı:</strong></label>
 					<select asp-for="MachineName" class="form-control" placeholder="Makine Seçimi">
 						<option value="" selected disabled>Seçiniz</option>
-						@if (Model.MachineNames != null)
-						{
-							foreach (var item in Model.MachineNames)
+						@{
+							List<Machine> machineList = null;
+							if (Model.MachineNames != null && Model.MachineNames.Any())
 							{
-								<option>@item.MachineName</option>
+								 machineList = Model.MachineNames?.ToList();
+							}
+
+							@if (machineList != null)
+							{
+								foreach (var item in machineList)
+								{
+									<option>@item.MachineName</option>
+								}
 							}
 						}
+
 					</select>
 
 					<label for="projectName">Proje Adı:</label>
@@ -120,10 +130,10 @@
 					@foreach (var result in Model.Results)
 					{
 						<tr>
-							<td><input type="checkbox" name="selectedReservationId" value="@result.Id" /></td>
-							<td>
-								@if (result.Status != null)
-								{
+								<td><input type="checkbox" name="selectedReservationId" value="@result.Id" /></td>
+								<td>
+									@if (result.Status != null)
+									{
 									if (@result.Status == ReservationStatusType.Pending)
 									{
 										<span class="badge badge-primary">Beklemede</span>

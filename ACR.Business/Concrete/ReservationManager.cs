@@ -1,7 +1,6 @@
 ﻿using ACR.Business.Abstract;
 using ACR.Business.Models;
 using ACR.DataAccess.Abstract;
-using ACR.DataAccess.Concrete.EntityFramework;
 using ACR.Entity.Concrete;
 
 namespace ACR.Business.Concrete
@@ -38,7 +37,7 @@ namespace ACR.Business.Concrete
 		}
 		public List<Reservation> GetAllReservations()
 		{
-			var reservations = _reservationDal.GetAll()
+			var reservations = _reservationDal.GetAll(null, o => o.Requester, y => y.Operator)
 				.OrderByDescending(r => r.StartDate).ToList();
 
 			return reservations.ToList();
@@ -139,8 +138,8 @@ namespace ACR.Business.Concrete
 				ProjectName = manageReservationModel.ProjectName,
 				PartName = manageReservationModel.PartName,
 				RecipeCode = manageReservationModel.RecipeCode,
-				StartDate= manageReservationModel.StartDate,
-				EndDate= manageReservationModel.EndDate,
+				StartDate = manageReservationModel.StartDate,
+				EndDate = manageReservationModel.EndDate,
 				RequestNote = manageReservationModel.RequestNote,
 			};
 			return _reservationDal.GetSelectedReservationInfo(reservationFind);

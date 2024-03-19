@@ -47,10 +47,13 @@ namespace ACR.DataAccess.Concrete.EntityFramework
                 query = query.IncludeMultiple(expression);
             }
 
-            foreach (var filter in filters)
-            {
-                query = query.Where(filter).AsQueryable();
-            }
+            if(filters != null && filters.Any())
+			{
+				foreach (var filter in filters)
+				{
+					query = query.Where(filter).AsQueryable();
+				}
+			}
 
             return query.ToList();
         }
