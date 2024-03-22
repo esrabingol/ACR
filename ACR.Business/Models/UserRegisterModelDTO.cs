@@ -1,14 +1,25 @@
 ﻿using ACR.Entity.Concrete;
+using System.ComponentModel.DataAnnotations;
 
 namespace ACR.Business.Models
 {
     public class UserRegisterModelDTO
     {
+        [Required(ErrorMessage ="İsim Alanı Boş Geçilemez!")]
         public string Name { get; set; }
-        public string SurName { get; set; }
-        public string MailAdress { get; set; }
-        public long PhoneNumber { get; set; }
-        public string Password { get; set; }
+
+		[Required(ErrorMessage = "Soyisim Alanı Boş Geçilemez!")]
+		public string SurName { get; set; }
+
+		[Required(ErrorMessage = "Mail Adres Alanı Boş Geçilemez!")]
+		public string MailAdress { get; set; }
+
+		[Required(ErrorMessage = "Telefon Numarası Alanı Boş Geçilemez!")]
+		public long PhoneNumber { get; set; }
+
+		[Required(ErrorMessage = "Şifre Alanı Boş Geçilemez!")]
+		[DataType(DataType.Password)]
+		public string Password { get; set; }
         public int RoleId { get; set; }
         public IEnumerable<Role> Roles { get; set; }
     }

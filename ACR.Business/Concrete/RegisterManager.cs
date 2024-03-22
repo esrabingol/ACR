@@ -3,6 +3,7 @@ using ACR.Business.Models;
 using ACR.DataAccess.Abstract;
 using ACR.DataAccess.Concrete;
 using ACR.Entity.Concrete;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.Win32;
@@ -15,23 +16,35 @@ namespace ACR.Business.Concrete
 	public class RegisterManager : IRegisterService
     {
         private IRegisterDal _registerDal;
-        public RegisterManager(IRegisterDal registerDal)
+		private readonly UserManager<User> _userManager;
+        public RegisterManager(IRegisterDal registerDal, UserManager<User> userManager)
         {
             _registerDal = registerDal;
+			_userManager = userManager;
         }
         public async Task<User> Add(UserRegisterModelDTO registerModel)
         {
 			var newUser = new User()
 			{
 				Name = registerModel.Name,
+				UserName = registerModel.MailAdress,
 				Surname = registerModel.SurName,
 				MailAdress = registerModel.MailAdress,
+				Email= registerModel.MailAdress,
 				Password = registerModel.Password,
 				PhoneNumber = registerModel.PhoneNumber,
 				RoleId = registerModel.RoleId
 			};
-			_registerDal.Add(newUser);
-			return newUser;
+
+			var result= await _userManager.CreateAsync(newUser, registerModel.Password);
+			if (result.Succeeded)
+			{
+				return newUser;
+			}
+			else
+			{
+				return null;
+			}
 		}
         public void Delete(User register)
         {
@@ -44,8 +57,8 @@ namespace ACR.Business.Concrete
 				MailAdress = loginModel.MailAdress,
 				Password = loginModel.Password,
 			};
-			 var a = await _registerDal.FindByEmail(findUser.MailAdress);
-			return a;
+			var user = await _registerDal.FindByEmail(findUser.MailAdress);
+			return user;
 		}
         public async Task<int?> GetRoleIdByEmail(string email)
         {

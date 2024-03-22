@@ -1,6 +1,8 @@
-﻿namespace ACR.Entity.Concrete
+﻿using Microsoft.AspNetCore.Identity;
+
+namespace ACR.Entity.Concrete
 {
-    public class User 
+    public class User : IdentityUser<int>
     {
         public int Id { get; set; }   
         public string Name { get; set; }

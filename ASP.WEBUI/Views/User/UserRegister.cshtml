@@ -40,12 +40,15 @@
 									<div class="form-group mb-3">
 										<label class="label" for="Name">Adınız</label>
 										<input asp-for="Name" value="@Model.Name" class="form-control" placeholder="İsim" required />
+										<span asp-validation-for="Name" class="text-danger"></span>
 									</div>
 								</div>
 								<div class="col-md-6">
 									<div class="form-group mb-3">
 										<label class="label" for="LastName">Soyadınız</label>
 										<input asp-for="SurName" value="@Model.SurName" class="form-control" placeholder="Soyisim" required />
+										<span asp-validation-for="SurName" class="text-danger"></span>
+
 									</div>
 								</div>
 							</div>
@@ -54,12 +57,16 @@
 									<div class="form-group mb-3">
 										<label class="label" for="MailAdress">Mail Adresiniz</label>
 										<input asp-for="MailAdress" value="@Model.MailAdress" class="form-control" placeholder="MailAdresiniz" required />
+										<span asp-validation-for="MailAdress" class="text-danger"></span>
+
 									</div>
 								</div>
 								<div class="col-md-6">
 									<div class="form-group mb-3">
 										<label class="label" for="PhoneNumber">Telefon Numaranız</label>
 										<input asp-for="PhoneNumber" value="@Model.PhoneNumber" class="form-control" placeholder="Örn: 0555 555 5555" required />
+										<span asp-validation-for="PhoneNumber" class="text-danger"></span>
+
 									</div>
 								</div>
 							</div>
@@ -69,6 +76,7 @@
 										<label class="label" for="Password">Şifreniz</label>
 										<input asp-for="Password" value="@Model.Password" class="form-control" placeholder="Şifreniz" required />
 										<span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password"></span>
+										<span asp-validation-for="Password" class="text-danger"></span>
 									</div>
 								</div>
 								<div class="col-md-6">
