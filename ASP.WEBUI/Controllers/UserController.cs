@@ -20,7 +20,6 @@ namespace ASP.WEBUI.Controllers
 			_signInManager = signInManager;
 			_userManager = userManager;
 		}
-
 		public IActionResult Index()
 		{
 			return View();
@@ -59,25 +58,43 @@ namespace ASP.WEBUI.Controllers
 		[HttpPost]
 		public async Task<IActionResult> UserLogin(UserLoginModelDTO loginModel)
 		{
-
-			var userLogin = await _registerService.FindUser(loginModel);
-			var roleId = await _registerService.GetRoleIdByEmail(loginModel.MailAdress);
-			if (roleId.HasValue)
+			if (!ModelState.IsValid)
 			{
-				switch (roleId.Value)
+				return View(loginModel);
+			}
+			var user = await _userManager.FindByEmailAsync(loginModel.MailAdress);
+
+			if (user == null)
+			{
+				TempData["ErrorMessage"] = "Mevcut Hesap Bulunamadı! Bilgilerinizi Kontrol Ediniz.";
+				return View(loginModel);
+			}
+			var result = await _signInManager.PasswordSignInAsync(user, loginModel.Password, false, false);
+
+			if (result.Succeeded)
+			{
+				var roleId = await _registerService.GetRoleIdByEmail(loginModel.MailAdress);
+				if (roleId.HasValue)
 				{
-					case 1:
-						return RedirectToAction("Index", "Operator");
-					case 2:
-						return RedirectToAction("Index", "Requester");
-					default:
-						return RedirectToAction("Index", "Home");
+					switch (roleId.Value)
+					{
+						case 1:
+							return RedirectToAction("Index", "Operator");
+						case 2:
+							return RedirectToAction("Index", "Requester");
+						default:
+							return RedirectToAction("Index", "Home");
+					}
 				}
 			}
-			return View();
+			else
+			{
+				TempData["ErrorMessage"] = "Kullancı Adı veya Parola Yanlış!";
+			}
+
+
+			return View(loginModel);
 		}
-
-
 	}
 }
 			
