@@ -25,6 +25,7 @@ namespace ASP.WEBUI.Controllers
 			var opCreateIndexModelDTO = new OpIndexModelDTO { MachineNames = machines };
 			return View(opCreateIndexModelDTO); ;
 		}
+
 		[HttpPost]
 		public IActionResult Index(OpIndexModelDTO indexModel)
 		{
@@ -51,12 +52,12 @@ namespace ASP.WEBUI.Controllers
 		[HttpGet]
 		public IActionResult OpConfirmReservation(OpIndexModelDTO manageReservationModel)
 		{
-			var reservation = _reservationService.GetBySelectedReservationToOperator(manageReservationModel);
-			if (reservation == null)
+			var confirmReservation = _reservationService.GetBySelectedReservationToOperator(manageReservationModel);
+			if (confirmReservation == null)
 			{
 				return RedirectToAction("Index");
 			}
-			return View("OpConfirmReservation", reservation);
+			return View("OpConfirmReservation", confirmReservation);
 		}
 
 		[HttpPost]
@@ -81,6 +82,35 @@ namespace ASP.WEBUI.Controllers
 		}
 
 		[HttpGet]
+		public IActionResult OpCanceledReservation(OpIndexModelDTO manageReservationModel)
+		{
+			var canceledReservation = _reservationService.GetBySelectedReservationToOperator(manageReservationModel);
+			if(canceledReservation == null)
+			{
+				return RedirectToAction("Index");	
+			}
+			return View("OpCanceledReservation", canceledReservation);
+		}
+
+		[HttpPost]
+		public IActionResult OpCanceledReservation(Reservation canceledReservation)
+		{
+			var userId = _httpContext.HttpContext.User?.FindFirstValue(ClaimTypes.NameIdentifier);
+			if(!string.IsNullOrEmpty(userId))
+			{
+				canceledReservation.OperatorId = Convert.ToInt32(userId);
+				var reservation = _reservationService.CanceledReservation(canceledReservation);
+
+				if(reservation !=null)
+				{
+					TempData["SuccessMessage"] = "Randevu İptal işlemi başarı ile gerçekleştirildi";
+				}
+				return View(reservation);
+			}
+			return View();
+		}
+
+		[HttpGet]
 		public IActionResult EditMachineInfo(OpMachineFilterModelDTO editMachine)
 		{
 			//var machines = _machineService.GetValues();
@@ -95,7 +125,6 @@ namespace ASP.WEBUI.Controllers
 			return View("EditMachineInfo", machine);
 
 		}
-
 
 		[HttpPost]
 		public IActionResult EditMachineInfo(Machine updatedMachine)

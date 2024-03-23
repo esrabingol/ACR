@@ -28,6 +28,29 @@ namespace ACR.DataAccess.Concrete.EntityFramework
 				return null;
 			}
 		}
+
+		public Reservation UpdateCanceledReservation(Reservation canceledReservation)
+		{
+		  var reservation = _context.Set<Reservation>().Find(canceledReservation.Id);
+			if(reservation != null) 
+			{
+				reservation.Id = canceledReservation.Id;
+				reservation.MachineName = canceledReservation.MachineName;
+				reservation.ProjectName = canceledReservation.ProjectName;
+				reservation.PartName = canceledReservation.PartName;
+				reservation.StartDate = canceledReservation.StartDate;
+				reservation.EndDate = canceledReservation.EndDate;
+				reservation.RequestNote = canceledReservation.RequestNote;
+				reservation.Status = (ReservationStatusType)2;
+				reservation.CancellationNote = canceledReservation.CancellationNote;
+				reservation.OperatorId = canceledReservation.OperatorId;
+
+				_context.Reservations.Update(reservation);
+				_context.SaveChanges();
+			}
+			return reservation;
+		}
+
 		public Reservation UpdateConfirmReservation(Reservation confirmReservation)
 		{
 			var reservation = _context.Set<Reservation>().Find(confirmReservation.Id);

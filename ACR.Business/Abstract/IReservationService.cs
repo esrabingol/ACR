@@ -12,6 +12,7 @@ namespace ACR.Business.Abstract
 		void Delete(Reservation rezervation);
 		Reservation UpdateReservation(Reservation updateReservation);
 		Reservation ConfirmReservation(Reservation confirmReservation);
+		Reservation CanceledReservation(Reservation canceledReservation);
 		List<Reservation> GetAllReservations();
 		Reservation GetBySelectedReservationToRequester(ReIndexModelDTO manageReservationModel);
 		Reservation GetBySelectedReservationToOperator(OpIndexModelDTO manageReservationModel);

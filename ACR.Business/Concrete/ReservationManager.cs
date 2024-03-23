@@ -9,11 +9,9 @@ namespace ACR.Business.Concrete
 	public class ReservationManager : IReservationService
 	{
 		private IReservationDal _reservationDal;
-		private IRegisterDal _registerDal;
-		public ReservationManager(IReservationDal reservationDal, IRegisterDal registerDal)
+		public ReservationManager(IReservationDal reservationDal)
 		{
 			_reservationDal = reservationDal;
-			 _registerDal = registerDal;
 		}
 		public Reservation Add(ReCreateReservationModelDTO reReservationFilterModel)
 		{
@@ -170,6 +168,11 @@ namespace ACR.Business.Concrete
 		public Reservation UpdateReservation(Reservation reReservationUpdateModel)
 		{
 			return _reservationDal.UpdateReservation(reReservationUpdateModel);
+		}
+
+		public Reservation CanceledReservation(Reservation canceledReservationModel)
+		{
+			return _reservationDal.UpdateCanceledReservation(canceledReservationModel);
 		}
 	}
 }
