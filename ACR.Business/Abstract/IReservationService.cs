@@ -13,7 +13,8 @@ namespace ACR.Business.Abstract
 		Reservation UpdateReservation(Reservation updateReservation);
 		Reservation ConfirmReservation(Reservation confirmReservation);
 		Reservation CanceledReservation(Reservation canceledReservation);
-		List<Reservation> GetAllReservations();
+		List<Reservation> GetAllReservationsToRequester();
+		List<Reservation> GetAllReservationsToOperator();
 		Reservation GetBySelectedReservationToRequester(ReIndexModelDTO manageReservationModel);
 		Reservation GetBySelectedReservationToOperator(OpIndexModelDTO manageReservationModel);
 	}

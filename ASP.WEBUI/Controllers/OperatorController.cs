@@ -152,7 +152,7 @@ namespace ASP.WEBUI.Controllers
 		[HttpGet]
 		public IActionResult GetAllReservations()
 		{
-			var allreservations = _reservationService.GetAllReservations();
+			var allreservations = _reservationService.GetAllReservationsToOperator();
 			var opIndexModel = new OpIndexModelDTO
 			{
 				Results = allreservations

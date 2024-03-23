@@ -2,9 +2,11 @@
 using ACR.Business.Models;
 using ACR.Entity.Concrete;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace ASP.WEBUI.Controllers
 {
+	//[Authorize]
 	public class RequesterController : Controller
 	{
 		private IReservationService _reservationService;
@@ -79,7 +81,8 @@ namespace ASP.WEBUI.Controllers
 		[HttpGet]
 		public IActionResult GetAllReservations()
 		{
-			var allReservations = _reservationService.GetAllReservations();
+			//Bilgi Getir
+			var allReservations = _reservationService.GetAllReservationsToRequester();
 			var reIndexModel = new ReIndexModelDTO
 			{
 				Results = allReservations

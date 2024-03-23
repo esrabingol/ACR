@@ -3,19 +3,26 @@ using ACR.Business.Models;
 using ACR.Business.Utilities.Messages;
 using ACR.DataAccess.Abstract;
 using ACR.Entity.Concrete;
+using Microsoft.AspNetCore.Http;
+using System.Security.Claims;
 
 namespace ACR.Business.Concrete
 {
 	public class ReservationManager : IReservationService
 	{
 		private IReservationDal _reservationDal;
-		public ReservationManager(IReservationDal reservationDal)
+		private IHttpContextAccessor _httpContext;
+
+		public ReservationManager(IReservationDal reservationDal, IHttpContextAccessor httpContext)
 		{
 			_reservationDal = reservationDal;
+			_httpContext = httpContext;
 		}
+
 		public Reservation Add(ReCreateReservationModelDTO reReservationFilterModel)
 		{
-
+			//requesterId
+			var userId = _httpContext.HttpContext.User?.FindFirstValue(ClaimTypes.NameIdentifier);
 			var reservationAdd = new Reservation
 			{
 				MachineName = reReservationFilterModel.MachineName,
@@ -25,7 +32,7 @@ namespace ACR.Business.Concrete
 				RequestNote = reReservationFilterModel.RequestNote,
 				StartDate = reReservationFilterModel.StartDate,
 				EndDate = reReservationFilterModel.EndDate,
-				RequesterId = 2
+				RequesterId = Convert.ToInt32(userId)
 			};
 
 			var reservation = _reservationDal.AddReservation(reservationAdd);
@@ -40,8 +47,21 @@ namespace ACR.Business.Concrete
 		{
 			_reservationDal.Delete(rezervation);
 		}
-		public List<Reservation> GetAllReservations()
+		public List<Reservation> GetAllReservationsToRequester()
 		{
+			var userId = int.Parse(_httpContext.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier));
+
+			var allReservations = _reservationDal.GetAll(null, o => o.Requester, y => y.Operator);
+
+			var userReservations = allReservations.Where(r => r.RequesterId == userId)
+												  .OrderByDescending(r => r.StartDate)
+												  .ToList();
+			return userReservations;
+		}
+		public List<Reservation> GetAllReservationsToOperator()
+		{
+			var userId = _httpContext.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
+
 			var reservations = _reservationDal.GetAll(null, o => o.Requester, y => y.Operator)
 				.OrderByDescending(r => r.StartDate).ToList();
 
