@@ -2,18 +2,22 @@
 using ACR.Business.Models;
 using ACR.Entity.Concrete;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace ASP.WEBUI.Controllers
 {
+	//[Authorize]
 	public class OperatorController : Controller
 	{
 		private IMachineService _machineService;
 		private IReservationService _reservationService;
+		private IHttpContextAccessor _httpContext;
 
-		public OperatorController(IMachineService machineService, IReservationService reservationService)
+		public OperatorController(IMachineService machineService, IReservationService reservationService, IHttpContextAccessor httpContext)
 		{
 			_machineService = machineService;
 			_reservationService = reservationService;
+			_httpContext = httpContext;
 		}
 		public IActionResult Index()
 		{
@@ -45,6 +49,38 @@ namespace ASP.WEBUI.Controllers
 		}
 
 		[HttpGet]
+		public IActionResult OpConfirmReservation(OpIndexModelDTO manageReservationModel)
+		{
+			var reservation = _reservationService.GetBySelectedReservationToOperator(manageReservationModel);
+			if (reservation == null)
+			{
+				return RedirectToAction("Index");
+			}
+			return View("OpConfirmReservation", reservation);
+		}
+
+		[HttpPost]
+		public IActionResult OpConfirmReservation(Reservation confirmReservation)
+		{
+			//operatorId
+			var userId = _httpContext.HttpContext.User?.FindFirstValue(ClaimTypes.NameIdentifier);
+
+			if (!string.IsNullOrWhiteSpace(userId))
+			{
+				confirmReservation.OperatorId = Convert.ToInt32(userId);
+				var reservation = _reservationService.ConfirmReservation(confirmReservation);
+				if (reservation != null)
+				{
+					TempData["SuccessMessage"] = "Onaylama işlemi başarıyla tamamlandı.";
+				}
+
+				return View(reservation);
+			}
+			//hata verirsin
+			return View();
+		}
+
+		[HttpGet]
 		public IActionResult EditMachineInfo(OpMachineFilterModelDTO editMachine)
 		{
 			//var machines = _machineService.GetValues();
@@ -59,11 +95,13 @@ namespace ASP.WEBUI.Controllers
 			return View("EditMachineInfo", machine);
 
 		}
+
+
 		[HttpPost]
 		public IActionResult EditMachineInfo(Machine updatedMachine)
 		{
 			var machine = _machineService.UpdateMachineInfo(updatedMachine);
-			if(machine != null)
+			if (machine != null)
 			{
 				TempData["SuccessMessage"] = "Güncelleme işlemi başarıyla tamamlandı.";
 			}
@@ -80,7 +118,6 @@ namespace ASP.WEBUI.Controllers
 		{
 			var addNewMachine = _machineService.AddNewMachineInfo(addMachine);
 			return RedirectToAction("ViewMachineInfo", "Operator");
-
 		}
 
 		[HttpGet]

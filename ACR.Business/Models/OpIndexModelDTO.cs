@@ -4,6 +4,7 @@ namespace ACR.Business.Models
 {
 	public class OpIndexModelDTO
 	{
+		public int Id { get; set; }
 		public string MachineName { get; set; }
 		public string ProjectName { get; set; }
 		public string PartName { get; set; }
@@ -13,6 +14,5 @@ namespace ACR.Business.Models
 		public DateTime EndDate { get; set; }
         public List<Reservation> Results { get; set; } = new List<Reservation>();
 		public IEnumerable<Machine> MachineNames { get; set; } = null!;
-
 	}
 }

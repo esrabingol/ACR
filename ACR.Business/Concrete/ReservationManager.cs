@@ -1,5 +1,6 @@
 ﻿using ACR.Business.Abstract;
 using ACR.Business.Models;
+using ACR.Business.Utilities.Messages;
 using ACR.DataAccess.Abstract;
 using ACR.Entity.Concrete;
 
@@ -8,9 +9,11 @@ namespace ACR.Business.Concrete
 	public class ReservationManager : IReservationService
 	{
 		private IReservationDal _reservationDal;
-		public ReservationManager(IReservationDal reservationDal)
+		private IRegisterDal _registerDal;
+		public ReservationManager(IReservationDal reservationDal, IRegisterDal registerDal)
 		{
 			_reservationDal = reservationDal;
+			 _registerDal = registerDal;
 		}
 		public Reservation Add(ReCreateReservationModelDTO reReservationFilterModel)
 		{
@@ -31,6 +34,10 @@ namespace ACR.Business.Concrete
 
 			return reservation;
 		}
+		public Reservation ConfirmReservation(Reservation confirmReservationModel)
+		{
+			return _reservationDal.UpdateConfirmReservation(confirmReservationModel);
+		}
 		public void Delete(Reservation rezervation)
 		{
 			_reservationDal.Delete(rezervation);
@@ -44,6 +51,8 @@ namespace ACR.Business.Concrete
 		}
 		public List<Reservation> GetAllRezervationsOperator(OpIndexModelDTO indexModel)
 		{
+			//böyle map etmene gerek yok
+			//şu tipteki nesnesyi şuna map et dicen o sana aşağıda yaptıklarını yapıp vercek
 			var reservationFilter = new Reservation
 			{
 				MachineName = indexModel.MachineName,
@@ -55,25 +64,7 @@ namespace ACR.Business.Concrete
 				EndDate = indexModel.EndDate,
 			};
 
-			var filters = new List<Func<Reservation, bool>>();
-
-			if (!string.IsNullOrWhiteSpace(reservationFilter.MachineName))
-				filters.Add(r => r.MachineName == reservationFilter.MachineName);
-
-			if (!string.IsNullOrWhiteSpace(reservationFilter.ProjectName))
-				filters.Add(r => r.ProjectName == reservationFilter.ProjectName);
-
-			if (!string.IsNullOrWhiteSpace(reservationFilter.PartName))
-				filters.Add(r => r.PartName == reservationFilter.PartName);
-
-			if (!string.IsNullOrWhiteSpace(reservationFilter.RecipeCode))
-				filters.Add(r => r.RecipeCode == reservationFilter.RecipeCode);
-
-			if (reservationFilter.StartDate != default(DateTime))
-				filters.Add(r => r.StartDate == reservationFilter.StartDate);
-
-			if (reservationFilter.EndDate != default(DateTime))
-				filters.Add(r => r.EndDate == reservationFilter.EndDate);
+			var filters = GetFilters(reservationFilter);
 
 			//rezervasyon bilgileri çekilirken onunla ilişkili requester bilgiside çekilir
 			var filteredReservations = _reservationDal.GetAll(filters, f => f.Requester);
@@ -88,18 +79,8 @@ namespace ACR.Business.Concrete
 
 			return viewModel.Results;
 		}
-		public List<Reservation> GetAllRezervationsRequester(ReIndexModelDTO indexModel)
+		public List<Func<Reservation, bool>> GetFilters(Reservation reservationFilter)
 		{
-			var reservationFilter = new Reservation
-			{
-				MachineName = indexModel.MachineName,
-				ProjectName = indexModel.ProjectName,
-				RecipeCode = indexModel.RecipeCode,
-				PartName = indexModel.PartName,
-				StartDate = indexModel.StartDate,
-				EndDate = indexModel.EndDate,
-			};
-
 			var filters = new List<Func<Reservation, bool>>();
 
 			if (!string.IsNullOrWhiteSpace(reservationFilter.MachineName))
@@ -120,6 +101,22 @@ namespace ACR.Business.Concrete
 			if (reservationFilter.EndDate != default(DateTime))
 				filters.Add(r => r.EndDate == reservationFilter.EndDate);
 
+			return filters;
+		}
+		public List<Reservation> GetAllRezervationsRequester(ReIndexModelDTO indexModel)
+		{
+			var reservationFilter = new Reservation
+			{
+				MachineName = indexModel.MachineName,
+				ProjectName = indexModel.ProjectName,
+				RecipeCode = indexModel.RecipeCode,
+				PartName = indexModel.PartName,
+				StartDate = indexModel.StartDate,
+				EndDate = indexModel.EndDate,
+			};
+
+			var filters = GetFilters(reservationFilter);
+
 			var filteredReservations = _reservationDal.GetAll(filters, o => o.Operator);
 
 			var viewModel = new ReIndexModelDTO
@@ -129,9 +126,9 @@ namespace ACR.Business.Concrete
 
 			return viewModel.Results;
 		}
-		public Reservation GetBySelectedReservation(ReIndexModelDTO manageReservationModel)
+		public Reservation GetBySelectedReservationToOperator(OpIndexModelDTO manageReservationModel)
 		{
-			var reservationFind = new Reservation
+			var findReservation = new Reservation
 			{
 				Id = manageReservationModel.Id,
 				MachineName = manageReservationModel.MachineName,
@@ -142,7 +139,22 @@ namespace ACR.Business.Concrete
 				EndDate = manageReservationModel.EndDate,
 				RequestNote = manageReservationModel.RequestNote,
 			};
-			return _reservationDal.GetSelectedReservationInfo(reservationFind);
+			return _reservationDal.GetSelectedReservationInfo(findReservation);
+		}
+		public Reservation GetBySelectedReservationToRequester(ReIndexModelDTO manageReservationModel)
+		{
+			var findReservation = new Reservation
+			{
+				Id = manageReservationModel.Id,
+				MachineName = manageReservationModel.MachineName,
+				ProjectName = manageReservationModel.ProjectName,
+				PartName = manageReservationModel.PartName,
+				RecipeCode = manageReservationModel.RecipeCode,
+				StartDate = manageReservationModel.StartDate,
+				EndDate = manageReservationModel.EndDate,
+				RequestNote = manageReservationModel.RequestNote,
+			};
+			return _reservationDal.GetSelectedReservationInfo(findReservation);
 
 		}
 		public Reservation GetRezervationById(int reservationId)
@@ -150,7 +162,8 @@ namespace ACR.Business.Concrete
 			var reservation = _reservationDal.GetById(reservationId);
 			if (reservation == null)
 			{
-				throw new Exception($"ID'si {reservationId} olan Autoclave bulunamadı.");
+				//messajlar magic string olarak kodda durmasın böyle staticlere çek daha best practice
+				throw new Exception(string.Concat(Message.NotFoundAutoClave, reservationId));
 			}
 			return reservation;
 		}

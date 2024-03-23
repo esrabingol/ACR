@@ -15,22 +15,39 @@ namespace ACR.DataAccess.Concrete.EntityFramework
 			_context.SaveChanges();
 			return reservation;
 		}
-
-		public Reservation GetSelectedReservationInfo(Reservation reservationFind)
+		public Reservation GetSelectedReservationInfo(Reservation findReservation)
 		{
-			int reservationId = reservationFind.Id;
+			int reservationId = findReservation.Id;
 			Reservation selectedReservation = _context.Set<Reservation>().Find(reservationId);
 			if (selectedReservation != null)
 			{
 				return selectedReservation;
-
 			}
 			else
 			{
 				return null;
 			}
 		}
+		public Reservation UpdateConfirmReservation(Reservation confirmReservation)
+		{
+			var reservation = _context.Set<Reservation>().Find(confirmReservation.Id);
+			if (reservation != null)
+			{
+				reservation.Id = confirmReservation.Id;
+				reservation.MachineName = confirmReservation.MachineName;
+				reservation.ProjectName = confirmReservation.ProjectName;
+				reservation.PartName = confirmReservation.PartName;
+				reservation.StartDate = confirmReservation.StartDate;
+				reservation.EndDate = confirmReservation.EndDate;
+				reservation.RequestNote = confirmReservation.RequestNote;
+				reservation.Status = (ReservationStatusType)1;
+				reservation.OperatorId = confirmReservation.OperatorId;
 
+				_context.Reservations.Update(reservation);
+				_context.SaveChanges();
+			}
+			return reservation;
+		}
 		public Reservation UpdateReservation(Reservation updateReservation)
 		{
 			var reservation = _context.Set<Reservation>().Find(updateReservation.Id);

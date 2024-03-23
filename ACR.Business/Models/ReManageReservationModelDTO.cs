@@ -13,6 +13,5 @@ namespace ACR.Business.Models
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
         public IEnumerable<Machine> MachineNames { get; set; }
-
     }
 }

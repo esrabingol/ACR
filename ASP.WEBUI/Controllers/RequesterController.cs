@@ -45,7 +45,7 @@ namespace ASP.WEBUI.Controllers
 		public IActionResult CreateReservation(ReCreateReservationModelDTO reservationModel)
 		{
 			var reservationInfo = _reservationService.Add(reservationModel);
-			if(reservationInfo != null)
+			if (reservationInfo != null)
 			{
 				TempData["SuccessMessage"] = "Randevunuz Başarıyla Oluşturulmuştur.";
 				TempData["WarningMessage"] = "Sistem üzerinden randevu takip işlemi sağlayabilirsiniz.";
@@ -56,7 +56,7 @@ namespace ASP.WEBUI.Controllers
 		[HttpGet]
 		public IActionResult ManageReservation(ReIndexModelDTO manageReservationModel)
 		{
-			var reservation = _reservationService.GetBySelectedReservation(manageReservationModel);
+			var reservation = _reservationService.GetBySelectedReservationToRequester(manageReservationModel);
 			if (reservation == null)
 			{
 				return RedirectToAction("Index");

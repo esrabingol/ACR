@@ -4,7 +4,9 @@ using ACR.DataAccess.Abstract;
 using ACR.DataAccess.Concrete;
 using ACR.DataAccess.Concrete.EntityFramework;
 using ACR.Entity.Concrete;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 
 namespace ASP.WEBUI
 {
@@ -20,6 +22,8 @@ namespace ASP.WEBUI
 			var st = Configuration.GetConnectionString("Default");
 			services.AddDbContext<ACRContext>(opts => opts.UseSqlServer(Configuration.GetConnectionString("Default"),
 				option => { option.MigrationsAssembly("ACR.DataAccess"); }));
+
+			services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
 			services.AddIdentity<User, Role>(options =>
 			{
@@ -37,6 +41,8 @@ namespace ASP.WEBUI
 
 			services.AddSession();
 			services.AddDistributedMemoryCache();
+
+
 			services.AddScoped<IMachineDal, EfMachineDal>();
 			services.AddScoped<IMachineService, MachineManager>();
 

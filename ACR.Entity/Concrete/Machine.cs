@@ -10,7 +10,6 @@
         //Bakımda olduğu zaman aralığı girilebilicek ve bu kısıma randevu verilmez
         public DateTime? StartDate { get; set; }
         public DateTime? EndDate { get; set; }
-        //Operatörün varsa Makine Notu, bakımın kalibrasyon mu vs gibi durumları giricek
         public string? OperatorNote { get; set; }
     }
 }

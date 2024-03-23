@@ -39,7 +39,7 @@
 	}
 </style>
 <body>
-
+	
 	<div class="main-container">
 		<form asp-controller="Operator" asp-action="Index" method="post">
 			<div class="filter-section">
@@ -81,7 +81,13 @@
 			<div class="top-buttons">
 				<button type="button" class="btn btn-outline-secondary" onclick="redirectTo('@Url.Action("GetAllReservations","Operator")')">Bilgi Getir</button>
 				<button type="button" class="btn btn-outline-primary" onclick="redirectTo('@Url.Action("ViewMachineInfo", "Operator")')">Makine İşlemleri</button>
-				<button type="button" class="btn btn-outline-success" onclick="redirectTo('@Url.Action("OpConfirmReservation","Operator")')">Randevu Onay</button>
+		@*		<button type="button" class="btn btn-outline-success" onclick="redirectTo('@Url.Action("OpConfirmReservation","Operator")')">Randevu Onay</button>*@
+
+				<form action="@Url.Action("OpConfirmReservation", "Operator")" method="get">
+					<input asp-for="Id" value="@Model.Id" type="hidden" />
+					<button type="submit" class="btn btn-outline-success" id="updateButton">Randevu Onay</button>
+				</form>
+
 				<button type="button" class="btn btn-outline-danger" onclick="#">Randevu İptal</button>
 				<button type="button" class="btn btn-outline-warning" id="clearButton">Temizle</button>
 			</div>
@@ -104,7 +110,7 @@
 					@foreach (var result in Model.Results)
 					{
 						<tr>
-							<td><input type="checkbox" value="@result.Id" /></td>
+							<td><input type="checkbox" name="selectedReservationId" value="@result.Id" /></td>
 							<td>
 								@if (result.Status != null)
 								{

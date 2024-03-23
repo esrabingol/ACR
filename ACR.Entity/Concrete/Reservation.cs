@@ -11,12 +11,12 @@
         public DateTime EndDate { get; set; }
         public string? RequestNote { get; set; }
         public string? CancellationNote { get; set; }
-        //Rezervasyon durumu kontrolü için
+        //Rezervasyon durumu kontrol
         public ReservationStatusType Status { get; set; }
-        //operator rezervasyon üzerinde değişiklik yapmak istediğinde ilgili operatörün id si gelicek.
         public int? OperatorId { get; set; }
         public virtual User Operator { get; set; }
-        // sisteme giriş yapıp randevu oluşturmak istediğinde otomatik olarak hangi kullanıcının giriş yapıp oluşturmak istediği sisteme düşücek randevu ile beraber.
+        // sisteme giriş yapıp randevu oluşturmak istediğinde otomatik olarak
+        // hangi kullanıcının giriş yapıp oluşturmak istediği sisteme düşücek randevu ile beraber.
         public int RequesterId { get; set; }
         public virtual User Requester { get; set; }
     }

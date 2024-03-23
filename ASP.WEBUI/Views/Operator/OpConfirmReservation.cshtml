@@ -1,0 +1,83 @@
+﻿@model ACR.Entity.Concrete.Reservation
+@{
+	ViewData["Title"] = "OpConfirmReservation";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<link href="~/css/createreservation.css" rel="stylesheet" />
+</head>
+
+<body>
+	<div class="main-container">
+		<div class="filter-section">
+			<form asp-controller="Operator" asp-action="OpConfirmReservation" method="post">
+				<input asp-for="Id" value="@Model.Id" type="hidden" />
+				<div class="filter-options">
+					<div class="d-flex justify-content-between align-items-center mb-3">
+						<a href=@Url.Action("Index","Operator")>
+							<span class="glyphicon glyphicon-circle-arrow-left" style="font-size: 24px;"></span>
+						</a>
+					</div>
+					@if (TempData["SuccessMessage"] != null)
+					{
+						<div class="alert alert-success" role="alert">
+							@TempData["SuccessMessage"]
+						</div>
+					}
+					<label><strong>Makine Adı:</strong></label>
+					<input asp-for="MachineName" value="@Model.MachineName" class="form-control" placeholder="Makine Adı giriniz." required />
+	
+					<label for="ProjectName">Proje Adı :</label>
+					<input asp-for="ProjectName" value="@Model.ProjectName" class="form-control" required />
+
+					<label for="PartName">Parça Adı:</label>
+					<input asp-for="PartName" value="@Model.PartName" class="form-control"  required />
+
+					<label for="RecipeCode">Reçete Kodu:</label>
+					<input asp-for="RecipeCode" value="@Model.RecipeCode" class="form-control"  required />
+
+					<div class="form-row">
+						<div class="form-group col-md-6">
+							<label class="form-label" for="startDate">Rezervasyon Başlangıç Tarihi:</label>
+							<input type="datetime-local" class="form-control" id="startDate" name="startDate" value="@Model.StartDate.ToString("yyyy-MM-ddTHH:mm")" />
+
+						</div>
+						<div class="form-group col-md-6">
+							<label class="form-label" for="endDate">Rezervasyon Bitiş Tarihi:</label>
+							<input type="datetime-local" class="form-control" id="endDate" name="endDate" value="@Model.EndDate.ToString("yyyy-MM-ddTHH:mm")" />
+
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label class="form-label" for="RequestNote">Talep Eden Notu:</label>
+						<input asp-for="RequestNote" value="@Model.RequestNote" type="text" class="form-control" />
+					</div>
+
+				</div>
+				<div class="buttons-section">
+					<button type="submit" class="btn btn-outline-success">Randevu Onay</button>
+				</div>
+			</form>
+
+		</div>
+	</div>
+
+	<script>
+		function redirectTo(url) {
+			window.location.href = url;
+		}
+
+	</script>
+</body>
+
+</html>
