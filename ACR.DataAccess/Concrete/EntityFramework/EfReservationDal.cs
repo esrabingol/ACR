@@ -15,20 +15,6 @@ namespace ACR.DataAccess.Concrete.EntityFramework
 			_context.SaveChanges();
 			return reservation;
 		}
-
-		public List<Tuple<DateTime, DateTime>> GetBookedDatesToMachine(string machineName)
-		{
-			List<Tuple<DateTime, DateTime>> bookedDates = _context.Reservations
-		.Where(r => r.MachineName == machineName &&
-					r.Status != ReservationStatusType.Cancelled &&
-					r.StartDate <= DateTime.Now &&
-					r.EndDate >= DateTime.Now)
-		.Select(r => Tuple.Create(r.StartDate, r.EndDate))
-		.ToList();
-
-			return bookedDates;
-		}
-
 		public Reservation GetSelectedReservationInfo(Reservation findReservation)
 		{
 			int reservationId = findReservation.Id;

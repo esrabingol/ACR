@@ -13,6 +13,15 @@
 </head>
 
 <body>
+	@if (ViewData.ModelState.ContainsKey("StartDate") && !ViewData.ModelState.IsValid)
+	{
+		<div class="alert alert-danger">
+			@foreach (var modelError in ViewData.ModelState["StartDate"].Errors)
+			{
+				<span>@modelError.ErrorMessage</span>
+			}
+		</div>
+	}
 
 	<div class="container reservation-form">
 
@@ -79,4 +88,6 @@
 			</div>
 		</form>
 	</div>
+
+
 </body>

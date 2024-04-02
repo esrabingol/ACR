@@ -199,5 +199,10 @@ namespace ACR.Business.Concrete
 			return _reservationDal.UpdateCanceledReservationToRequester(canceledReservationModel);
 		}
 
+		public List<Reservation> GetReservedDatesByMachineName(string machineName)
+		{
+			var allReservations = _reservationDal.GetAll();
+			return allReservations.ToList();
+		}
 	}
 }

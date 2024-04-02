@@ -37,7 +37,7 @@ namespace ASP.WEBUI.Controllers
 		}
 
 		[HttpGet]
-		public IActionResult CreateReservation()
+		public IActionResult CreateReservation(string machineName = null)
 		{
 			var machines = _machineService.GetValues();
 			var opCreateReservationModelDTO = new ReCreateReservationModelDTO { MachineNames = machines };
@@ -47,6 +47,21 @@ namespace ASP.WEBUI.Controllers
 		[HttpPost]
 		public IActionResult CreateReservation(ReCreateReservationModelDTO reservationModel)
 		{
+			// Seçilen makinenin dolu ve boş tarihlerini kontrol et
+			var reservedDates = _reservationService.GetReservedDatesByMachineName(reservationModel.MachineName);
+
+			var isDateReserved = reservedDates.Any(rd =>
+				(rd.StartDate <= reservationModel.StartDate && rd.EndDate >= reservationModel.StartDate) || // Başlangıç tarihi içinde
+				(rd.StartDate <= reservationModel.EndDate && rd.EndDate >= reservationModel.EndDate) ||     // Bitiş tarihi içinde
+				(reservationModel.StartDate <= rd.StartDate && reservationModel.EndDate >= rd.EndDate));    // Rezervasyon aralığı dışında
+
+			if (isDateReserved)
+			{
+				// Seçilen tarih aralığı dolu ise uyarı ver
+				ModelState.AddModelError("StartDate", "Seçilen tarih aralığı dolu. Lütfen başka bir tarih seçin.");
+				return View(reservationModel);
+			}
+
 			var reservationInfo = _reservationService.Add(reservationModel);
 			if (reservationInfo != null)
 			{
