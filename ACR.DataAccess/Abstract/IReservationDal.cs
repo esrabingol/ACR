@@ -8,7 +8,8 @@ namespace ACR.DataAccess.Abstract
 		Reservation AddReservation(Reservation reservation);
 		Reservation UpdateReservation(Reservation updateReservation);
 		Reservation UpdateConfirmReservation(Reservation confirmReservation);
-		Reservation UpdateCanceledReservation(Reservation canceledReservation);
+		Reservation UpdateCanceledReservationToOperator(Reservation canceledReservation);
+		Reservation UpdateCanceledReservationToRequester(Reservation canceledReservation);
 		Reservation GetSelectedReservationInfo(Reservation reservationFind);
 	}
 }

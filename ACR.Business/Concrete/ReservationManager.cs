@@ -4,6 +4,7 @@ using ACR.Business.Utilities.Messages;
 using ACR.DataAccess.Abstract;
 using ACR.Entity.Concrete;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System.Security.Claims;
 
 namespace ACR.Business.Concrete
@@ -189,10 +190,14 @@ namespace ACR.Business.Concrete
 		{
 			return _reservationDal.UpdateReservation(reReservationUpdateModel);
 		}
-
-		public Reservation CanceledReservation(Reservation canceledReservationModel)
+		public Reservation OpCanceledReservation(Reservation canceledReservationModel)
 		{
-			return _reservationDal.UpdateCanceledReservation(canceledReservationModel);
+			return _reservationDal.UpdateCanceledReservationToOperator(canceledReservationModel);
 		}
+		public Reservation ReCanceledReservation(Reservation canceledReservationModel)
+		{
+			return _reservationDal.UpdateCanceledReservationToRequester(canceledReservationModel);
+		}
+
 	}
 }

@@ -12,12 +12,13 @@ namespace ASP.WEBUI.Controllers
 		private IReservationService _reservationService;
 		private IMachineService _machineService;
 		private IRegisterService _registerService;
-
-		public RequesterController(IMachineService machineService, IReservationService reservationService, IRegisterService registerService)
+		private IHttpContextAccessor _httpContext;
+		public RequesterController(IMachineService machineService, IReservationService reservationService, IRegisterService registerService, IHttpContextAccessor httpContext)
 		{
 			_machineService = machineService;
 			_reservationService = reservationService;
 			_registerService = registerService;
+			_httpContext = httpContext;
 		}
 		public IActionResult Index()
 		{
@@ -53,6 +54,36 @@ namespace ASP.WEBUI.Controllers
 				TempData["WarningMessage"] = "Sistem üzerinden randevu takip işlemi sağlayabilirsiniz.";
 			}
 			return RedirectToAction(nameof(Index));
+		}
+
+		[HttpGet]
+		public IActionResult ReCanceledReservation(ReIndexModelDTO manageReservation)
+		{
+			var canceledReservation = _reservationService.GetBySelectedReservationToRequester(manageReservation);
+			if(canceledReservation == null)
+			{
+				return RedirectToAction("Index");
+			}
+			return View("ReCanceledReservation", canceledReservation);
+		}
+
+		[HttpPost]
+		public IActionResult ReCanceledReservation(Reservation canceledReservation)
+		{
+			var userId = _httpContext.HttpContext.User?.FindFirstValue(ClaimTypes.NameIdentifier);
+			if(!string.IsNullOrEmpty(userId))
+			{
+				canceledReservation.RequesterId = Convert.ToInt32(userId);
+				var reservation = _reservationService.ReCanceledReservation(canceledReservation);
+
+				if (reservation != null)
+				{
+					TempData["SuccessMessage"] = "Randevu İptal işlemi başarı ile gerçekleştirildi";
+				}
+				return View(reservation);
+
+			}
+			return View();
 		}
 
 		[HttpGet]

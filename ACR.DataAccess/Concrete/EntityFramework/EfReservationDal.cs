@@ -15,6 +15,20 @@ namespace ACR.DataAccess.Concrete.EntityFramework
 			_context.SaveChanges();
 			return reservation;
 		}
+
+		public List<Tuple<DateTime, DateTime>> GetBookedDatesToMachine(string machineName)
+		{
+			List<Tuple<DateTime, DateTime>> bookedDates = _context.Reservations
+		.Where(r => r.MachineName == machineName &&
+					r.Status != ReservationStatusType.Cancelled &&
+					r.StartDate <= DateTime.Now &&
+					r.EndDate >= DateTime.Now)
+		.Select(r => Tuple.Create(r.StartDate, r.EndDate))
+		.ToList();
+
+			return bookedDates;
+		}
+
 		public Reservation GetSelectedReservationInfo(Reservation findReservation)
 		{
 			int reservationId = findReservation.Id;
@@ -28,11 +42,10 @@ namespace ACR.DataAccess.Concrete.EntityFramework
 				return null;
 			}
 		}
-
-		public Reservation UpdateCanceledReservation(Reservation canceledReservation)
+		public Reservation UpdateCanceledReservationToOperator(Reservation canceledReservation)
 		{
-		  var reservation = _context.Set<Reservation>().Find(canceledReservation.Id);
-			if(reservation != null) 
+			var reservation = _context.Set<Reservation>().Find(canceledReservation.Id);
+			if (reservation != null)
 			{
 				reservation.Id = canceledReservation.Id;
 				reservation.MachineName = canceledReservation.MachineName;
@@ -50,7 +63,26 @@ namespace ACR.DataAccess.Concrete.EntityFramework
 			}
 			return reservation;
 		}
+		public Reservation UpdateCanceledReservationToRequester(Reservation canceledReservation)
+		{
+			var reservation = _context.Set<Reservation>().Find(canceledReservation.Id);
+			if (reservation != null)
+			{
+				reservation.Id = canceledReservation.Id;
+				reservation.MachineName = canceledReservation.MachineName;
+				reservation.ProjectName = canceledReservation.ProjectName;
+				reservation.PartName = canceledReservation.PartName;
+				reservation.StartDate = canceledReservation.StartDate;
+				reservation.EndDate = canceledReservation.EndDate;
+				reservation.RequestNote = canceledReservation.RequestNote;
+				reservation.Status = (ReservationStatusType)2;
+				reservation.CancellationNote = canceledReservation.CancellationNote;
 
+				_context.Reservations.Update(reservation);
+				_context.SaveChanges();
+			}
+			return reservation;
+		}
 		public Reservation UpdateConfirmReservation(Reservation confirmReservation)
 		{
 			var reservation = _context.Set<Reservation>().Find(confirmReservation.Id);
