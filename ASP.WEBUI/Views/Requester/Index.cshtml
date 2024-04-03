@@ -106,9 +106,10 @@
 					<input type="hidden" id="selectedReservationId" name="id" value="" />
 				</form>
 				<button type="button" class="btn btn-outline-primary" onclick="redirectTo('@Url.Action("CreateReservation", "Requester")')">Randevu Al</button>
-				<form action="@Url.Action("ReCanceledReservation", "Requester")" method="get">
-					<input asp-for="Id" value="@Model.Id" type="hidden" />
-					<button type="submit" class="btn btn-outline-danger" id="canceledButton">Randevu İptal</button>
+
+				<form id="cancelReservationForm" asp-controller="Requester" asp-action="ReCanceledReservation" method="get">
+					<button type="button" class="btn btn-outline-danger" onclick="submitFormForCancellation()">Randevu İptal</button>
+					<input type="hidden" id="cancelReservationId" name="id" value="" />
 				</form>
 			    <button type="button" class="btn btn-outline-warning" id="clearButton">Temizle</button>
 			</div>
