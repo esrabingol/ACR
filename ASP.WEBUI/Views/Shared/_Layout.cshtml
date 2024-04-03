@@ -3,102 +3,121 @@
 <html lang="tr">
 
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - ASP.WEBUI</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/ASP.WEBUI.styles.css" asp-append-version="true" />
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>@ViewData["Title"] - ASP.WEBUI</title>
+	<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+	<link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+	<link rel="stylesheet" href="~/ASP.WEBUI.styles.css" asp-append-version="true" />
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
 </head>
 <style>
-    body {
-        padding-top: 20px; /* Add a top padding to create space */
-    }
+	body {
+		padding-top: 20px; /* Add a top padding to create space */
+	}
+
+	.auth-buttons {
+		position: fixed;
+		top: 0;
+		right: 0;
+		margin-top: 28px;
+		margin-right: 20px;
+		z-index: 1000; /* İhtiyaç duyulan diğer içeriklerin üzerine çıkması için */
+	}
+
+	.dropdown-menu-right {
+		right: 0;
+		left: auto;
+	}
+
+	.account-dropdown {
+		position: fixed;
+		top: 7%; /* Sayfanın yüksekliğinin yarısı */
+		transform: translateY(-50%); /* Dikey ortalamak için */
+		right: 20px; /* Sağ kenardan mesafe */
+		z-index: 1000; /* İhtiyaç duyulan diğer içeriklerin üzerine çıkması için */
+	}
 </style>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="d-flex justify-content-between align-items-center">
-                <div class="container-fluid">
-					<!-- Navbar içeriği buraya eklenecek --> <div class="navbar-header">
+	<header>
+		<nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+			<div class="d-flex justify-content-between align-items-center">
+				<div class="container-fluid">
+					<div class="navbar-header">
 						<a class="navbar-brand font-weight-bold" asp-area="" asp-page="/Index">
-							<img src="~/img/logo.png" alt="Logo" height="40" class="d-inline-block align-text-top"> <!-- Amblem -->
+							<img src="~/img/logo.png" alt="Logo" height="40" class="d-inline-block align-text-top">
 							<strong>OTOKLAV REZERVASYON SİSTEMİ</strong>
 						</a>
 					</div>
-                </div>
-               
-                @if (ViewContext.RouteData.Values["Controller"].ToString() == "Home" && ViewContext.RouteData.Values["Action"].ToString() == "Index")
-                {
-                    <div class="ml-auto d-flex justify-content-between">
-                        <form action="@Url.Action("UserLogin", "User")">
-                            <button type="submit" class="btn btn-primary">Giriş Yap</button>
-                        </form>
+				</div>
 
-                        <form action="@Url.Action("UserRegister", "User")">
-                            <button type="submit" class="btn btn-danger ml-2">Kayıt Ol</button>
-                        </form>
-                    </div>
-                }
+				@if (ViewContext.RouteData.Values["Controller"].ToString() == "Home" && ViewContext.RouteData.Values["Action"].ToString() == "Index")
+				{
+					<div class="auth-buttons">
+					<div class="ml-auto d-flex justify-content-between">
+						<form action="@Url.Action("UserLogin", "User")">
+							<button type="submit" class="btn btn-primary">Giriş Yap</button>
+						</form>
 
-                @{
-                    string currentController = ViewContext.RouteData.Values["controller"] as string;
-                    string currentAction = ViewContext.RouteData.Values["action"] as string;
-                }
-@*
-                @if (!(string.Equals(currentController, "Home", StringComparison.OrdinalIgnoreCase) && string.Equals(currentAction, "Index", StringComparison.OrdinalIgnoreCase)))
-                {
-                    <!-- Example split danger button -->
-                    <div class="btn-group">
-                        <button type="button" class="btn btn-primary">Hesabım</button>
-                        <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <span class="sr-only">Toggle Dropdown</span>
-                        </button>
-                        <div class="dropdown-menu">
-                            <a class="dropdown-item" href="#">Action</a>
-                            <a class="dropdown-item" href="#">Another action</a>
-                            <a class="dropdown-item" href="#">Something else here</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">Separated link</a>
-                        </div>
-                    </div>
-                }*@
+						<form action="@Url.Action("UserRegister", "User")">
+							<button type="submit" class="btn btn-danger ml-2">Kayıt Ol</button>
+						</form>
+					</div>
+					</div>
+				}
+
+				@{
+					string currentController = ViewContext.RouteData.Values["controller"] as string;
+					string currentAction = ViewContext.RouteData.Values["action"] as string;
+				}
+				@if (!(string.Equals(currentController, "Home", StringComparison.OrdinalIgnoreCase) && string.Equals(currentAction, "Index", StringComparison.OrdinalIgnoreCase)))
+				{
+					<div class="account-dropdown">
+						<div class="btn-group">
+							<button type="button" class="btn btn-primary">Hesabım</button>
+							<button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+								<span class="sr-only">Toggle Dropdown</span>
+							</button>
+							<div class="dropdown-menu dropdown-menu-right">
+								<a class="dropdown-item" href="@Url.Action("InfoUserId","Account")">Kimlik Bilgileri</a>
+								<div class="dropdown-divider"></div>
+								<a class="dropdown-item" href="@Url.Action("Index","Home")">Çıkış</a>
+							</div>
+						</div>
+					</div>
+				}
 			</div>
-           
-        </nav>
-    </header>
 
-    <div @*class="container"*@>
-        <div class="row">
-            <div class="col-md-12">
-                <main role="main" class="pb-3">
-                    @RenderBody()
-                </main>
-            </div>
-        </div>
-    </div>
+		</nav>
+	</header>
 
-    <footer class="border-top footer text-muted">
-        <div @*class="container"*@>
-            &copy; 2024 - Türk Havacılık ve Uzay Sanayii A.Ş. Tüm hakları saklıdır.
-        </div>
-    </footer>
 
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
-    <!-- jQuery -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+	<div class="row">
+		<div class="col-md-12">
+			<main role="main" class="pb-3">
+				@RenderBody()
+			</main>
+		</div>
+	</div>
 
-    <!-- Bootstrap JS -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+	<footer class="border-top footer text-muted">
+		&copy; 2024 - Türk Havacılık ve Uzay Sanayii A.Ş. Tüm hakları saklıdır.
 
-    @await RenderSectionAsync("Scripts", required: false)
+	</footer>
+
+	<script src="~/lib/jquery/dist/jquery.min.js"></script>
+	<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+	<script src="~/js/site.js" asp-append-version="true"></script>
+	<!-- jQuery -->
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+
+	<!-- Bootstrap JS -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+	@await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
-

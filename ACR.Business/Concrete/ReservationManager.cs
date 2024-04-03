@@ -201,8 +201,11 @@ namespace ACR.Business.Concrete
 
 		public List<Reservation> GetReservedDatesByMachineName(string machineName)
 		{
-			var allReservations = _reservationDal.GetAll();
-			return allReservations.ToList();
+			var filteredReservations = _reservationDal.GetAll()
+	   .Where(r => r.Status != ReservationStatusType.Cancelled)
+	   .ToList();
+
+			return filteredReservations;
 		}
 	}
 }

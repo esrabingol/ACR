@@ -31,7 +31,7 @@
 						</a>
 					</div>
 					<label><strong>Makine Adı:</strong></label>
-					<input asp-for="MachineName" value="@Model.MachineName" type="text" class="form-control" />
+					<input asp-for="MachineName" value="@Model.MachineName"  class="form-control" />
 
 					<label for="machineStatu">Makine Durumu:</label>
 					<select asp-for="MachineStatus" class="form-control" placeholder="Makine Durumu Seçimi">
@@ -41,17 +41,18 @@
 					</select>
 
 					<label for="ItemNo">Item No :</label>
-					<input asp-for="ItemNo" value="@Model.ItemNo" class="form-control" placeholder="Item No giriniz." />
+					<input asp-for="ItemNo" value="@Model.ItemNo ??" class="form-control" placeholder="Item No Giriniz." />
 
 					<label for="Tc">TC:</label>
-					<input asp-for="TcNumber" value="@Model.TcNumber" class="form-control" placeholder="TC değerini giriniz." />
+					<input asp-for="TcNumber" value="@Model.TcNumber ?? " TC değeri giriniz."" class="form-control" placeholder="TC Değerini Giriniz." />
 
 					<label for="Vp">VP:</label>
-					<input asp-for="VpNumber" value="@Model.VpNumber" class="form-control" placeholder="VP değerini giriniz." />
+					<input asp-for="VpNumber" value="@Model.VpNumber ?? " VP değeri giriniz."" class="form-control" placeholder="VP Değerini Giriniz." />
+
 
 				</div>
 				<div class="buttons-section">
-					<button type="submit" class="btn btn-outline-primary">Makineyi Ekle</button>
+					<button type="submit" class="btn btn-outline-primary">Makine Ekle</button>
 				</div>
 			</form>
 
@@ -62,6 +63,13 @@
 		function redirectTo(url) {
 			window.location.href = url;
 		}
+		    window.onload = function() {
+        var machineNameInput = document.getElementById('MachineName');
+
+        if (machineNameInput.value === '') {
+            machineNameInput.placeholder = "Makine Adı Giriniz.";
+        }
+    };
 	</script>
 </body>
 

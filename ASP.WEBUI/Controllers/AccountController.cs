@@ -13,14 +13,6 @@ namespace ASP.WEBUI.Controllers
             //Kimlik Bilgileri
             return View();
         }
-        public IActionResult InfoContact()
-        {
-            //İletişim Bilgileri
-            return View();
-        }
-        public IActionResult Security()
-        {
-            return View();
-        }
+      
     }
 }
