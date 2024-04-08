@@ -183,5 +183,7 @@ namespace ASP.WEBUI.Controllers
 			var machine = _machineService.GetBySelectedMachineToId(Id);
 			return View(machine);
 		}
+
+
 	}
 }

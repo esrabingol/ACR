@@ -1,0 +1,77 @@
+﻿@model ACR.Entity.Concrete.User
+@{
+	ViewData["Title"] = "InfoUserID";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Kimlik Bilgileri</title>
+	<style>
+		body {
+			font-family: Arial, sans-serif;
+			margin: 0;
+			padding: 0;
+			background-color: #f8f9fa;
+		}
+
+		.container-border {
+			border: 2px solid #ced4da;
+			border-radius: 10px;
+			margin-top: 20px;
+			padding: 20px;
+			background-color: #fff;
+		}
+
+		.form-group {
+			margin-bottom: 15px;
+		}
+
+		.btn-update {
+			background-color: #28a745;
+			color: #fff;
+			border: none;
+			border-radius: 5px;
+			padding: 10px;
+			width: 100%;
+		}
+
+		.pb-3, .py-3 {
+			padding-bottom: 14rem !important;
+		}
+	</style>
+</head>
+<body>
+	<div class="container mt-3 container-border">
+		<div class="row">
+			<div class="col-md-12">
+				<h2 class="text-center">Kimlik Bilgileri</h2>
+				@if (TempData["SuccessMessage"] != null)
+				{
+					<div class="alert alert-success" role="alert">
+						@TempData["SuccessMessage"]
+					</div>
+				}
+				<form asp-controller="Account" asp-action="Security" method="post">
+					<input asp-for="Id" value="@Model.Id" type="hidden" />
+
+					<div class="form-group">
+						<label for="Password">Mevcut Şifreniz</label>
+						<input asp-for="Password" value="@Model.Password" class="form-control" type ="password" required />
+						<span class="required-note">*zorunlu alan</span>
+					</div>
+					<div class="form-group">
+						<label for="Password">Yeni Şifreniz</label>
+						<input asp-for="Password" class="form-control" type="password"  required />
+						<span class="required-note">*zorunlu alan</span>
+					</div>
+
+					<button type="submit" class="btn btn-primary">Kaydet</button>
+				</form>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

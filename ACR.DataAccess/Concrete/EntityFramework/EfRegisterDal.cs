@@ -30,7 +30,6 @@ namespace ACR.DataAccess.Concrete.EntityFramework
 			else
 				return false;
 		}
-
         public User UpdateUserInfo(User userInfo)
 		{
             var user = _context.Set<User>().Find(userInfo.Id);
@@ -46,5 +45,5 @@ namespace ACR.DataAccess.Concrete.EntityFramework
             }
             return user;
         }
-    }
+	}
 }

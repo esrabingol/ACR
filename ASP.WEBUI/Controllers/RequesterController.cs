@@ -127,7 +127,6 @@ namespace ASP.WEBUI.Controllers
 		[HttpGet]
 		public IActionResult GetAllReservations()
 		{
-			//Bilgi Getir
 			var allReservations = _reservationService.GetAllReservationsToRequester();
 			var reIndexModel = new ReIndexModelDTO
 			{

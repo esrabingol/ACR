@@ -56,6 +56,7 @@ namespace ACR.Business.Concrete
         {
           return  _registerDal.UpdateUserInfo(register);
         }
+  
 
         public User FindUserById(int Id)
         {
