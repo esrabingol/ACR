@@ -1,6 +1,7 @@
 ﻿using ACR.DataAccess.Abstract;
 using ACR.Entity.Concrete;
 using Microsoft.EntityFrameworkCore;
+using System.Reflection.PortableExecutable;
 
 namespace ACR.DataAccess.Concrete.EntityFramework
 {
@@ -29,5 +30,21 @@ namespace ACR.DataAccess.Concrete.EntityFramework
 			else
 				return false;
 		}
-	}
+
+        public User UpdateUserInfo(User userInfo)
+		{
+            var user = _context.Set<User>().Find(userInfo.Id);
+			if (user != null)
+			{
+				user.Name = userInfo.Name;
+                user.Surname = userInfo.Surname;
+                user.Email = userInfo.Email;
+				user.PhoneNumber = userInfo.PhoneNumber;
+		
+                _context.Users.Update(user);
+                _context.SaveChanges();
+            }
+            return user;
+        }
+    }
 }

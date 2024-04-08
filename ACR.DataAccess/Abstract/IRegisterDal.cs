@@ -6,5 +6,6 @@ namespace ACR.DataAccess.Abstract
 	{
 		bool PasswordSignIn(string userEmail, string userPassword, int roleId);
 		Task<User> FindByEmail(string email);
-	}
+        User UpdateUserInfo(User userInfo);
+    }
 }

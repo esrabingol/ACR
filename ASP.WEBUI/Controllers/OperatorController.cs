@@ -113,10 +113,6 @@ namespace ASP.WEBUI.Controllers
 		[HttpGet]
 		public IActionResult EditMachineInfo(OpMachineFilterModelDTO editMachine)
 		{
-			//var machines = _machineService.GetValues();
-			//var opEditMachineModelDTO = new OpEditMachineModelDTO { MachineNames = machines };
-			//return View(opEditMachineModelDTO);
-
 			var machine = _machineService.GetBySelectedMachine(editMachine);
 			if (machine == null)
 			{
