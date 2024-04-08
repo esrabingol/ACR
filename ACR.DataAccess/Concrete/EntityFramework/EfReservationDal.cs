@@ -79,6 +79,7 @@ namespace ACR.DataAccess.Concrete.EntityFramework
 				reservation.MachineName = confirmReservation.MachineName;
 				reservation.ProjectName = confirmReservation.ProjectName;
 				reservation.PartName = confirmReservation.PartName;
+				reservation.RecipeCode= confirmReservation.RecipeCode;
 				reservation.StartDate = confirmReservation.StartDate;
 				reservation.EndDate = confirmReservation.EndDate;
 				reservation.RequestNote = confirmReservation.RequestNote;
@@ -98,6 +99,7 @@ namespace ACR.DataAccess.Concrete.EntityFramework
 				reservation.Id = updateReservation.Id;
 				reservation.MachineName = updateReservation.MachineName;
 				reservation.ProjectName = updateReservation.ProjectName;
+				reservation.RecipeCode= updateReservation.RecipeCode;
 				reservation.PartName = updateReservation.PartName;
 				reservation.StartDate = updateReservation.StartDate;
 				reservation.EndDate = updateReservation.EndDate;

@@ -125,7 +125,8 @@
 						<th>Reçete Kodu</th>
 						<th>Başlangıç Tarihi</th>
 						<th>Bitiş Tarihi</th>
-						<th>Randevu Notu:</th>
+						<th>Talep Eden Randevu Notu:</th>
+						<th>Randevu İptal Notu:</th>
 						<th>Onaylayan Operator</th>
 					</tr>
 				</thead>
@@ -163,6 +164,7 @@
 							<td>@result.StartDate.ToString("dd-MM-yyyy HH:mm")</td>
 							<td>@result.EndDate.ToString("dd-MM-yyyy HH:mm")</td>
 							<td>@result.RequestNote</td>
+							<td>@result.CancellationNote</td>
 							<td>@result.Operator?.Name @result.Operator?.Surname</td>
 
 						</tr>
