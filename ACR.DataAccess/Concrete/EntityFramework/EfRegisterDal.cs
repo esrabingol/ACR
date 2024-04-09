@@ -37,7 +37,8 @@ namespace ACR.DataAccess.Concrete.EntityFramework
 			{
 				user.Name = userInfo.Name;
                 user.Surname = userInfo.Surname;
-                user.Email = userInfo.Email;
+                user.Email = userInfo.MailAdress;
+				user.MailAdress= userInfo.MailAdress;
 				user.PhoneNumber = userInfo.PhoneNumber;
 		
                 _context.Users.Update(user);
