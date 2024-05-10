@@ -85,9 +85,9 @@ namespace ASP.WEBUI.Controllers
 		public IActionResult OpCanceledReservation(OpIndexModelDTO manageReservationModel)
 		{
 			var canceledReservation = _reservationService.GetBySelectedReservationToOperator(manageReservationModel);
-			if(canceledReservation == null)
+			if (canceledReservation == null)
 			{
-				return RedirectToAction("Index");	
+				return RedirectToAction("Index");
 			}
 			return View("OpCanceledReservation", canceledReservation);
 		}
@@ -96,12 +96,12 @@ namespace ASP.WEBUI.Controllers
 		public IActionResult OpCanceledReservation(Reservation canceledReservation)
 		{
 			var userId = _httpContext.HttpContext.User?.FindFirstValue(ClaimTypes.NameIdentifier);
-			if(!string.IsNullOrEmpty(userId))
+			if (!string.IsNullOrEmpty(userId))
 			{
 				canceledReservation.OperatorId = Convert.ToInt32(userId);
 				var reservation = _reservationService.OpCanceledReservation(canceledReservation);
 
-				if(reservation !=null)
+				if (reservation != null)
 				{
 					TempData["SuccessMessage"] = "Randevu İptal işlemi başarı ile gerçekleştirildi";
 				}

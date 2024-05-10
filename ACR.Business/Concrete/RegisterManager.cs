@@ -56,12 +56,16 @@ namespace ACR.Business.Concrete
         {
           return  _registerDal.UpdateUserInfo(register);
         }
-  
-
         public User FindUserById(int Id)
         {
             var user = _registerDal.GetById(Id);
             return user;
         }
-    }
+
+		public List<User> GetAllUsers()
+		{
+            var allUsers = _registerDal.GetAll().ToList();
+            return allUsers.ToList();
+		}
+	}
 }

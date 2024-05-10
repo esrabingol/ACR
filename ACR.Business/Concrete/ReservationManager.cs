@@ -198,7 +198,6 @@ namespace ACR.Business.Concrete
 		{
 			return _reservationDal.UpdateCanceledReservationToRequester(canceledReservationModel);
 		}
-
 		public List<Reservation> GetReservedDatesByMachineName(string machineName)
 		{
 			var filteredReservations = _reservationDal.GetAll()
@@ -207,5 +206,12 @@ namespace ACR.Business.Concrete
 
 			return filteredReservations;
 		}
+
+		public List<Reservation> GetAllReservationsToAdmin()
+		{
+            var reservations = _reservationDal.GetAll().ToList();
+
+            return reservations.ToList();
+        }
 	}
 }

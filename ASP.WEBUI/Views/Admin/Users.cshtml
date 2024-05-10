@@ -1,0 +1,64 @@
+﻿@using ACR.Business.Models;
+@model AdViewUserModelDTO
+
+@{
+	ViewData["Title"] = "Users";
+	Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+
+<div class="container-fluid">
+
+	<div class="card mb-4">
+		<div class="card-header">
+			<i class="fas fa-table mr-1"></i>
+			Kullanıcı Bilgi Tablosu
+		</div>
+		<div class="card-body">
+			<div class="table-responsive">
+				<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+					<thead>
+						<tr>
+							<th>isim</th>
+							<th>Soyisim</th>
+							<th>Mail Adresi</th>
+							<th>Telefon Numarası</th>
+							<th>Çalışan Rolü</th>
+						</tr>
+					</thead>
+					<tfoot>
+						<tr>
+							<th>isim</th>
+							<th>Soyisim</th>
+							<th>Mail Adresi</th>
+							<th>Telefon Numarası</th>
+							<th>Çalışan Rolü</th>
+						</tr>
+					</tfoot>
+					<tbody>
+						@foreach (var result in Model.Results)
+						{
+							<tr>
+								<td>@result.Name</td>
+								<td>@result.Surname</td>
+								<td>@result.MailAdress</td>
+								<td>@result.PhoneNumber</td>
+								<td>
+									@if (result.RoleId == 1)
+									{
+										<span>Operatör</span>
+									}
+									else if (result.RoleId == 2)
+									{
+										<span>Üretim Mühendisi</span>
+									}
+								</td>
+							
+							</tr>
+						}
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>

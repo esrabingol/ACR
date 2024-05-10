@@ -1,0 +1,64 @@
+﻿@using ACR.Business.Models;
+@model AdViewMachineModelDTO
+
+@{
+	ViewData["Title"] = "Machines";
+	Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+
+<div class="card mb-4">
+	<div class="card-header">
+		<i class="fas fa-table mr-1"></i>
+		Kullanıcı Bilgi Tablosu
+	</div>
+	<div class="card-body">
+		<div class="table-responsive">
+			<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+				<thead>
+					<tr>
+						<th>Makine Adı</th>
+						<th>Makine Durumu</th>
+						<th>TC Numara</th>
+						<th>VP Numara</th>
+						<th>Bakım Başlangıç Tarihi</th>
+						<th>Bakım Bitiş Tarihi</th>
+						<th>Operator Notu</th>
+
+					</tr>
+				</thead>
+				<tfoot>
+					<tr>
+						<th>Makine Adı</th>
+						<th>Makine Durumu</th>
+						<th>TC Numara</th>
+						<th>VP Numara</th>
+						<th>Bakım Başlangıç Tarihi</th>
+						<th>Bakım Bitiş Tarihi</th>
+						<th>Operator Notu</th>
+					</tr>
+				</tfoot>
+				<tbody>
+
+					@foreach (var result in Model.Results)
+					{
+						<tr>
+							<td>@result.MachineName</td>
+							<td>@result.MachineStatus</td>
+							<td>@result.TcNumber</td>
+							<td>@result.VpNumber</td>
+							<td>@result.StartDate</td>
+							<td>@result.EndDate</td>
+							<td>@result.OperatorNote</td>
+
+						</tr>
+					}
+			   
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
+
+
+
