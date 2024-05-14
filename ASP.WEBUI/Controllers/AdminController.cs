@@ -1,6 +1,8 @@
 ﻿using ACR.Business.Abstract;
 using ACR.Business.Models;
+using ACR.Entity.Concrete;
 using Microsoft.AspNetCore.Mvc;
+using System.Globalization;
 
 namespace ASP.WEBUI.Controllers
 {
@@ -19,12 +21,33 @@ namespace ASP.WEBUI.Controllers
 
 		public IActionResult Index()
 		{
-			var allusers = _registerService.GetAllUsers();
-			var adUserModel = new AdViewUserModelDTO
-			{
-				Results = allusers
-			};
-			return View("Index", adUserModel);
+			//var allusers = _registerService.GetAllUsers();
+			//var adUserModel = new AdViewUserModelDTO
+			//{
+			//	Results = allusers
+			//};
+			//return View("Index", adUserModel);
+
+	
+			//makine durumları (pasta grafiği)
+			var allMachines = _machineService.GetAllMachines();
+			var onMachineCount = allMachines.Count(u => u.MachineStatus =="Aktif");
+			var offMachineCount = allMachines.Count(u => u.MachineStatus == "Pasif");
+
+			ViewBag.onMachineCount = onMachineCount;
+			ViewBag.offMachineCount = offMachineCount;
+
+			//rezervasyon durumu(pasta grafiği)
+			var allReservation = _reservationService.GetAllReservationsToAdmin();
+
+			var pendingReservations = allReservation.Count(u => u.Status == ReservationStatusType.Pending);
+			var confirmedReservations = allReservation.Count(u => u.Status == ReservationStatusType.Confirmed);
+			var canceledReservations = allReservation.Count(u => u.Status == ReservationStatusType.Cancelled);
+
+			ViewBag.pendingReservations = pendingReservations;
+			ViewBag.confirmedReservations = confirmedReservations;
+			ViewBag.canceledReservations = canceledReservations;
+			return View();
 		}
 		public IActionResult Reservations()
         {
@@ -57,15 +80,28 @@ namespace ASP.WEBUI.Controllers
 		}
 		public IActionResult Statistics()
 		{
-			var allUsers = _registerService.GetAllUsers();
+			var allReservations = _reservationService.GetAllReservationsToAdmin();
 
-            var operatorCount = allUsers.Count(u => u.RoleId == 1);
-            var engineerCount = allUsers.Count(u => u.RoleId == 2);
+			var reservationCountsByMonth = allReservations
+				.GroupBy(r => r.StartDate.Month)
+				.OrderBy(g => g.Key)
+				.Select(g => new
+				{
+					Month = CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(g.Key),
+					ReservationCount = g.Count()
+				})
+				.ToList();
+
+			var allUsers = _registerService.GetAllUsers();
+			var operatorCount = allUsers.Count(u => u.RoleId == 1);
+			var engineerCount = allUsers.Count(u => u.RoleId == 2);
 
 			ViewBag.OperatorCount = operatorCount;
 			ViewBag.EngineerCount = engineerCount;
 
-			return View(new { operatorCount , engineerCount });
+			ViewBag.ReservationCountsByMonth = reservationCountsByMonth;
+
+			return View();
 		}
 
 	}

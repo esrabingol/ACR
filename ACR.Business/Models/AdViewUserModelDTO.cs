@@ -12,5 +12,8 @@ namespace ACR.Business.Models
 		public int RoleId { get; set; }
 		public IEnumerable<Role> Roles { get; set; }
 		public List<User> Results { get; set; } = new List<User>();
+
+
+
 	}
 }
