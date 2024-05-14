@@ -12,5 +12,7 @@ namespace ACR.Business.Abstract
 		Task<int?> GetRoleIdByEmail(string email);
 		User FindUserById(int Id);
 		List<User> GetAllUsers();
-	}
+		List<int> GetCountToCharts(List<User> users);
+
+    }
 }

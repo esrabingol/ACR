@@ -67,5 +67,15 @@ namespace ACR.Business.Concrete
             var allUsers = _registerDal.GetAll().ToList();
             return allUsers.ToList();
 		}
-	}
+
+        public List<int> GetCountToCharts(List<User> users)
+        {
+            // Üretim mühendisi ve operatör sayılarını hesapla
+            var operatorCount = users.Count(u => u.RoleId == 1);
+            var engineerCount = users.Count(u => u.RoleId == 2);
+
+            // Sayıları bir liste olarak döndür
+            return new List<int> { engineerCount, operatorCount };
+        }
+    }
 }

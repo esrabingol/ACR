@@ -10,7 +10,7 @@ namespace ASP.WEBUI.Controllers
 		private IRegisterService _registerService;
 		private IMachineService _machineService;
 
-		public AdminController(IReservationService reservationService, IRegisterService registerService, IMachineService machineService)
+        public AdminController(IReservationService reservationService, IRegisterService registerService, IMachineService machineService)
 		{
 			_reservationService = reservationService;
 			_registerService = registerService;
@@ -57,7 +57,15 @@ namespace ASP.WEBUI.Controllers
 		}
 		public IActionResult Statistics()
 		{
-			return View();
+			var allUsers = _registerService.GetAllUsers();
+
+            var operatorCount = allUsers.Count(u => u.RoleId == 1);
+            var engineerCount = allUsers.Count(u => u.RoleId == 2);
+
+			ViewBag.OperatorCount = operatorCount;
+			ViewBag.EngineerCount = engineerCount;
+
+			return View(new { operatorCount , engineerCount });
 		}
 
 	}

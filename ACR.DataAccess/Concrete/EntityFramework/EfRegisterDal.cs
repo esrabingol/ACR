@@ -1,7 +1,6 @@
 ﻿using ACR.DataAccess.Abstract;
 using ACR.Entity.Concrete;
 using Microsoft.EntityFrameworkCore;
-using System.Reflection.PortableExecutable;
 
 namespace ACR.DataAccess.Concrete.EntityFramework
 {
@@ -46,5 +45,8 @@ namespace ACR.DataAccess.Concrete.EntityFramework
             }
             return user;
         }
+
+
+
 	}
 }
