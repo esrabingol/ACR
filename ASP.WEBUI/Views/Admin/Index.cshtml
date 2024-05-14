@@ -1,4 +1,5 @@
 ﻿@using ACR.Business.Models;
+
 @{
 	ViewData["Title"] = "Index";
 	Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
@@ -48,21 +49,12 @@
 			</div>
 		</div>
 	</div>
-			<div class="col-xl-6">
-			<div class="card mb-4">
-				<div class="card-header">
-					<i class="fas fa-chart-area mr-1"></i>
-					Alan Grafiği Örneği
-				</div>
-				<div class="card-body"><canvas id="myAreaChart1" width="100%" height="40"></canvas></div>
-			</div>
-		</div>
 	<div class="row">
 		<div class="col-lg-6">
 			<div class="card mb-4">
 				<div class="card-header">
 					<i class="fas fa-chart-pie mr-1"></i>
-					Randevu Durum Pasta Grafiği Örneği
+					Randevu Durum Pasta Grafiği
 				</div>
 				<div class="card-body"><canvas id="myPieChart2" width="100%" height="50"></canvas></div>
 			</div>
@@ -71,65 +63,11 @@
 			<div class="card mb-4">
 						<div class="card-header">
 								<i class="fas fa-chart-pie mr-1"></i>
-								Makine Durum Pasta Grafiği Örneği
+								Makine Durum Pasta Grafiği
 						</div>
 						<div class="card-body"><canvas id="myPieChart3" width="100%" height="50"></canvas></div>
 				</div>
 		</div>
 		</div>
-
-
-@*	<div class="card mb-4">
-		<div class="card-header">
-			<i class="fas fa-table mr-1"></i>
-			Kullanıcı Bilgi Tablosu
-		</div>
-		<div class="card-body">
-			<div class="table-responsive">
-				<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-					<thead>
-						<tr>
-							<th>isim</th>
-							<th>Soyisim</th>
-							<th>Mail Adresi</th>
-							<th>Telefon Numarası</th>
-							<th>Çalışan Rolü</th>
-						</tr>
-					</thead>
-					<tfoot>
-						<tr>
-							<th>isim</th>
-							<th>Soyisim</th>
-							<th>Mail Adresi</th>
-							<th>Telefon Numarası</th>
-							<th>Çalışan Rolü</th>
-						</tr>
-					</tfoot>
-					<tbody>
-						@foreach (var result in Model.Results)
-						{
-							<tr>
-								<td>@result.Name</td>
-								<td>@result.Surname</td>
-								<td>@result.MailAdress</td>
-								<td>@result.PhoneNumber</td>
-								<td>
-									@if (result.RoleId == 1)
-									{
-										<span>Operatör</span>
-									}
-									else if (result.RoleId == 2)
-									{
-										<span>Üretim Mühendisi</span>
-									}
-								</td>
-
-							</tr>
-						}
-					</tbody>
-				</table>
-			</div>
-		</div>
-	</div>*@
 </div>
 

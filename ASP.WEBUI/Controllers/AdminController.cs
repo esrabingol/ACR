@@ -12,7 +12,7 @@ namespace ASP.WEBUI.Controllers
 		private IRegisterService _registerService;
 		private IMachineService _machineService;
 
-        public AdminController(IReservationService reservationService, IRegisterService registerService, IMachineService machineService)
+		public AdminController(IReservationService reservationService, IRegisterService registerService, IMachineService machineService)
 		{
 			_reservationService = reservationService;
 			_registerService = registerService;
@@ -21,25 +21,28 @@ namespace ASP.WEBUI.Controllers
 
 		public IActionResult Index()
 		{
-			//var allusers = _registerService.GetAllUsers();
-			//var adUserModel = new AdViewUserModelDTO
-			//{
-			//	Results = allusers
-			//};
-			//return View("Index", adUserModel);
+			var allReservations = _reservationService.GetAllReservationsToAdmin();
 
-	
-			//makine durumları (pasta grafiği)
+			var reservationCountsByMonth = allReservations
+				.GroupBy(r => r.StartDate.Month)
+				.OrderBy(g => g.Key)
+				.Select(g => new
+				{
+					Month = CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(g.Key),
+					ReservationCount = g.Count()
+				})
+				.ToList();
+
+			ViewBag.ReservationCountsByMonth = reservationCountsByMonth;
+
 			var allMachines = _machineService.GetAllMachines();
-			var onMachineCount = allMachines.Count(u => u.MachineStatus =="Aktif");
+			var onMachineCount = allMachines.Count(u => u.MachineStatus == "Aktif");
 			var offMachineCount = allMachines.Count(u => u.MachineStatus == "Pasif");
 
 			ViewBag.onMachineCount = onMachineCount;
 			ViewBag.offMachineCount = offMachineCount;
 
-			//rezervasyon durumu(pasta grafiği)
 			var allReservation = _reservationService.GetAllReservationsToAdmin();
-
 			var pendingReservations = allReservation.Count(u => u.Status == ReservationStatusType.Pending);
 			var confirmedReservations = allReservation.Count(u => u.Status == ReservationStatusType.Confirmed);
 			var canceledReservations = allReservation.Count(u => u.Status == ReservationStatusType.Cancelled);
@@ -47,17 +50,18 @@ namespace ASP.WEBUI.Controllers
 			ViewBag.pendingReservations = pendingReservations;
 			ViewBag.confirmedReservations = confirmedReservations;
 			ViewBag.canceledReservations = canceledReservations;
+
 			return View();
 		}
 		public IActionResult Reservations()
-        {
-            var allreservations = _reservationService.GetAllReservationsToAdmin();
-            var adReservationModel = new AdViewReservationModelDTO
-            {
-                Results = allreservations
-            };
-            return View("Reservations", adReservationModel);
-        }
+		{
+			var allreservations = _reservationService.GetAllReservationsToAdmin();
+			var adReservationModel = new AdViewReservationModelDTO
+			{
+				Results = allreservations
+			};
+			return View("Reservations", adReservationModel);
+		}
 		public IActionResult Users()
 		{
 			var allusers = _registerService.GetAllUsers();
@@ -98,7 +102,6 @@ namespace ASP.WEBUI.Controllers
 
 			ViewBag.OperatorCount = operatorCount;
 			ViewBag.EngineerCount = engineerCount;
-
 			ViewBag.ReservationCountsByMonth = reservationCountsByMonth;
 
 			return View();
