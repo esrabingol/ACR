@@ -22,6 +22,14 @@ namespace ASP.WEBUI.Controllers
 		public IActionResult Index()
 		{
 			var allReservations = _reservationService.GetAllReservationsToAdmin();
+			var reservationsCount = _reservationService.GetAllReservationsToAdmin().Count();
+			var allUsersCount = _registerService.GetAllUsers().Count();
+			var allMachineCount = _machineService.GetAllMachines().Count();
+
+
+			ViewBag.reservationsCount = reservationsCount;
+			ViewBag.allusersCount = allUsersCount;
+			ViewBag.allMachineCount = allMachineCount;
 
 			var reservationCountsByMonth = allReservations
 				.GroupBy(r => r.StartDate.Month)
@@ -56,8 +64,10 @@ namespace ASP.WEBUI.Controllers
 		public IActionResult Reservations()
 		{
 			var allreservations = _reservationService.GetAllReservationsToAdmin();
+
 			var adReservationModel = new AdViewReservationModelDTO
 			{
+			
 				Results = allreservations
 			};
 			return View("Reservations", adReservationModel);
