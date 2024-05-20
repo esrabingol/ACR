@@ -41,8 +41,8 @@ namespace ACR.Business.Concrete
 				ItemNo = viewMachine.ItemNo,
 				TcNumber = viewMachine.Tc,
 				VpNumber = viewMachine.Vp,
-				StartDate = viewMachine.StartDate, //bakım başlangıç zamanı
-				EndDate = viewMachine.EndDate, // bakım bitiş zamanı
+				StartDate = viewMachine.StartDate,
+				EndDate = viewMachine.EndDate,
 			};
 
 			var filters = new List<Func<Machine, bool>>();

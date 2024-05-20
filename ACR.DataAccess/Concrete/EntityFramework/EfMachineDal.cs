@@ -66,7 +66,6 @@ namespace ACR.DataAccess.Concrete.EntityFramework
             Machine machine= _context.Set<Machine>().Find(Id); 
 			if(machine != null)
 			{
-				//machine.Deleted = 1; // şeklinde silinenleri belirtmek içi sutün eklenicek 
 				machine.MachineStatus = "Pasif";
 				_context.SaveChanges();
 			}

@@ -1,8 +1,8 @@
 ﻿@using ACR.Business.Models;
 @model OpAddNewMachineModelDTO
 @{
-    ViewData["Title"] = "AddNewMachine";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+	ViewData["Title"] = "AddNewMachine";
+	Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 
@@ -31,7 +31,7 @@
 						</a>
 					</div>
 					<label><strong>Makine Adı:</strong></label>
-					<input asp-for="MachineName" value="@Model.MachineName"  class="form-control" />
+					<input asp-for="MachineName" value="@Model.MachineName" class="form-control" />
 
 					<label for="machineStatu">Makine Durumu:</label>
 					<select asp-for="MachineStatus" class="form-control" placeholder="Makine Durumu Seçimi">
@@ -63,13 +63,13 @@
 		function redirectTo(url) {
 			window.location.href = url;
 		}
-		    window.onload = function() {
-        var machineNameInput = document.getElementById('MachineName');
+		window.onload = function () {
+			var machineNameInput = document.getElementById('MachineName');
 
-        if (machineNameInput.value === '') {
-            machineNameInput.placeholder = "Makine Adı Giriniz.";
-        }
-    };
+			if (machineNameInput.value === '') {
+				machineNameInput.placeholder = "Makine Adı Giriniz.";
+			}
+		};
 	</script>
 </body>
 

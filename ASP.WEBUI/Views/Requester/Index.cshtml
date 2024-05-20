@@ -64,7 +64,7 @@
 							List<Machine> machineList = null;
 							if (Model.MachineNames != null && Model.MachineNames.Any())
 							{
-								 machineList = Model.MachineNames?.ToList();
+								machineList = Model.MachineNames?.ToList();
 							}
 
 							@if (machineList != null)
@@ -111,7 +111,7 @@
 					<button type="button" class="btn btn-outline-danger" onclick="submitFormForCancellation()">Randevu İptal</button>
 					<input type="hidden" id="cancelReservationId" name="id" value="" />
 				</form>
-			    <button type="button" class="btn btn-outline-warning" id="clearButton">Temizle</button>
+				<button type="button" class="btn btn-outline-warning" id="clearButton">Temizle</button>
 			</div>
 			<!--Table-->
 			<table class="table table-hover table-fixed">
@@ -134,10 +134,10 @@
 					@foreach (var result in Model.Results)
 					{
 						<tr>
-								<td><input type="checkbox" name="selectedReservationId" value="@result.Id" /></td>
-								<td>
-									@if (result.Status != null)
-									{
+							<td><input type="checkbox" name="selectedReservationId" value="@result.Id" /></td>
+							<td>
+								@if (result.Status != null)
+								{
 									if (@result.Status == ReservationStatusType.Pending)
 									{
 										<span class="badge badge-primary">Beklemede</span>

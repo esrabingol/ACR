@@ -92,7 +92,6 @@ namespace ASP.WEBUI.Controllers
 				TempData["ErrorMessage"] = "Kullancı Adı veya Parola Yanlış!";
 			}
 
-
 			return View(loginModel);
 		}
 	}

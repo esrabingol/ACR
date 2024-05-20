@@ -63,7 +63,6 @@ namespace ASP.WEBUI.Controllers
 		[HttpPost]
 		public IActionResult OpConfirmReservation(Reservation confirmReservation)
 		{
-			//operatorId
 			var userId = _httpContext.HttpContext.User?.FindFirstValue(ClaimTypes.NameIdentifier);
 
 			if (!string.IsNullOrWhiteSpace(userId))
@@ -77,7 +76,6 @@ namespace ASP.WEBUI.Controllers
 
 				return View(reservation);
 			}
-			//hata verirsin
 			return View();
 		}
 
@@ -119,7 +117,6 @@ namespace ASP.WEBUI.Controllers
 				return RedirectToAction("ViewMachineInfo");
 			}
 			return View("EditMachineInfo", machine);
-
 		}
 
 		[HttpPost]
@@ -183,7 +180,5 @@ namespace ASP.WEBUI.Controllers
 			var machine = _machineService.GetBySelectedMachineToId(Id);
 			return View(machine);
 		}
-
-
 	}
 }

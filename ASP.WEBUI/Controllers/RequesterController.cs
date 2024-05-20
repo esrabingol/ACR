@@ -13,7 +13,8 @@ namespace ASP.WEBUI.Controllers
 		private IMachineService _machineService;
 		private IRegisterService _registerService;
 		private IHttpContextAccessor _httpContext;
-		public RequesterController(IMachineService machineService, IReservationService reservationService, IRegisterService registerService, IHttpContextAccessor httpContext)
+		public RequesterController(IMachineService machineService, IReservationService reservationService,
+			IRegisterService registerService, IHttpContextAccessor httpContext)
 		{
 			_machineService = machineService;
 			_reservationService = reservationService;
@@ -22,7 +23,6 @@ namespace ASP.WEBUI.Controllers
 		}
 		public IActionResult Index()
 		{
-
 			var machines = _machineService.GetValues();
 			var opCreateIndexModelDTO = new ReIndexModelDTO { MachineNames = machines };
 			return View(opCreateIndexModelDTO);
@@ -47,17 +47,15 @@ namespace ASP.WEBUI.Controllers
 		[HttpPost]
 		public IActionResult CreateReservation(ReCreateReservationModelDTO reservationModel)
 		{
-			// Seçilen makinenin dolu ve boş tarihlerini kontrol et
 			var reservedDates = _reservationService.GetReservedDatesByMachineName(reservationModel.MachineName);
 
 			var isDateReserved = reservedDates.Any(rd =>
-				(rd.StartDate <= reservationModel.StartDate && rd.EndDate >= reservationModel.StartDate) || // Başlangıç tarihi içinde
-				(rd.StartDate <= reservationModel.EndDate && rd.EndDate >= reservationModel.EndDate) ||     // Bitiş tarihi içinde
-				(reservationModel.StartDate <= rd.StartDate && reservationModel.EndDate >= rd.EndDate));    // Rezervasyon aralığı dışında
+				(rd.StartDate <= reservationModel.StartDate && rd.EndDate >= reservationModel.StartDate) ||
+				(rd.StartDate <= reservationModel.EndDate && rd.EndDate >= reservationModel.EndDate) ||    
+				(reservationModel.StartDate <= rd.StartDate && reservationModel.EndDate >= rd.EndDate)); 
 
 			if (isDateReserved)
 			{
-				// Seçilen tarih aralığı dolu ise uyarı ver
 				ModelState.AddModelError("StartDate", "Seçilen tarih aralığı dolu. Lütfen başka bir tarih seçin.");
 				return View(reservationModel);
 			}
@@ -96,7 +94,6 @@ namespace ASP.WEBUI.Controllers
 					TempData["SuccessMessage"] = "Randevu İptal işlemi başarı ile gerçekleştirildi";
 				}
 				return View(reservation);
-
 			}
 			return View();
 		}
@@ -110,7 +107,6 @@ namespace ASP.WEBUI.Controllers
 				return RedirectToAction("Index");
 			}
 			return View("ManageReservation", reservation);
-
 		}
 
 		[HttpPost]

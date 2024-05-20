@@ -20,6 +20,5 @@ namespace ACR.Business.Models
 		[Required(ErrorMessage = "Şifre Alanı Boş Geçilemez!")]
 		[DataType(DataType.Password)]
 		public string Password { get; set; }
-
 	}
 }

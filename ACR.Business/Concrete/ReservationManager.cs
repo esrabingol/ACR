@@ -19,10 +19,8 @@ namespace ACR.Business.Concrete
 			_reservationDal = reservationDal;
 			_httpContext = httpContext;
 		}
-
 		public Reservation Add(ReCreateReservationModelDTO reReservationFilterModel)
 		{
-			//requesterId
 			var userId = _httpContext.HttpContext.User?.FindFirstValue(ClaimTypes.NameIdentifier);
 			var reservationAdd = new Reservation
 			{
@@ -37,7 +35,6 @@ namespace ACR.Business.Concrete
 			};
 
 			var reservation = _reservationDal.AddReservation(reservationAdd);
-
 			return reservation;
 		}
 		public Reservation ConfirmReservation(Reservation confirmReservationModel)
@@ -70,8 +67,6 @@ namespace ACR.Business.Concrete
 		}
 		public List<Reservation> GetAllRezervationsOperator(OpIndexModelDTO indexModel)
 		{
-			//böyle map etmene gerek yok
-			//şu tipteki nesnesyi şuna map et dicen o sana aşağıda yaptıklarını yapıp vercek
 			var reservationFilter = new Reservation
 			{
 				MachineName = indexModel.MachineName,
@@ -85,11 +80,7 @@ namespace ACR.Business.Concrete
 
 			var filters = GetFilters(reservationFilter);
 
-			//rezervasyon bilgileri çekilirken onunla ilişkili requester bilgiside çekilir
 			var filteredReservations = _reservationDal.GetAll(filters, f => f.Requester);
-
-			//operarator bilgilerinede ihtiyaç varsa böyle kullanabilirsin
-			//_reservationDal.GetAll(filters, f => f.Requester,f=>f.Operator);
 
 			var viewModel = new ReIndexModelDTO
 			{
@@ -174,14 +165,12 @@ namespace ACR.Business.Concrete
 				RequestNote = manageReservationModel.RequestNote,
 			};
 			return _reservationDal.GetSelectedReservationInfo(findReservation);
-
 		}
 		public Reservation GetRezervationById(int reservationId)
 		{
 			var reservation = _reservationDal.GetById(reservationId);
 			if (reservation == null)
 			{
-				//messajlar magic string olarak kodda durmasın böyle staticlere çek daha best practice
 				throw new Exception(string.Concat(Message.NotFoundAutoClave, reservationId));
 			}
 			return reservation;
@@ -201,17 +190,16 @@ namespace ACR.Business.Concrete
 		public List<Reservation> GetReservedDatesByMachineName(string machineName)
 		{
 			var filteredReservations = _reservationDal.GetAll()
-	   .Where(r => r.Status != ReservationStatusType.Cancelled)
-	   .ToList();
+			  .Where(r => r.Status != ReservationStatusType.Cancelled)
+			  .ToList();
 
 			return filteredReservations;
 		}
-
 		public List<Reservation> GetAllReservationsToAdmin()
 		{
-            var reservations = _reservationDal.GetAll().ToList();
+			var reservations = _reservationDal.GetAll().ToList();
 
-            return reservations.ToList();
-        }
+			return reservations.ToList();
+		}
 	}
 }

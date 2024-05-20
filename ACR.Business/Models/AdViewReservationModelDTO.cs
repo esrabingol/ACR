@@ -1,6 +1,5 @@
 ﻿using ACR.Entity.Concrete;
 
-
 namespace ACR.Business.Models
 {
 	public class AdViewReservationModelDTO

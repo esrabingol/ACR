@@ -52,13 +52,13 @@ namespace ASP.WEBUI.Controllers
 			if (user != null)
 			{
 				TempData["SuccessMessage"] = "Kimlik Bilgileri başarıyla güncellendi.";
-				return RedirectToAction("InfoUserID"); // Bu, sayfanın tekrar yüklenmesini sağlar.
+				return RedirectToAction("InfoUserID");
 			}
 			else
 			{
 				TempData["ErrorMessage"] = "Kullanıcı bilgileri güncellenirken bir hata oluştu.";
 			}
-			// Eğer ModelState geçersizse veya kullanıcı güncellenemezse, aynı View'i tekrar gösterin.
+
 			return View("InfoUserID", updateUser);
 		}
 
@@ -100,7 +100,5 @@ namespace ASP.WEBUI.Controllers
 			}
 			return View(editPasswordViewModel);
 		}
-
-
 	}
 }

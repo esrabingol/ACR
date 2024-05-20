@@ -16,7 +16,8 @@ namespace ASP.WEBUI.Controllers
 		private readonly SignInManager<User> _signInManager;
 		private readonly UserManager<User> _userManager;
 
-		public AdminController(IReservationService reservationService, IRegisterService registerService, IMachineService machineService, IRoleService roleService, SignInManager<User> signInManager, UserManager<User> userManager)
+		public AdminController(IReservationService reservationService, IRegisterService registerService,
+			IMachineService machineService, IRoleService roleService, SignInManager<User> signInManager, UserManager<User> userManager)
 		{
 			_reservationService = reservationService;
 			_registerService = registerService;
@@ -74,7 +75,6 @@ namespace ASP.WEBUI.Controllers
 
 			var adReservationModel = new AdViewReservationModelDTO
 			{
-
 				Results = allreservations
 			};
 			return View("Reservations", adReservationModel);
@@ -96,8 +96,6 @@ namespace ASP.WEBUI.Controllers
 				Results = allMachines
 			};
 			return View("Machines", adMachineModel);
-
-
 		}
 		public IActionResult Statistics()
 		{

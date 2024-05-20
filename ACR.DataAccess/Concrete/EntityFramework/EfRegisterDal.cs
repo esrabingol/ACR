@@ -45,8 +45,5 @@ namespace ACR.DataAccess.Concrete.EntityFramework
             }
             return user;
         }
-
-
-
 	}
 }

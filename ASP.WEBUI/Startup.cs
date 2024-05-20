@@ -54,26 +54,6 @@ namespace ASP.WEBUI
 
 			services.AddScoped<IRoleDal, EfRoleDal>();
 			services.AddScoped<IRoleService, RoleManager>();
-
-			//services.ConfigureApplicationCookie(options =>
-			//{
-			//	options.LoginPath = new PathString("/User/UserLogin");
-
-			//	options.AccessDeniedPath = new PathString("/AccessDenied");
-
-			//	options.Cookie = new CookieBuilder
-			//	{
-			//		Name = "AspNetIdentity",
-			//		HttpOnly = false,
-			//		SecurePolicy = CookieSecurePolicy.SameAsRequest,
-			//		SameSite = SameSiteMode.Lax
-
-			//	};
-			//	options.SlidingExpiration = true;
-
-			//	options.ExpireTimeSpan = TimeSpan.FromMinutes(20);
-			//});
-
 			services.AddControllersWithViews();
 			services.AddRazorPages();
 

@@ -55,7 +55,7 @@
 							<div class="sb-nav-link-icon"><i class="fa fa-cogs"></i></div>
 							Makine Bilgileri
 						</a>
-						
+
 						<a class="nav-link" asp-controller="Admin" asp-action="Statistics">
 							<div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
 							İstatislikler
@@ -80,7 +80,7 @@
 						<div>
 							<a href="#">Gizlilik Politikası</a>
 							&middot;
-				
+
 						</div>
 					</div>
 				</div>
@@ -94,9 +94,9 @@
 
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
 	<script>
-		var pendingColor = 'rgba(169, 169, 169, 0.8)'; // Koyu Gri
-		var confirmedColor = 'rgba(0, 153, 0, 0.8)'; // Açık Yeşil
-		var canceledColor = 'rgba(255, 0, 0, 0.8)'; // Açık Kırmızı
+		var pendingColor = 'rgba(169, 169, 169, 0.8)';
+		var confirmedColor = 'rgba(0, 153, 0, 0.8)'; 
+		var canceledColor = 'rgba(255, 0, 0, 0.8)'; 
 
 		var ctx = document.getElementById("myPieChart2").getContext('2d');
 		var myPieChart = new Chart(ctx, {
@@ -112,8 +112,8 @@
 	</script>
 
 	<script>
-		var onColor = 'rgba(0, 153, 0, 0.8)'; // Açık Yeşil
-		var offColor = 'rgba(169, 169, 169, 0.8)'; // Koyu Gri
+		var onColor = 'rgba(0, 153, 0, 0.8)';
+		var offColor = 'rgba(169, 169, 169, 0.8)'; 
 
 		var ctx = document.getElementById("myPieChart3").getContext('2d');
 		var myPieChart = new Chart(ctx, {

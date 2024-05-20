@@ -7,7 +7,6 @@
         public int? ItemNo { get; set; }
         public int? TcNumber { get; set; }
         public int? VpNumber { get; set; }
-        //Bakımda olduğu zaman aralığı girilebilicek ve bu kısıma randevu verilmez
         public DateTime? StartDate { get; set; }
         public DateTime? EndDate { get; set; }
         public string? OperatorNote { get; set; }

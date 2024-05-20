@@ -1,7 +1,7 @@
 ﻿@model ACR.Entity.Concrete.Reservation
 @{
-    ViewData["Title"] = "OpCanceledReservation";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+	ViewData["Title"] = "OpCanceledReservation";
+	Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <!DOCTYPE html>
@@ -35,16 +35,16 @@
 						</div>
 					}
 					<label><strong>Makine Adı:</strong></label>
-					<input asp-for="MachineName" value="@Model.MachineName" class="form-control" placeholder="Makine Adı giriniz."  readonly/>
-	
+					<input asp-for="MachineName" value="@Model.MachineName" class="form-control" placeholder="Makine Adı giriniz." readonly />
+
 					<label for="ProjectName">Proje Adı :</label>
-					<input asp-for="ProjectName" value="@Model.ProjectName" class="form-control"  readonly />
+					<input asp-for="ProjectName" value="@Model.ProjectName" class="form-control" readonly />
 
 					<label for="PartName">Parça Adı:</label>
-					<input asp-for="PartName" value="@Model.PartName" class="form-control"  readonly />
+					<input asp-for="PartName" value="@Model.PartName" class="form-control" readonly />
 
 					<label for="RecipeCode">Reçete Kodu:</label>
-					<input asp-for="RecipeCode" value="@Model.RecipeCode" class="form-control"  readonly />
+					<input asp-for="RecipeCode" value="@Model.RecipeCode" class="form-control" readonly />
 
 					<div class="form-row">
 						<div class="form-group col-md-6">
