@@ -1,4 +1,6 @@
-﻿@{
+﻿@using ACR.Business.Models;
+@model UserLoginModelDTO
+@{
 	Layout = null;
 }
 <!DOCTYPE html>
@@ -40,8 +42,13 @@
 						ADMİN GİRİS EKRANI
 					</span>
 				</div>
-		
-				<form class="login100-form validate-form">
+				@if (TempData["SuccessMessage"] != null)
+				{
+					<div class="alert alert-success" role="alert">
+						@TempData["SuccessMessage"]
+					</div>
+				}
+				<form asp-controller="Admin" asp-action="AdminLogin" method="post" class="login100-form validate-form">
 					<div class="wrap-input100 validate-input m-b-26" data-validate="Mail Adresi Gerekli!">
 						<span class="label-input100">Mail Adresi</span>
 						<input class="input100" type="text" name="MailAdress" placeholder="Etkin Mail Adresinizi Giriniz.">

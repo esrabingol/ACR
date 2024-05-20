@@ -38,23 +38,24 @@
 					<tbody>
 						@foreach (var result in Model.Results)
 						{
-							<tr>
-								<td>@result.Name</td>
-								<td>@result.Surname</td>
-								<td>@result.MailAdress</td>
-								<td>@result.PhoneNumber</td>
-								<td>
-									@if (result.RoleId == 1)
-									{
-										<span>Operatör</span>
-									}
-									else if (result.RoleId == 2)
-									{
-										<span>Üretim Mühendisi</span>
-									}
-								</td>
-							
-							</tr>
+								<tr>
+									<td>@result.Name</td>
+									<td>@result.Surname</td>
+									<td>@result.MailAdress</td>
+									<td>@result.PhoneNumber</td>
+									<td>
+										@if (result.RoleId == 1)
+										{
+											<span>Operatör</span>
+										}
+										else if (result.RoleId == 2)
+										{
+											<span>Üretim Mühendisi</span>
+										}
+
+									</td>
+
+								</tr>
 						}
 					</tbody>
 				</table>

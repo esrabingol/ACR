@@ -1,4 +1,6 @@
-﻿@{
+﻿@using ACR.Business.Models;
+@model UserRegisterModelDTO
+@{
 	Layout = null;
 }
 <!DOCTYPE html>
@@ -41,7 +43,7 @@
 					</span>
 				</div>
 
-				<form class="login100-form validate-form">
+				<form asp-controller="Admin" asp-action="AdminRegister" method="post" class="login100-form validate-form">
 					<div class="wrap-input100 validate-input m-b-26" data-validate="İsim alanı boş geçilemez!">
 						<span class="label-input100">İsminiz</span>
 						<input class="input100" type="text" name="Name" placeholder="İsminizi Giriniz.">
@@ -59,13 +61,28 @@
 					</div>
 					<div class="wrap-input100 validate-input m-b-26" data-validate="Mail Adresi Gerekli!">
 						<span class="label-input100">Mail Adresi</span>
-						<input class="input100" type="text" name="Mailadress" placeholder="Etkin Mail Adresinizi Giriniz.">
+						<input class="input100" type="text" name="MailAdress" placeholder="Etkin Mail Adresinizi Giriniz.">
 						<span class="focus-input100"></span>
 					</div>
 
 					<div class="wrap-input100 validate-input m-b-18" data-validate="Şifre Gerekli!">
 						<span class="label-input100">Şifre</span>
 						<input class="input100" type="password" name="Password" placeholder="Şifrenizi Giriniz.">
+						<span class="focus-input100"></span>
+					</div>
+
+					<div class="wrap-input100 validate-input m-b-18" data-validate="Rolünüzü Seçiniz!">
+						<span class="label-input100">Kullanıcı Rolü:</span>
+						<select class="input100" name="RoleId" required>
+							<option value="">Seçiniz</option>
+							@if (Model.Roles != null)
+							{
+								foreach (var role in Model.Roles.Where(r => r.RoleName =="Yönetici"))
+								{
+									<option value="@role.Id">@role.RoleName</option>
+								}
+							}
+						</select>
 						<span class="focus-input100"></span>
 					</div>
 
