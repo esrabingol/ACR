@@ -33,22 +33,6 @@ namespace ASP.WEBUI.Controllers
 			indexModel.Results = filterReservations;
 			return View(indexModel);
 		}
-
-		[HttpGet]
-		public IActionResult ViewMachineInfo()
-		{
-			var machines = _machineService.GetValues();
-			var opMachineFilterModelDTO = new OpMachineFilterModelDTO { MachineNames = machines };
-			return View(opMachineFilterModelDTO);
-		}
-		[HttpPost]
-		public IActionResult ViewMachineInfo(OpMachineFilterModelDTO viewMachine)
-		{
-			var filteredMachines = _machineService.GetFilteredValues(viewMachine);
-			viewMachine.Results = filteredMachines;
-			return View(viewMachine);
-		}
-
 		[HttpGet]
 		public IActionResult OpConfirmReservation(OpIndexModelDTO manageReservationModel)
 		{
@@ -109,40 +93,6 @@ namespace ASP.WEBUI.Controllers
 		}
 
 		[HttpGet]
-		public IActionResult EditMachineInfo(OpMachineFilterModelDTO editMachine)
-		{
-			var machine = _machineService.GetBySelectedMachine(editMachine);
-			if (machine == null)
-			{
-				return RedirectToAction("ViewMachineInfo");
-			}
-			return View("EditMachineInfo", machine);
-		}
-
-		[HttpPost]
-		public IActionResult EditMachineInfo(Machine updatedMachine)
-		{
-			var machine = _machineService.UpdateMachineInfo(updatedMachine);
-			if (machine != null)
-			{
-				TempData["SuccessMessage"] = "Güncelleme işlemi başarıyla tamamlandı.";
-			}
-			return View(machine);
-		}
-
-		[HttpGet]
-		public IActionResult AddNewMachine()
-		{
-			return View(new OpAddNewMachineModelDTO());
-		}
-		[HttpPost]
-		public IActionResult AddNewMachine(OpAddNewMachineModelDTO addMachine)
-		{
-			var addNewMachine = _machineService.AddNewMachineInfo(addMachine);
-			return RedirectToAction("ViewMachineInfo", "Operator");
-		}
-
-		[HttpGet]
 		public IActionResult GetAllReservations()
 		{
 			var allreservations = _reservationService.GetAllReservationsToOperator();
@@ -153,32 +103,5 @@ namespace ASP.WEBUI.Controllers
 			return View("Index", opIndexModel);
 		}
 
-		[HttpGet]
-		public IActionResult GetAllMachines()
-		{
-			var allmachines = _machineService.GetAllMachines();
-			var opMachineModel = new OpMachineFilterModelDTO
-			{
-				Results = allmachines
-			};
-			return View("ViewMachineInfo", opMachineModel);
-		}
-
-		[HttpGet]
-		public IActionResult DeleteMachine(OpMachineFilterModelDTO deleteMachine)
-		{
-			var machine = _machineService.GetBySelectedMachine(deleteMachine);
-			if (machine == null)
-			{
-				return RedirectToAction("ViewMachineInfo");
-			}
-			return View("DeleteMachine", machine);
-		}
-		[HttpPost]
-		public IActionResult DeleteMachine(int Id)
-		{
-			var machine = _machineService.GetBySelectedMachineToId(Id);
-			return View(machine);
-		}
 	}
 }

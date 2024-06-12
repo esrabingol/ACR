@@ -18,6 +18,7 @@ namespace ACR.Business.Abstract
 		List<Reservation> GetAllReservationsToOperator();
 		List<Reservation> GetAllReservationsToAdmin();
 		Reservation GetBySelectedReservationToRequester(ReIndexModelDTO manageReservationModel);
+		Reservation GetBySelectedReservationToAdmin(ReIndexModelDTO manageReservationModel);
 		Reservation GetBySelectedReservationToOperator(OpIndexModelDTO manageReservationModel);
 		List<Reservation> GetReservedDatesByMachineName(string machineName);
 

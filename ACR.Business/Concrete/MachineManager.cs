@@ -16,7 +16,7 @@ namespace ACR.Business.Concrete
 		{
 			return _machineDal.UpdateMachine(updatedMachine);
 		}
-		public Machine GetBySelectedMachine(OpMachineFilterModelDTO filterModel)
+		public Machine GetBySelectedMachine(AdMachineFilterModelDTO filterModel)
 		{
 			var machineFind = new Machine
 			{
@@ -32,7 +32,7 @@ namespace ACR.Business.Concrete
 			};
 			return _machineDal.GetSelectedMachineInfo(machineFind);
 		}
-		public List<Machine> GetFilteredValues(OpMachineFilterModelDTO viewMachine)
+		public List<Machine> GetFilteredValues(AdMachineFilterModelDTO viewMachine)
 		{
 			var machineFilter = new Machine
 			{
@@ -70,7 +70,7 @@ namespace ACR.Business.Concrete
 
 			var filteredMachines = _machineDal.GetByMachineFiltered(filters);
 
-			var viewModel = new OpMachineFilterModelDTO
+			var viewModel = new AdMachineFilterModelDTO
 			{
 				Results = filteredMachines,
 			};
@@ -82,7 +82,7 @@ namespace ACR.Business.Concrete
 			var machines = _machineDal.GetAll();
 			return machines.ToList();
 		}
-		public Machine AddNewMachineInfo(OpAddNewMachineModelDTO addMachine)
+		public Machine AddNewMachineInfo(AdAddNewMachineModelDTO addMachine)
 		{
 			var machineAdd = new Machine
 			{

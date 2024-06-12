@@ -2,7 +2,7 @@
 
 namespace ACR.Business.Models
 {
-	public class OpMachineFilterModelDTO
+	public class AdMachineFilterModelDTO
 	{
 		public int Id { get; set; }
 		public string? MachineName { get; set; }

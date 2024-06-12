@@ -4,6 +4,7 @@ using ACR.Entity.Concrete;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Globalization;
+using System.Security.Claims;
 
 namespace ASP.WEBUI.Controllers
 {
@@ -13,11 +14,12 @@ namespace ASP.WEBUI.Controllers
 		private IRegisterService _registerService;
 		private IMachineService _machineService;
 		private IRoleService _roleService;
+		private IHttpContextAccessor _httpContext;
 		private readonly SignInManager<User> _signInManager;
 		private readonly UserManager<User> _userManager;
 
 		public AdminController(IReservationService reservationService, IRegisterService registerService,
-			IMachineService machineService, IRoleService roleService, SignInManager<User> signInManager, UserManager<User> userManager)
+			IMachineService machineService, IRoleService roleService, SignInManager<User> signInManager, UserManager<User> userManager, IHttpContextAccessor httpContext)
 		{
 			_reservationService = reservationService;
 			_registerService = registerService;
@@ -25,6 +27,7 @@ namespace ASP.WEBUI.Controllers
 			_roleService = roleService;
 			_signInManager = signInManager;
 			_userManager = userManager;
+			_httpContext = httpContext;
 		}
 
 		public IActionResult Index()
@@ -183,6 +186,196 @@ namespace ASP.WEBUI.Controllers
 				ModelState.AddModelError("", "Kaydınız oluşturulamadı eksik kısımları tamamlayınız.");
 				return View(registerModel);
 			}
+		}
+
+		//--Autoclaves--
+		[HttpGet]
+		public IActionResult ViewMachineInfo()
+		{
+			var machines = _machineService.GetValues();
+			var opMachineFilterModelDTO = new AdMachineFilterModelDTO { MachineNames = machines };
+			return View(opMachineFilterModelDTO);
+		}
+		[HttpPost]
+		public IActionResult ViewMachineInfo(AdMachineFilterModelDTO viewMachine)
+		{
+			var filteredMachines = _machineService.GetFilteredValues(viewMachine);
+			viewMachine.Results = filteredMachines;
+			return View(viewMachine);
+		}
+
+
+		[HttpGet]
+		public IActionResult EditMachineInfo(AdMachineFilterModelDTO editMachine)
+		{
+			var machine = _machineService.GetBySelectedMachine(editMachine);
+			if (machine == null)
+			{
+				return RedirectToAction("ViewMachineInfo");
+			}
+			return View("EditMachineInfo", machine);
+		}
+
+		[HttpPost]
+		public IActionResult EditMachineInfo(Machine updatedMachine)
+		{
+			var machine = _machineService.UpdateMachineInfo(updatedMachine);
+			if (machine != null)
+			{
+				TempData["SuccessMessage"] = "Güncelleme işlemi başarıyla tamamlandı.";
+			}
+			return View(machine);
+		}
+
+		[HttpGet]
+		public IActionResult AddNewMachine()
+		{
+			return View(new AdAddNewMachineModelDTO());
+		}
+		[HttpPost]
+		public IActionResult AddNewMachine(AdAddNewMachineModelDTO addMachine)
+		{
+			var addNewMachine = _machineService.AddNewMachineInfo(addMachine);
+			return RedirectToAction("ViewMachineInfo", "Admin");
+		}
+
+		[HttpGet]
+		public IActionResult GetAllMachines()
+		{
+			var allmachines = _machineService.GetAllMachines();
+			var opMachineModel = new AdMachineFilterModelDTO
+			{
+				Results = allmachines
+			};
+			return View("ViewMachineInfo", opMachineModel);
+		}
+
+		[HttpGet]
+		public IActionResult DeleteMachine(AdMachineFilterModelDTO deleteMachine)
+		{
+			var machine = _machineService.GetBySelectedMachine(deleteMachine);
+			if (machine == null)
+			{
+				return RedirectToAction("ViewMachineInfo");
+			}
+			return View("DeleteMachine", machine);
+		}
+		[HttpPost]
+		public IActionResult DeleteMachine(int Id)
+		{
+			var machine = _machineService.GetBySelectedMachineToId(Id);
+			return View(machine);
+		}
+
+		//--Reservations--
+		public IActionResult ReservationIndex()
+		{
+			var machines = _machineService.GetValues();
+			var opCreateIndexModelDTO = new ReIndexModelDTO { MachineNames = machines };
+			return View(opCreateIndexModelDTO);
+		}
+
+		[HttpPost]
+		public IActionResult ReservationIndex(ReIndexModelDTO indexModel)
+		{
+			var filterReservations = _reservationService.GetAllRezervationsRequester(indexModel);
+			indexModel.Results = filterReservations;
+			return View(indexModel);
+		}
+
+		[HttpGet]
+		public IActionResult CreateReservation(string machineName = null)
+		{
+			var machines = _machineService.GetValues();
+			var opCreateReservationModelDTO = new ReCreateReservationModelDTO { MachineNames = machines };
+			return View(opCreateReservationModelDTO);
+		}
+
+		[HttpPost]
+		public IActionResult CreateReservation(ReCreateReservationModelDTO reservationModel)
+		{
+			var reservedDates = _reservationService.GetReservedDatesByMachineName(reservationModel.MachineName);
+
+			var isDateReserved = reservedDates.Any(rd =>
+				(rd.StartDate <= reservationModel.StartDate && rd.EndDate >= reservationModel.StartDate) ||
+				(rd.StartDate <= reservationModel.EndDate && rd.EndDate >= reservationModel.EndDate) ||
+				(reservationModel.StartDate <= rd.StartDate && reservationModel.EndDate >= rd.EndDate));
+
+			if (isDateReserved)
+			{
+				ModelState.AddModelError("StartDate", "Seçilen tarih aralığı dolu. Lütfen başka bir tarih seçin.");
+				return View(reservationModel);
+			}
+
+			var reservationInfo = _reservationService.Add(reservationModel);
+			if (reservationInfo != null)
+			{
+				TempData["SuccessMessage"] = "Randevunuz Başarıyla Oluşturulmuştur.";
+				TempData["WarningMessage"] = "Sistem üzerinden randevu takip işlemi sağlayabilirsiniz.";
+			}
+			return RedirectToAction(nameof(ReservationIndex));
+		}
+
+		[HttpGet]
+		public IActionResult AdCanceledReservation(ReIndexModelDTO manageReservation)
+		{
+			var canceledReservation = _reservationService.GetBySelectedReservationToAdmin(manageReservation);
+			if (canceledReservation == null)
+			{
+				return RedirectToAction("ReservationIndex");
+			}
+			return View("AdCanceledReservation", canceledReservation);
+		}
+
+		[HttpPost]
+		public IActionResult AdCanceledReservation(Reservation canceledReservation)
+		{
+			var userId = _httpContext.HttpContext.User?.FindFirstValue(ClaimTypes.NameIdentifier);
+			if (!string.IsNullOrEmpty(userId))
+			{
+				canceledReservation.OperatorId = Convert.ToInt32(userId);
+				var reservation = _reservationService.ReCanceledReservation(canceledReservation);
+
+				if (reservation != null)
+				{
+					TempData["SuccessMessage"] = "Randevu İptal işlemi başarı ile gerçekleştirildi";
+				}
+				return View(reservation);
+			}
+			return View();
+		}
+
+		[HttpGet]
+		public IActionResult ManageReservation(ReIndexModelDTO manageReservationModel)
+		{
+			var reservation = _reservationService.GetBySelectedReservationToRequester(manageReservationModel);
+			if (reservation == null)
+			{
+				return RedirectToAction("ReservationIndex");
+			}
+			return View("ManageReservation", reservation);
+		}
+
+		[HttpPost]
+		public IActionResult ManageReservation(Reservation updateReservation)
+		{
+			var reservation = _reservationService.UpdateReservation(updateReservation);
+			if (reservation != null)
+			{
+				TempData["SuccessMessage"] = "Güncelleme işlemi başarıyla tamamlandı.";
+			}
+			return View(reservation);
+		}
+
+		[HttpGet]
+		public IActionResult GetAllReservations()
+		{
+			var allReservations = _reservationService.GetAllReservationsToAdmin();
+			var reIndexModel = new ReIndexModelDTO
+			{
+				Results = allReservations
+			};
+			return View("ReservationIndex", reIndexModel);
 		}
 	}
 }

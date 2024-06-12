@@ -1,8 +1,8 @@
 ﻿@using ACR.Business.Models;
-@model OpMachineFilterModelDTO
+@model AdMachineFilterModelDTO
 @{
 	ViewData["Title"] = "ViewMachineInfo";
-	Layout = "~/Views/Shared/_Layout.cshtml";
+	Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 <!DOCTYPE html>
 <html lang="tr">
@@ -19,14 +19,14 @@
 <body>
 	<div class="main-container">
 		<div class="filter-section">
-			<form asp-controller="Operator" asp-action="ViewMachineInfo" method="post">
+			<form asp-controller="Admin" asp-action="ViewMachineInfo" method="post">
 				<div class="filter-options">
 					<div class="d-flex justify-content-between align-items-center mb-3">
-						<a href=@Url.Action("Index","Operator")>
+						<a href=@Url.Action("Index","Admin")>
 							<span class="glyphicon glyphicon-circle-arrow-left" style="font-size: 24px;"></span>
 						</a>
 					</div>
-					<label for="machineName">Makine Adı:</label>
+					<label for="machineName">Tezgah Adı:</label>
 					<select asp-for="MachineName" class="form-control" placeholder=" Seçimi">
 						<option value="" selected disabled>Seçiniz</option>
 						@if (Model.MachineNames != null)
@@ -38,8 +38,8 @@
 						}
 					</select>
 
-					<label for="machineStatu">Makine Durumu:</label>
-					<select asp-for="MachineStatu" class="form-control" placeholder="Makine Durumu Seçimi">
+					<label for="machineStatu">Tezgah Durumu:</label>
+					<select asp-for="MachineStatu" class="form-control" placeholder="Tezgah Durumu Seçimi">
 						<option value="" selected disabled>Seçiniz</option>
 						<option value="Aktif">AKTİF</option>
 						<option value="Pasif">PASİF</option>
@@ -61,22 +61,22 @@
 					<input asp-for="EndDate" value="@Model.EndDate" type="datetime-local" class="form-control" />
 				</div>
 				<div class="buttons-section">
-					<button type="submit" class="btn btn-outline-primary">Makine Ara</button>
+					<button type="submit" class="btn btn-outline-primary">Tezgah Ara</button>
 				</div>
 			</form>
 
 		</div>
 		<div class="results-section">
 			<div class="top-buttons">
-				<button type="button" class="btn btn-outline-secondary" onclick="redirectTo('@Url.Action("GetAllMachines","Operator")')">Bilgi Getir</button>
-				<button type="button" class="btn btn-outline-success" onclick="redirectTo('@Url.Action("AddNewMachine","Operator")')">Makine Ekle</button>
-				<form action="@Url.Action("EditMachineInfo", "Operator")" method="get">
+				<button type="button" class="btn btn-outline-secondary" onclick="redirectTo('@Url.Action("GetAllMachines","Admin")')">Bilgi Getir</button>
+				<button type="button" class="btn btn-outline-success" onclick="redirectTo('@Url.Action("AddNewMachine","Admin")')">Tezgah Ekle</button>
+				<form action="@Url.Action("EditMachineInfo", "Admin")" method="get">
 					<input asp-for="Id" value="@Model.Id" type="hidden" />
-					<button type="submit" class="btn btn-outline-primary" id="editButton">Makine Düzenle</button>
+					<button type="submit" class="btn btn-outline-primary" id="editButton">Tezgah Düzenle</button>
 				</form>
-				<form action="@Url.Action("DeleteMachine", "Operator")" method="get">
+				<form action="@Url.Action("DeleteMachine", "Admin")" method="get">
 					<input asp-for="Id" value="@Model.Id" type="hidden" />
-					<button type="submit" class="btn btn-outline-danger" id="deleteButton">Makine Sil</button>
+					<button type="submit" class="btn btn-outline-danger" id="deleteButton">Tezgah Sil</button>
 				</form>
 
 				<button type="button" class="btn btn-outline-warning" id=clearButton>Temizle</button>
@@ -85,8 +85,8 @@
 				<thead>
 					<tr>
 						<th>#</th>
-						<th>Makine Adı</th>
-						<th>Makine Durumu</th>
+						<th>Tezgah Adı</th>
+						<th>Tezgah Durumu</th>
 						<th>Item No</th>
 						<th>Tc Numarası</th>
 						<th>Vp Numarası</th>

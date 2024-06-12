@@ -1,7 +1,7 @@
 ﻿@model ACR.Entity.Concrete.Machine
 @{
 	ViewData["Title"] = "DeleteMachine";
-	Layout = "~/Views/Shared/_Layout.cshtml";
+	Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 <!DOCTYPE html>
 <html lang="tr">
@@ -19,18 +19,18 @@
 <body>
 	<div class="main-container">
 		<div class="filter-section">
-			<form asp-controller="Operator" asp-action="DeleteMachine" method="post">
+			<form asp-controller="Admin" asp-action="DeleteMachine" method="post">
 				<input asp-for="Id" value="@Model.Id" type="hidden" />
 				<div class="filter-options">
 					<div class="d-flex justify-content-between align-items-center mb-3">
-						<a href=@Url.Action("ViewMachineInfo","Operator")>
+						<a href=@Url.Action("ViewMachineInfo","Admin")>
 							<span class="glyphicon glyphicon-circle-arrow-left" style="font-size: 24px;"></span>
 						</a>
 					</div>
-					<label><strong>Makine Adı:</strong></label>
-					<input asp-for="MachineName" value="@Model.MachineName" class="form-control" placeholder="Makine Adı giriniz." />
-					<label for="machineStatu">Makine Durumu:</label>
-					<select asp-for="MachineStatus" class="form-control" placeholder="Makine Durumu Seçimi">
+					<label><strong>Tezgah Adı:</strong></label>
+					<input asp-for="MachineName" value="@Model.MachineName" class="form-control" placeholder="Tezgah Adı giriniz." />
+					<label for="machineStatu">Tezgah Durumu:</label>
+					<select asp-for="MachineStatus" class="form-control" placeholder="Tezgah Durumu Seçimi">
 						<option value="" selected disabled>Seçiniz</option>
 						<option value="Aktif">AKTİF</option>
 						<option value="Pasif">PASİF</option>
@@ -63,7 +63,7 @@
 
 				</div>
 				<div class="buttons-section">
-					<button type="submit" class="btn btn-outline-danger">Makineyi Sil</button>
+					<button type="submit" class="btn btn-outline-danger">Tezgah Sil</button>
 				</div>
 			</form>
 

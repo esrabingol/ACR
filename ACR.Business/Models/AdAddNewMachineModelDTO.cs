@@ -1,6 +1,6 @@
 ﻿namespace ACR.Business.Models
 {
-	public class OpAddNewMachineModelDTO
+	public class AdAddNewMachineModelDTO
 	{
 		public string MachineName { get; set; } = null!;
 		public string MachineStatus { get; set; } = null!;

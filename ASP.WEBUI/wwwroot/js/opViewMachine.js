@@ -11,7 +11,7 @@ $(document).ready(function () {
 			// Formu submit et
 			$("form").submit();
 		} else {
-			alert("Lütfen bir makine seçin.");
+			alert("Lütfen bir Tezgah seçin.");
 		}
 	});
 });
@@ -25,7 +25,7 @@ $(document).ready(function () {
 			// Formu submit et
 			$("form").submit();
 		} else {
-			alert("Lütfen bir makine seçin.");
+			alert("Lütfen bir Tezgah seçin.");
 		}
 	});
 });

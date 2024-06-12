@@ -18,10 +18,6 @@
 		<!-- Navbar Search-->
 		<form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
 			<div class="input-group">
-				<input class="form-control" type="text" placeholder="Arama..." aria-label="Search" aria-describedby="basic-addon2" />
-				<div class="input-group-append">
-					<button class="btn btn-primary" type="button"><i class="fas fa-search"></i></button>
-				</div>
 			</div>
 		</form>
 		<!-- Navbar-->
@@ -48,18 +44,27 @@
 						</a>
 						<div class="sb-sidenav-menu-heading">İÇERİKLER</div>
 						<a class="nav-link" asp-controller="Admin" asp-action="Reservations">
-							<div class="sb-nav-link-icon"><i class="fa fa-history"></i></div>
+							<div class="sb-nav-link-icon"><i class="fa fa-table"></i></div>
 							Rezervasyon Bilgileri
 						</a>
-						<a class="nav-link" asp-controller="Admin" asp-action="Machines">
+						<a class="nav-link" asp-controller="Admin" asp-action="ReservationIndex">
 							<div class="sb-nav-link-icon"><i class="fa fa-cogs"></i></div>
-							Makine Bilgileri
+							Rezervasyon İşlemleri
 						</a>
-
 						<a class="nav-link" asp-controller="Admin" asp-action="Statistics">
 							<div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
 							İstatislikler
 						</a>
+						<div class="sb-sidenav-menu-heading">Tezgah İşlemleri</div>
+						<a class="nav-link" asp-controller="Admin" asp-action="Machines">
+							<div class="sb-nav-link-icon"><i class="fa fa-table"></i></div>
+							Tezgah Bilgileri
+						</a>
+						<a class="nav-link" asp-controller="Admin" asp-action="ViewMachineInfo">
+							<div class="sb-nav-link-icon"><i class="fa fa-cogs"></i></div>
+							Tezgah İşlemleri
+						</a>
+				
 						<div class="sb-sidenav-menu-heading">KULLANICILAR</div>
 						<a class="nav-link" asp-controller="Admin" asp-action="Users">
 							<div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
@@ -95,8 +100,8 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
 	<script>
 		var pendingColor = 'rgba(169, 169, 169, 0.8)';
-		var confirmedColor = 'rgba(0, 153, 0, 0.8)'; 
-		var canceledColor = 'rgba(255, 0, 0, 0.8)'; 
+		var confirmedColor = 'rgba(0, 153, 0, 0.8)';
+		var canceledColor = 'rgba(255, 0, 0, 0.8)';
 
 		var ctx = document.getElementById("myPieChart2").getContext('2d');
 		var myPieChart = new Chart(ctx, {
@@ -113,7 +118,7 @@
 
 	<script>
 		var onColor = 'rgba(0, 153, 0, 0.8)';
-		var offColor = 'rgba(169, 169, 169, 0.8)'; 
+		var offColor = 'rgba(169, 169, 169, 0.8)';
 
 		var ctx = document.getElementById("myPieChart3").getContext('2d');
 		var myPieChart = new Chart(ctx, {

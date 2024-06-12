@@ -166,6 +166,21 @@ namespace ACR.Business.Concrete
 			};
 			return _reservationDal.GetSelectedReservationInfo(findReservation);
 		}
+		public Reservation GetBySelectedReservationToAdmin(ReIndexModelDTO manageReservationModel)
+		{
+			var findReservation = new Reservation
+			{
+				Id = manageReservationModel.Id,
+				MachineName = manageReservationModel.MachineName,
+				ProjectName = manageReservationModel.ProjectName,
+				PartName = manageReservationModel.PartName,
+				RecipeCode = manageReservationModel.RecipeCode,
+				StartDate = manageReservationModel.StartDate,
+				EndDate = manageReservationModel.EndDate,
+				RequestNote = manageReservationModel.RequestNote,
+			};
+			return _reservationDal.GetSelectedReservationInfo(findReservation);
+		}
 		public Reservation GetRezervationById(int reservationId)
 		{
 			var reservation = _reservationDal.GetById(reservationId);

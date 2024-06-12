@@ -2,7 +2,7 @@
 
 namespace ACR.Business.Models
 {
-    public class OpEditMachineModelDTO
+    public class AdEditMachineModelDTO
     {
         public string MachineName { get; set; } = null!;
         public string MachineStatus { get; set; } = null!;

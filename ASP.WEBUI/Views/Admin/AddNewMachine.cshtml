@@ -1,8 +1,8 @@
 ﻿@using ACR.Business.Models;
-@model OpAddNewMachineModelDTO
+@model AdAddNewMachineModelDTO
 @{
 	ViewData["Title"] = "AddNewMachine";
-	Layout = "~/Views/Shared/_Layout.cshtml";
+	Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
 
@@ -23,18 +23,18 @@
 <body>
 	<div class="main-container">
 		<div class="filter-section">
-			<form asp-controller="Operator" asp-action="AddNewMachine" method="post">
+			<form asp-controller="Admin" asp-action="AddNewMachine" method="post">
 				<div class="filter-options">
 					<div class="d-flex justify-content-between align-items-center mb-3">
-						<a href=@Url.Action("ViewMachineInfo","Operator")>
+						<a href=@Url.Action("ViewMachineInfo","Admin")>
 							<span class="glyphicon glyphicon-circle-arrow-left" style="font-size: 24px;"></span>
 						</a>
 					</div>
-					<label><strong>Makine Adı:</strong></label>
+					<label><strong>Tezgah Adı:</strong></label>
 					<input asp-for="MachineName" value="@Model.MachineName" class="form-control" />
 
-					<label for="machineStatu">Makine Durumu:</label>
-					<select asp-for="MachineStatus" class="form-control" placeholder="Makine Durumu Seçimi">
+					<label for="machineStatu">Tezgah Durumu:</label>
+					<select asp-for="MachineStatus" class="form-control" placeholder="Tezgah Durumu Seçimi">
 						<option value="" selected disabled>Seçiniz</option>
 						<option value="Aktif">AKTİF</option>
 						<option value="Pasif">PASİF</option>
@@ -52,7 +52,7 @@
 
 				</div>
 				<div class="buttons-section">
-					<button type="submit" class="btn btn-outline-primary">Makine Ekle</button>
+					<button type="submit" class="btn btn-outline-primary">Tezgah Ekle</button>
 				</div>
 			</form>
 
@@ -67,7 +67,7 @@
 			var machineNameInput = document.getElementById('MachineName');
 
 			if (machineNameInput.value === '') {
-				machineNameInput.placeholder = "Makine Adı Giriniz.";
+				machineNameInput.placeholder = "Tezgah Adı Giriniz.";
 			}
 		};
 	</script>

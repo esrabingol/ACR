@@ -3,8 +3,8 @@
 @model ReIndexModelDTO
 
 @{
-	ViewData["Title"] = "Index";
-	Layout = "~/Views/Shared/_Layout.cshtml";
+	ViewData["Title"] = "ReservationIndex";
+	Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 <!DOCTYPE html>
 <html lang="tr">
@@ -54,7 +54,7 @@
 
 
 	<div class="main-container">
-		<form asp-controller="Requester" asp-action="Index" method="post">
+		<form asp-controller="Admin" asp-action="ReservationIndex" method="post">
 			<div class="filter-section">
 				<div class="filter-options">
 					<label><strong>Tezgah Adı:</strong></label>
@@ -100,16 +100,16 @@
 		</form>
 		<div class="results-section">
 			<div class="top-buttons">
-				<button type="button" class="btn btn-outline-secondary" onclick="redirectTo('@Url.Action("GetAllReservations","Requester")')">Bilgi Getir</button>
-				<form id="manageReservationForm" asp-controller="Requester" asp-action="ManageReservation" method="get">
-					<button type="button" class="btn btn-outline-success" onclick="submitFormWithSelectedReservation()">Randevu Güncelle</button>
+				<button type="button" class="btn btn-outline-secondary" onclick="redirectTo('@Url.Action("GetAllReservations","Admin")')">Bilgi Getir</button>
+				<form id="manageReservationForm" asp-controller="Admin" asp-action="ManageReservation" method="get">
+					<button type="button" class="btn btn-outline-success" onclick="submitFormWithSelectedReservationAdmin()">Randevu Güncelle</button>
 					<input type="hidden" id="selectedReservationId" name="id" value="" />
 				</form>
-				<button type="button" class="btn btn-outline-primary" onclick="redirectTo('@Url.Action("CreateReservation", "Requester")')">Randevu Al</button>
+				<button type="button" class="btn btn-outline-primary" onclick="redirectTo('@Url.Action("CreateReservation", "Admin")')">Randevu Al</button>
 
-				<form id="cancelReservationForm" asp-controller="Requester" asp-action="ReCanceledReservation" method="get">
-					<button type="button" class="btn btn-outline-danger" onclick="submitFormForCancellation()">Randevu İptal</button>
-					<input type="hidden" id="cancelReservationId" name="id" value="" />
+				<form id="canceledReservationFormAdmin" asp-controller="Admin" asp-action="AdCanceledReservation" method="get">
+					<button type="button" class="btn btn-outline-danger" onclick="submitFormForCancellationAdmin()">Randevu İptal</button>
+					<input type="hidden" id="selectedReservationId" name="id" value="" />
 				</form>
 				<button type="button" class="btn btn-outline-warning" id="clearButton">Temizle</button>
 			</div>
@@ -176,7 +176,7 @@
 			</div>
 		</div>
 	</div>
-	<script src="~/js/reindex.js"></script>
+	<script src="~/js/adIndex.js"></script>
 </body>
 
 </html>
