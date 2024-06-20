@@ -1,8 +1,7 @@
 ﻿namespace ACR.Entity.Concrete
 {
-    public class Reservation
+    public class Reservation: BaseEntity
     {
-        public int Id { get; set; }
         public string ProjectName { get; set; } = null!;
         public string MachineName { get; set; } = null!;
         public string PartName { get; set; } = null!;
