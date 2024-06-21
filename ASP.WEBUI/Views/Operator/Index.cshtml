@@ -98,6 +98,7 @@
 					<tr>
 						<th>#</th>
 						<th>Randevu Durumu</th>
+						<th>Son Güncelleme</th>
 						<th>Tezgah Adı</th>
 						<th>Proje Adı</th>
 						<th>Parça Adı</th>
@@ -106,6 +107,7 @@
 						<th>Bitiş Tarihi</th>
 						<th>Talep Eden Notu</th>
 						<th>Talep Eden</th>
+						
 					</tr>
 				</thead>
 				<tbody>
@@ -134,7 +136,7 @@
 									}
 								}
 							</td>
-
+							<td>@result.UpdateDate</td>
 							<td>@result.MachineName</td>
 							<td>@result.ProjectName</td>
 							<td>@result.PartName</td>
@@ -143,6 +145,8 @@
 							<td>@result.EndDate.ToString("dd-MM-yyyy HH:mm")</td>
 							<td>@result.RequestNote</td>
 							<td>@result.Requester?.Name @result.Requester?.Surname</td>
+					
+
 						</tr>
 					}
 				</tbody>
