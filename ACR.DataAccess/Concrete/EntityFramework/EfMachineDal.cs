@@ -45,8 +45,10 @@ namespace ACR.DataAccess.Concrete.EntityFramework
 		public Machine UpdateMachine(Machine machines)
 		{
 			var machine = _context.Set<Machine>().Find(machines.Id);
+
 			if(machine != null)
 			{
+				machine.Id = machines.Id;
 				machine.MachineName = machines.MachineName;
 				machine.MachineStatus = machines.MachineStatus;
 				machine.ItemNo = machines.ItemNo;
@@ -55,7 +57,8 @@ namespace ACR.DataAccess.Concrete.EntityFramework
 				machine.StartDate = machines.StartDate;
 				machine.EndDate = machines.EndDate;
 				machine.OperatorNote = machines.OperatorNote;
-
+				machine.UpdateDate = DateTime.Now;
+				machine.UpdatedBy = machines.UpdatedBy;
 				_context.Machines.Update(machine);
 				_context.SaveChanges();
 			}
@@ -66,6 +69,8 @@ namespace ACR.DataAccess.Concrete.EntityFramework
             Machine machine= _context.Set<Machine>().Find(Id); 
 			if(machine != null)
 			{
+				machine.DeleteDate = DateTime.Now;
+				machine.DeletedBy = machine.DeletedBy;
 				machine.MachineStatus = "Pasif";
 				_context.SaveChanges();
 			}

@@ -219,7 +219,6 @@ namespace ASP.WEBUI.Controllers
 		[HttpPost]
 		public IActionResult EditMachineInfo(Machine updatedMachine)
 		{
-			//update
 			var machine = _machineService.UpdateMachineInfo(updatedMachine);
 			if (machine != null)
 			{
@@ -236,7 +235,6 @@ namespace ASP.WEBUI.Controllers
 		[HttpPost]
 		public IActionResult AddNewMachine(AdAddNewMachineModelDTO addMachine)
 		{
-			//create
 			var addNewMachine = _machineService.AddNewMachineInfo(addMachine);
 			return RedirectToAction("ViewMachineInfo", "Admin");
 		}
@@ -265,7 +263,6 @@ namespace ASP.WEBUI.Controllers
 		[HttpPost]
 		public IActionResult DeleteMachine(int Id)
 		{
-			//delete
 			var machine = _machineService.GetBySelectedMachineToId(Id);
 			return View(machine);
 		}

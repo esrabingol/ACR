@@ -2,19 +2,35 @@
 using ACR.Business.Models;
 using ACR.DataAccess.Abstract;
 using ACR.Entity.Concrete;
+using Microsoft.AspNetCore.Http;
+using System.Security.Claims;
 
 namespace ACR.Business.Concrete
 {
 	public class MachineManager : IMachineService
 	{
 		private IMachineDal _machineDal;
-		public MachineManager(IMachineDal machineDal)
+		private IHttpContextAccessor _httpContext;
+		public MachineManager(IMachineDal machineDal, IHttpContextAccessor httpContext)
 		{
 			_machineDal = machineDal;
+			_httpContext = httpContext;
 		}
 		public Machine UpdateMachineInfo(Machine updatedMachine)
 		{
-			return _machineDal.UpdateMachine(updatedMachine);
+			var userId = _httpContext.HttpContext.User?.FindFirstValue(ClaimTypes.NameIdentifier);
+			var machineUpdate = new Machine
+			{
+				Id = updatedMachine.Id,
+				MachineName = updatedMachine.MachineName,
+				MachineStatus = updatedMachine.MachineStatus,
+				ItemNo = updatedMachine.ItemNo,
+				TcNumber = updatedMachine.TcNumber,
+				VpNumber = updatedMachine.VpNumber,
+				UpdateDate = DateTime.Now,
+				UpdatedBy = updatedMachine.UpdatedBy
+			};
+			return _machineDal.UpdateMachine(machineUpdate);
 		}
 		public Machine GetBySelectedMachine(AdMachineFilterModelDTO filterModel)
 		{
@@ -84,6 +100,7 @@ namespace ACR.Business.Concrete
 		}
 		public Machine AddNewMachineInfo(AdAddNewMachineModelDTO addMachine)
 		{
+			var userId = _httpContext.HttpContext.User?.FindFirstValue(ClaimTypes.NameIdentifier);
 			var machineAdd = new Machine
 			{
 				MachineName = addMachine.MachineName,
@@ -91,6 +108,8 @@ namespace ACR.Business.Concrete
 				ItemNo = addMachine.ItemNo,
 				TcNumber = addMachine.TcNumber,
 				VpNumber = addMachine.VpNumber,
+				CreateDate = DateTime.Now,
+				CreatedBy = Convert.ToInt32(userId)
 			};
 			return _machineDal.AddMachine(machineAdd);
 		}
@@ -101,6 +120,12 @@ namespace ACR.Business.Concrete
 		}
 		public Machine GetBySelectedMachineToId(int Id)
 		{
+			var userId = _httpContext.HttpContext.User?.FindFirstValue(ClaimTypes.NameIdentifier);
+			var machineAdd = new Machine
+			{
+				DeleteDate = DateTime.Now,
+				DeletedBy = Convert.ToInt32(userId)
+			};
 			return _machineDal.GetByIdToDelete(Id);
 		}
 	}
