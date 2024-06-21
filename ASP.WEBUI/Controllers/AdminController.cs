@@ -264,6 +264,10 @@ namespace ASP.WEBUI.Controllers
 		public IActionResult DeleteMachine(int Id)
 		{
 			var machine = _machineService.GetBySelectedMachineToId(Id);
+			if (machine != null)
+			{
+				TempData["SuccessMessage"] = "Pasife alma işlemi başarıyla tamamlandı.";
+			}
 			return View(machine);
 		}
 

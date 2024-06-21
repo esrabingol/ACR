@@ -1,10 +1,14 @@
 ﻿using ACR.DataAccess.Abstract;
 using ACR.Entity.Concrete;
+using Microsoft.AspNetCore.Http;
+using System.Security.Claims;
 
 namespace ACR.DataAccess.Concrete.EntityFramework
 {
 	public class EfMachineDal : EfGenericRepository<Machine>, IMachineDal
 	{
+		private IHttpContextAccessor _httpContext;
+
 		public EfMachineDal(ACRContext context) : base(context)
 		{
 		}
@@ -66,11 +70,9 @@ namespace ACR.DataAccess.Concrete.EntityFramework
 		}
         public Machine GetByIdToDelete(int Id)
         {
-            Machine machine= _context.Set<Machine>().Find(Id); 
+			Machine machine= _context.Set<Machine>().Find(Id); 
 			if(machine != null)
 			{
-				machine.DeleteDate = DateTime.Now;
-				machine.DeletedBy = machine.DeletedBy;
 				machine.MachineStatus = "Pasif";
 				_context.SaveChanges();
 			}

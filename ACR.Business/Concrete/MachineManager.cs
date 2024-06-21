@@ -28,7 +28,7 @@ namespace ACR.Business.Concrete
 				TcNumber = updatedMachine.TcNumber,
 				VpNumber = updatedMachine.VpNumber,
 				UpdateDate = DateTime.Now,
-				UpdatedBy = updatedMachine.UpdatedBy
+				UpdatedBy = Convert.ToInt32(userId)
 			};
 			return _machineDal.UpdateMachine(machineUpdate);
 		}
@@ -120,12 +120,6 @@ namespace ACR.Business.Concrete
 		}
 		public Machine GetBySelectedMachineToId(int Id)
 		{
-			var userId = _httpContext.HttpContext.User?.FindFirstValue(ClaimTypes.NameIdentifier);
-			var machineAdd = new Machine
-			{
-				DeleteDate = DateTime.Now,
-				DeletedBy = Convert.ToInt32(userId)
-			};
 			return _machineDal.GetByIdToDelete(Id);
 		}
 	}

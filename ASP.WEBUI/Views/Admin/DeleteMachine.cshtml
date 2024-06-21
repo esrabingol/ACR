@@ -27,6 +27,12 @@
 							<span class="glyphicon glyphicon-circle-arrow-left" style="font-size: 24px;"></span>
 						</a>
 					</div>
+					@if (TempData["SuccessMessage"] != null)
+					{
+						<div class="alert alert-success" role="alert">
+							@TempData["SuccessMessage"]
+						</div>
+					}
 					<label><strong>Tezgah Adı:</strong></label>
 					<input asp-for="MachineName" value="@Model.MachineName" class="form-control" placeholder="Tezgah Adı giriniz." />
 					<label for="machineStatu">Tezgah Durumu:</label>
