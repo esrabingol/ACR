@@ -81,6 +81,7 @@ namespace ASP.WEBUI.Controllers
 			if (!string.IsNullOrEmpty(userId))
 			{
 				canceledReservation.OperatorId = Convert.ToInt32(userId);
+				canceledReservation.DeletedBy = Convert.ToInt32(userId);
 				var reservation = _reservationService.OpCanceledReservation(canceledReservation);
 
 				if (reservation != null)

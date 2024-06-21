@@ -43,7 +43,8 @@ namespace ACR.DataAccess.Concrete.EntityFramework
 				reservation.Status = (ReservationStatusType)2;
 				reservation.CancellationNote = canceledReservation.CancellationNote;
 				reservation.OperatorId = canceledReservation.OperatorId;
-
+				reservation.DeletedBy = canceledReservation.DeletedBy;
+				reservation.DeleteDate = DateTime.Now;
 				_context.Reservations.Update(reservation);
 				_context.SaveChanges();
 			}
@@ -64,7 +65,7 @@ namespace ACR.DataAccess.Concrete.EntityFramework
 				reservation.Status = (ReservationStatusType)2;
 				reservation.CancellationNote = canceledReservation.CancellationNote;
 				reservation.RequesterId = canceledReservation.RequesterId;
-				reservation.DeleteDate = DateTime.UtcNow;
+				reservation.DeleteDate = DateTime.Now;
 				reservation.DeletedBy = canceledReservation.RequesterId;
 				_context.Reservations.Update(reservation);
 				_context.SaveChanges();
@@ -105,7 +106,9 @@ namespace ACR.DataAccess.Concrete.EntityFramework
 				reservation.StartDate = updateReservation.StartDate;
 				reservation.EndDate = updateReservation.EndDate;
 				reservation.RequestNote = updateReservation.RequestNote;
-
+				reservation.UpdateDate = DateTime.Now;
+				reservation.UpdatedBy= updateReservation.UpdatedBy;
+			  
 				_context.Reservations.Update(reservation);
 				_context.SaveChanges();
 			}
