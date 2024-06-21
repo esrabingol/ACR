@@ -31,7 +31,9 @@ namespace ACR.Business.Concrete
 				RequestNote = reReservationFilterModel.RequestNote,
 				StartDate = reReservationFilterModel.StartDate,
 				EndDate = reReservationFilterModel.EndDate,
-				RequesterId = Convert.ToInt32(userId)
+				RequesterId = Convert.ToInt32(userId),
+				CreateDate = DateTime.UtcNow,
+				CreatedBy = Convert.ToInt32(userId)
 			};
 
 			var reservation = _reservationDal.AddReservation(reservationAdd);
@@ -192,7 +194,22 @@ namespace ACR.Business.Concrete
 		}
 		public Reservation UpdateReservation(Reservation reReservationUpdateModel)
 		{
-			return _reservationDal.UpdateReservation(reReservationUpdateModel);
+			var userId = _httpContext.HttpContext.User?.FindFirstValue(ClaimTypes.NameIdentifier);
+			var updateReservationAdd = new Reservation
+			{
+				MachineName = reReservationUpdateModel.MachineName,
+				ProjectName = reReservationUpdateModel.ProjectName,
+				PartName = reReservationUpdateModel.PartName,
+				RecipeCode = reReservationUpdateModel.RecipeCode,
+				RequestNote = reReservationUpdateModel.RequestNote,
+				StartDate = reReservationUpdateModel.StartDate,
+				EndDate = reReservationUpdateModel.EndDate,
+				UpdateDate = DateTime.UtcNow,
+				UpdatedBy = Convert.ToInt32(userId)
+			};
+
+			var reservation = _reservationDal.UpdateReservation(updateReservationAdd);
+			return reservation;
 		}
 		public Reservation OpCanceledReservation(Reservation canceledReservationModel)
 		{
@@ -200,7 +217,9 @@ namespace ACR.Business.Concrete
 		}
 		public Reservation ReCanceledReservation(Reservation canceledReservationModel)
 		{
+			
 			return _reservationDal.UpdateCanceledReservationToRequester(canceledReservationModel);
+
 		}
 		public List<Reservation> GetReservedDatesByMachineName(string machineName)
 		{

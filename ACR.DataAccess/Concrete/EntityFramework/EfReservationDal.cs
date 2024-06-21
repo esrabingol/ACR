@@ -64,7 +64,8 @@ namespace ACR.DataAccess.Concrete.EntityFramework
 				reservation.Status = (ReservationStatusType)2;
 				reservation.CancellationNote = canceledReservation.CancellationNote;
 				reservation.RequesterId = canceledReservation.RequesterId;
-
+				reservation.DeleteDate = DateTime.UtcNow;
+				reservation.DeletedBy = canceledReservation.RequesterId;
 				_context.Reservations.Update(reservation);
 				_context.SaveChanges();
 			}
