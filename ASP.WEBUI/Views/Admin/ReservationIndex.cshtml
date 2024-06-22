@@ -109,7 +109,7 @@
 
 				<form id="canceledReservationFormAdmin" asp-controller="Admin" asp-action="AdCanceledReservation" method="get">
 					<button type="button" class="btn btn-outline-danger" onclick="submitFormForCancellationAdmin()">Randevu İptal</button>
-					<input type="hidden" id="selectedReservationId" name="id" value="" />
+					<input type="hidden" id="canceledReservationId" name="id" value="" />
 				</form>
 				<button type="button" class="btn btn-outline-warning" id="clearButton">Temizle</button>
 			</div>
@@ -189,14 +189,10 @@
 			}
 			var reservationId = selectedReservation.value;
 
-			var form = document.getElementById('canceledReservationFormAdmin');
-			form.action = '/Admin/AdCanceledReservation';
-
-			var hiddenInput = document.getElementById('selectedReservationId');
-			hiddenInput.value = reservationId;
-
-			form.submit();
-		}</script>
+			document.getElementById('canceledReservationId').value = reservationId;
+			document.getElementById('canceledReservationFormAdmin').submit();
+		}
+	</script>
 </body>
 
 </html>

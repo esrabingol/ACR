@@ -321,9 +321,9 @@ namespace ASP.WEBUI.Controllers
 		}
 
 		[HttpGet]
-		public IActionResult AdCanceledReservation(ReIndexModelDTO manageReservation)
+		public IActionResult AdCanceledReservation(ReIndexModelDTO cancelReservation)
 		{
-			var canceledReservation = _reservationService.GetBySelectedReservationToAdmin(manageReservation);
+			var canceledReservation = _reservationService.GetBySelectedReservationToAdmin(cancelReservation);
 			if (canceledReservation == null)
 			{
 				return RedirectToAction("ReservationIndex");
