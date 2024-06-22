@@ -131,6 +131,7 @@
 						<th>Talep Eden Randevu Notu:</th>
 						<th>Randevu İptal Notu:</th>
 						<th>Onaylayan Operator</th>
+						<th>Rezervasyon Güncelleyen Talepçi</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -170,6 +171,16 @@
 							<td>@result.RequestNote</td>
 							<td>@result.CancellationNote</td>
 							<td>@result.Operator?.Name @result.Operator?.Surname</td>
+							@{
+								if (!string.IsNullOrWhiteSpace(@result.UpdatedUserName))
+								{
+									<td>@result.UpdatedUserName</td>
+								}
+								else
+								{
+									<td>-</td>
+								}
+							}
 
 						</tr>
 					}

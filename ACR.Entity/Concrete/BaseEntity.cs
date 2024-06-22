@@ -1,4 +1,6 @@
-﻿namespace ACR.Entity.Concrete
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace ACR.Entity.Concrete
 {
     public class BaseEntity
     {
@@ -10,5 +12,13 @@
 		public int? UpdatedBy { get; set; }
 		public int? DeletedBy { get; set; }
 
+		[NotMapped]
+		public string CreatedUserName { get; set; }
+
+		[NotMapped]
+		public string UpdatedUserName { get; set; }
+
+		[NotMapped]
+		public string DeletedUserName { get; set; }
 	}
 }

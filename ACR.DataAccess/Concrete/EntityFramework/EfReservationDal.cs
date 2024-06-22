@@ -87,6 +87,7 @@ namespace ACR.DataAccess.Concrete.EntityFramework
 				reservation.RequestNote = confirmReservation.RequestNote;
 				reservation.Status = (ReservationStatusType)1;
 				reservation.OperatorId = confirmReservation.OperatorId;
+				reservation.UpdateDate = DateTime.Now.Date;
 
 				_context.Reservations.Update(reservation);
 				_context.SaveChanges();

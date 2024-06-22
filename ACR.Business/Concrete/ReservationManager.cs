@@ -4,7 +4,9 @@ using ACR.Business.Utilities.Messages;
 using ACR.DataAccess.Abstract;
 using ACR.Entity.Concrete;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using System.Linq.Expressions;
 using System.Security.Claims;
 
 namespace ACR.Business.Concrete
@@ -13,11 +15,13 @@ namespace ACR.Business.Concrete
 	{
 		private IReservationDal _reservationDal;
 		private IHttpContextAccessor _httpContext;
+		private IUserDal _userDal;
 
-		public ReservationManager(IReservationDal reservationDal, IHttpContextAccessor httpContext)
+		public ReservationManager(IReservationDal reservationDal, IHttpContextAccessor httpContext, IUserDal userDal)
 		{
 			_reservationDal = reservationDal;
 			_httpContext = httpContext;
+			_userDal = userDal;
 		}
 		public Reservation Add(ReCreateReservationModelDTO reReservationFilterModel)
 		{
@@ -50,13 +54,33 @@ namespace ACR.Business.Concrete
 		public List<Reservation> GetAllReservationsToRequester()
 		{
 			var userId = int.Parse(_httpContext.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier));
+			var filters = new List<Func<Reservation, bool>>
+			{
+				r => r.RequesterId == userId
+			};
 
-			var allReservations = _reservationDal.GetAll(null, o => o.Requester, y => y.Operator);
+			Expression<Func<Reservation, object>>[] includes =
+			{
+				o => o.Requester,
+				y => y.Operator
+			};
 
-			var userReservations = allReservations.Where(r => r.RequesterId == userId)
-												  .OrderByDescending(r => r.StartDate)
-												  .ToList();
-			return userReservations;
+			var allReservations = _reservationDal.GetAll(filters, includes)?.OrderByDescending(r => r.StartDate)?.ToList();
+			User responseUser;
+
+			if(allReservations != null)
+			{
+				foreach (var user in allReservations)
+				{
+					if (user.UpdatedBy.HasValue)
+					{
+						responseUser = _userDal.GetById(user.UpdatedBy.Value);
+						user.UpdatedUserName = responseUser.Name + " " + responseUser.Surname;
+					}
+				}
+			}
+
+			return allReservations;
 		}
 		public List<Reservation> GetAllReservationsToOperator()
 		{
@@ -252,7 +276,7 @@ namespace ACR.Business.Concrete
 									  .ToList();
 
 			return reservations;
-		
+
 		}
 	}
 }

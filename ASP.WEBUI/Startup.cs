@@ -49,6 +49,8 @@ namespace ASP.WEBUI
 			services.AddScoped<IRegisterDal, EfRegisterDal>();
 			services.AddScoped<IRegisterService, RegisterManager>();
 
+			services.AddScoped<IUserDal, EFUserDal>();
+
 			services.AddScoped<IReservationDal, EfReservationDal>();
 			services.AddScoped<IReservationService, ReservationManager>();
 
