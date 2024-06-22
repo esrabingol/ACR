@@ -34,7 +34,7 @@ namespace ASP.WEBUI.Controllers
 		{
 			var allReservations = _reservationService.GetAllReservationsToAdmin();
 			var reservationsCount = _reservationService.GetAllReservationsToAdmin().Count();
-			var allUsersCount = _registerService.GetAllUsers().Count();
+			var allUsersCount = _registerService.GetAllUsers().Data.Count();
 			var allMachineCount = _machineService.GetAllMachines().Count();
 
 
@@ -85,12 +85,17 @@ namespace ASP.WEBUI.Controllers
 		public IActionResult Users()
 		{
 			var allusers = _registerService.GetAllUsers();
-			var adUserModel = new AdViewUserModelDTO
-			{
-				Results = allusers
-			};
-			return View("Users", adUserModel);
-		}
+			if (allusers.Success)
+            {
+                var adUserModel = new AdViewUserModelDTO
+                {
+                    Results = allusers.Data
+                };
+                return View("Users", adUserModel);
+            }
+			else
+                return View("Users", allusers.Message);
+        }
 		public IActionResult Machines()
 		{
 			var allMachines = _machineService.GetAllMachines();
@@ -115,8 +120,8 @@ namespace ASP.WEBUI.Controllers
 				.ToList();
 
 			var allUsers = _registerService.GetAllUsers();
-			var operatorCount = allUsers.Count(u => u.RoleId == 1);
-			var engineerCount = allUsers.Count(u => u.RoleId == 2);
+			var operatorCount = allUsers.Data.Count(u => u.RoleId == 1);
+			var engineerCount = allUsers.Data.Count(u => u.RoleId == 2);
 
 			ViewBag.OperatorCount = operatorCount;
 			ViewBag.EngineerCount = engineerCount;

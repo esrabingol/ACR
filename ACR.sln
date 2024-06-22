@@ -3,13 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33205.214
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ACR.Entity", "ACR.Entity\ACR.Entity.csproj", "{091FE8B2-DE13-4A03-BD17-B758CD550CE5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ACR.Entity", "ACR.Entity\ACR.Entity.csproj", "{091FE8B2-DE13-4A03-BD17-B758CD550CE5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ACR.Business", "ACR.Business\ACR.Business.csproj", "{8B9AFD8E-9A87-4C24-8A07-DDE07C8280DA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ACR.Business", "ACR.Business\ACR.Business.csproj", "{8B9AFD8E-9A87-4C24-8A07-DDE07C8280DA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ACR.DataAccess", "ACR.DataAccess\ACR.DataAccess.csproj", "{F067DE1D-C5CD-4F2C-8BEE-6285E6FBA958}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ACR.DataAccess", "ACR.DataAccess\ACR.DataAccess.csproj", "{F067DE1D-C5CD-4F2C-8BEE-6285E6FBA958}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ASP.WEBUI", "ASP.WEBUI\ASP.WEBUI.csproj", "{BD0E1172-3CCC-4B17-83C9-AF22D5832AF0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ASP.WEBUI", "ASP.WEBUI\ASP.WEBUI.csproj", "{BD0E1172-3CCC-4B17-83C9-AF22D5832AF0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ACR.Core", "ACR.Core\ACR.Core.csproj", "{D19637C3-8327-408B-875D-53B42FC2E454}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{BD0E1172-3CCC-4B17-83C9-AF22D5832AF0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BD0E1172-3CCC-4B17-83C9-AF22D5832AF0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BD0E1172-3CCC-4B17-83C9-AF22D5832AF0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D19637C3-8327-408B-875D-53B42FC2E454}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D19637C3-8327-408B-875D-53B42FC2E454}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D19637C3-8327-408B-875D-53B42FC2E454}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D19637C3-8327-408B-875D-53B42FC2E454}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

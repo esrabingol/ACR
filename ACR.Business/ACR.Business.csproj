@@ -19,6 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\ACR.Core\ACR.Core.csproj" />
     <ProjectReference Include="..\ACR.DataAccess\ACR.DataAccess.csproj" />
     <ProjectReference Include="..\ACR.Entity\ACR.Entity.csproj" />
   </ItemGroup>

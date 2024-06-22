@@ -1,129 +1,134 @@
 ﻿@using ACR.Business.Models;
 @model UserRegisterModelDTO
 @{
-	ViewData["Title"] = "UserRegister";
+    ViewData["Title"] = "UserRegister";
 }
 @{
-	Layout = null;
+    Layout = null;
 }
 <!doctype html>
 <html lang="tr">
 <head>
-	<title>KAYIT OL</title>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<link href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap" rel="stylesheet">
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-	<link href="~/register/css/style.css" rel="stylesheet" />
+    <title>KAYIT OL</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="~/register/css/style.css" rel="stylesheet" />
 </head>
 <style>
-	.container {
-		max-width: 1340px;
-	}
+    .container {
+        max-width: 1340px;
+    }
 </style>
 <body>
-	<section class="ftco-section" style="padding : 0em 0">
-		<div class="container">
+    <section class="ftco-section" style="padding : 0em 0">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-7 col-lg-6 col-xl-5">
+                    <div class="login-wrap p-4 p-md-5">
+                        <div class="icon d-flex align-items-center justify-content-center">
+                            <span class="fa fa-edit"></span>
+                        </div>
+                        <h4 class="text-center mb-4"><strong>KULLANICI KAYIT EKRANI</strong></h4>
 
-			<div class="row justify-content-center">
-				<div class="col-md-7 col-lg-6 col-xl-5">
-					<div class="login-wrap p-4 p-md-5">
-						<div class="icon d-flex align-items-center justify-content-center">
-							<span class="fa fa-edit"></span>
-						</div>
-						<h4 class="text-center mb-4"><strong>KULLANICI KAYIT EKRANI</strong></h4>
+                        <form asp-controller="User" asp-action="UserRegister" method="post" class="signup-form">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group mb-3">
+                                        <label class="label" for="Name">Adınız</label>
+                                        <input asp-for="Name" value="@Model.Name" class="form-control" placeholder="İsim" required />
+                                        <span asp-validation-for="Name" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group mb-3">
+                                        <label class="label" for="LastName">Soyadınız</label>
+                                        <input asp-for="SurName" value="@Model.SurName" class="form-control" placeholder="Soyisim" required />
+                                        <span asp-validation-for="SurName" class="text-danger"></span>
 
-						<form asp-controller="User" asp-action="UserRegister" method="post" class="signup-form">
-							<div class="row">
-								<div class="col-md-6">
-									<div class="form-group mb-3">
-										<label class="label" for="Name">Adınız</label>
-										<input asp-for="Name" value="@Model.Name" class="form-control" placeholder="İsim" required />
-										<span asp-validation-for="Name" class="text-danger"></span>
-									</div>
-								</div>
-								<div class="col-md-6">
-									<div class="form-group mb-3">
-										<label class="label" for="LastName">Soyadınız</label>
-										<input asp-for="SurName" value="@Model.SurName" class="form-control" placeholder="Soyisim" required />
-										<span asp-validation-for="SurName" class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group mb-3">
+                                        <label class="label" for="MailAdress">Mail Adresiniz</label>
+                                        <input asp-for="MailAdress" value="@Model.MailAdress" class="form-control" placeholder="MailAdresiniz" required />
+                                        <span asp-validation-for="MailAdress" class="text-danger"></span>
 
-									</div>
-								</div>
-							</div>
-							<div class="row">
-								<div class="col-md-6">
-									<div class="form-group mb-3">
-										<label class="label" for="MailAdress">Mail Adresiniz</label>
-										<input asp-for="MailAdress" value="@Model.MailAdress" class="form-control" placeholder="MailAdresiniz" required />
-										<span asp-validation-for="MailAdress" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group mb-3">
+                                        <label class="label" for="PhoneNumber">Telefon Numaranız</label>
+                                        <input asp-for="PhoneNumber" value="@Model.PhoneNumber" class="form-control" placeholder="Örn: 0555 555 5555" required />
+                                        <span asp-validation-for="PhoneNumber" class="text-danger"></span>
 
-									</div>
-								</div>
-								<div class="col-md-6">
-									<div class="form-group mb-3">
-										<label class="label" for="PhoneNumber">Telefon Numaranız</label>
-										<input asp-for="PhoneNumber" value="@Model.PhoneNumber" class="form-control" placeholder="Örn: 0555 555 5555" required />
-										<span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group mb-3">
+                                        <label class="label" for="Password">Şifreniz</label>
+                                        <input asp-for="Password" value="@Model.Password" class="form-control" placeholder="Şifreniz" required />
+                                        <span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password"></span>
+                                        <span asp-validation-for="Password" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group mb-3">
+                                        <label for="userRoleSelect" class="label">Kullanıcı Rolü:</label>
+                                        <select asp-for="RoleId" class="form-control" placeholder="Departman Seçimi" required>
+                                            <option value="">Seçiniz</option>
+                                            @if (Model.Roles != null)
+                                            {
+                                                foreach (var role in Model.Roles)
+                                                {
+                                                    <option value="@role.Id">@role.RoleName</option>
+                                                }
+                                            }
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group d-md-flex">
+                                <div class="w-100 text-left">
+                                    <label class="checkbox-wrap checkbox-primary">
+                                        "Kullanım Koşulları'ndaki tüm beyanları kabul ediyorum."
+                                        <input type="checkbox" checked>
+                                        <span class="checkmark"></span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <button type="submit" class="form-control btn btn-primary rounded submit px-3">Kayıt Ol</button>
+                            </div>
+                        </form>
+                        <p>Daha Önce Üyelik Oluşturduysanız? <a href="@Url.Action("UserLogin", "User")">Üye Girişi</a></p>
+                    </div>
+                    @if (TempData["ErrorMessage"] != null)
+                    {
+                        <div class="alert alert-danger" role="alert">
+                            @TempData["ErrorMessage"]
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </section>
 
-									</div>
-								</div>
-							</div>
-							<div class="row">
-								<div class="col-md-6">
-									<div class="form-group mb-3">
-										<label class="label" for="Password">Şifreniz</label>
-										<input asp-for="Password" value="@Model.Password" class="form-control" placeholder="Şifreniz" required />
-										<span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password"></span>
-										<span asp-validation-for="Password" class="text-danger"></span>
-									</div>
-								</div>
-								<div class="col-md-6">
-									<div class="form-group mb-3">
-										<label for="userRoleSelect" class="label">Kullanıcı Rolü:</label>
-										<select asp-for="RoleId" class="form-control" placeholder="Departman Seçimi" required>
-											<option value="">Seçiniz</option>
-											@if (Model.Roles != null)
-											{
-												foreach (var role in Model.Roles)
-												{
-													<option value="@role.Id">@role.RoleName</option>
-												}
-											}
-										</select>
-									</div>
-								</div>
-							</div>
-							<div class="form-group d-md-flex">
-								<div class="w-100 text-left">
-									<label class="checkbox-wrap checkbox-primary">
-										"Kullanım Koşulları'ndaki tüm beyanları kabul ediyorum."
-										<input type="checkbox" checked>
-										<span class="checkmark"></span>
-									</label>
-								</div>
-							</div>
-							<div class="form-group">
-								<button type="submit" class="form-control btn btn-primary rounded submit px-3">Kayıt Ol</button>
-							</div>
-						</form>
-						<p>Daha Önce Üyelik Oluşturduysanız? <a href="@Url.Action("UserLogin", "User")">Üye Girişi</a></p>
-					</div>
-				</div>
-			</div>
-		</div>
-	</section>
-
-	<script src="~/register/js/jquery.min.js"></script>
-	<script src="~/register/js/popper.js"></script>
-	<script src="~/register/js/bootstrap.min.js"></script>
-	<script src="~/register/js/main.js"></script>
-	<script>
-		document.addEventListener('DOMContentLoaded', function () {
-			var phoneNumberInput = document.querySelector('input[name="PhoneNumber"]');
-			phoneNumberInput.value = "0555 555 5555";
-		});
-	</script>
+    <script src="~/register/js/jquery.min.js"></script>
+    <script src="~/register/js/popper.js"></script>
+    <script src="~/register/js/bootstrap.min.js"></script>
+    <script src="~/register/js/main.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var phoneNumberInput = document.querySelector('input[name="PhoneNumber"]');
+            phoneNumberInput.value = "0555 555 5555";
+        });
+    </script>
 
 </body>
 </html>

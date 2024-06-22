@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ASP.WEBUI.Controllers
 {
-	public class UserController : Controller
+    public class UserController : Controller
 	{
 		private IRegisterService _registerService;
 		private IRoleService _roleService;
@@ -36,15 +36,15 @@ namespace ASP.WEBUI.Controllers
 		[HttpPost]
 		public async Task<IActionResult> UserRegister(UserRegisterModelDTO registerModel)
 		{
-			var newUser = await _registerService.Add(registerModel);
-			if (newUser != null)
+			var responseAdded = await _registerService.Add(registerModel);
+			if (responseAdded.Success)
 			{
 				TempData["SuccessMessage"] = "Kaydınız başarıyla oluşturuldu.";
 				return RedirectToAction("UserLogin");
 			}
 			else
 			{
-				ModelState.AddModelError("", "Kaydınız oluşturulamadı eksik kısımları tamamlayınız.");
+				TempData["ErrorMessage"] = responseAdded.Message;
 				return View(registerModel);
 			}
 		}
@@ -61,8 +61,8 @@ namespace ASP.WEBUI.Controllers
 			if (!ModelState.IsValid)
 			{
 				return View(loginModel);
-			}
-			var user = await _userManager.FindByEmailAsync(loginModel.MailAdress);
+            }
+            var user = await _userManager.FindByEmailAsync(loginModel.MailAdress);
 
 			if (user == null)
 			{
