@@ -101,10 +101,12 @@
 		<div class="results-section">
 			<div class="top-buttons">
 				<button type="button" class="btn btn-outline-secondary" onclick="redirectTo('@Url.Action("GetAllReservations","Requester")')">Bilgi Getir</button>
+
 				<form id="manageReservationForm" asp-controller="Requester" asp-action="ManageReservation" method="get">
 					<button type="button" class="btn btn-outline-success" onclick="submitFormWithSelectedReservation()">Randevu Güncelle</button>
 					<input type="hidden" id="selectedReservationId" name="id" value="" />
 				</form>
+
 				<button type="button" class="btn btn-outline-primary" onclick="redirectTo('@Url.Action("CreateReservation", "Requester")')">Randevu Al</button>
 
 				<form id="cancelReservationForm" asp-controller="Requester" asp-action="ReCanceledReservation" method="get">
@@ -135,7 +137,7 @@
 					@foreach (var result in Model.Results)
 					{
 						<tr>
-							<td><input type="checkbox" name="selectedReservationId" value="@result.Id" /></td>
+							<td><input type="checkbox" name="selectedReservation" value="@result.Id" /></td>
 							<td>
 								@if (result.Status != null)
 								{
@@ -179,6 +181,25 @@
 		</div>
 	</div>
 	<script src="~/js/reindex.js"></script>
+	<script>
+		function submitFormForCancellation() {
+			var selectedReservation = document.querySelector('input[name="selectedReservation"]:checked');
+
+			if (!selectedReservation) {
+				alert("Lütfen bir randevu seçin.");
+				return;
+			}
+			var reservationId = selectedReservation.value;
+
+			var form = document.getElementById('cancelReservationForm');
+			form.action = '/Requester/ReCanceledReservation';
+
+			var hiddenInput = document.getElementById('cancelReservationId');
+			hiddenInput.value = reservationId;
+
+			form.submit();
+		}
+	</script>
 </body>
 
 </html>

@@ -2,23 +2,7 @@
 	window.location.href = url;
 }
 
-function submitFormForCancellationAdmin() {
-	var selectedReservation = document.querySelector('input[name="selectedReservationId"]:checked');
 
-	if (!selectedReservation) {
-		alert("Lütfen bir randevu seçin.");
-		return;
-	}
-	var reservationId = selectedReservation.value;
-
-	var form = document.getElementById('canceledReservationFormAdmin');
-	form.action = '/Admin/AdCanceledReservation';
-
-	var hiddenInput = document.getElementById('selectedReservationId');
-	hiddenInput.value = reservationId;
-
-	form.submit();
-}
 function submitFormWithSelectedReservationAdmin() {
 
 	var selectedReservation = document.querySelector('input[name="selectedReservationId"]:checked');

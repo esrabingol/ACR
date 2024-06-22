@@ -179,6 +179,24 @@
 		</div>
 	</div>
 	<script src="~/js/adIndex.js"></script>
+	<script>
+		function submitFormForCancellationAdmin() {
+			var selectedReservation = document.querySelector('input[name="selectedReservationId"]:checked');
+
+			if (!selectedReservation) {
+				alert("Lütfen bir randevu seçin.");
+				return;
+			}
+			var reservationId = selectedReservation.value;
+
+			var form = document.getElementById('canceledReservationFormAdmin');
+			form.action = '/Admin/AdCanceledReservation';
+
+			var hiddenInput = document.getElementById('selectedReservationId');
+			hiddenInput.value = reservationId;
+
+			form.submit();
+		}</script>
 </body>
 
 </html>
