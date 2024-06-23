@@ -271,12 +271,11 @@ namespace ACR.Business.Concrete
 		}
 		public List<Reservation> GetAllReservationsToAdmin()
 		{
-			var reservations = _reservationDal.GetAll()
+			var reservations = _reservationDal.GetAll(null, o => o.Requester, y => y.Operator)
 									  .OrderByDescending(r => r.StartDate)
 									  .ToList();
 
 			return reservations;
-
 		}
 	}
 }

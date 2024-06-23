@@ -107,6 +107,7 @@
 						<th>Bitiş Tarihi</th>
 						<th>Talep Eden Notu</th>
 						<th>Talep Eden</th>
+						<th>Son Güncelleyen</th>
 						
 					</tr>
 				</thead>
@@ -145,7 +146,16 @@
 							<td>@result.EndDate.ToString("dd-MM-yyyy HH:mm")</td>
 							<td>@result.RequestNote</td>
 							<td>@result.Requester?.Name @result.Requester?.Surname</td>
-					
+							@{
+								if(!string.IsNullOrWhiteSpace(@result.UpdatedUserName))
+								{
+									<td>@result.UpdatedUserName</td>
+								}
+								else
+								{
+									<td>-</td>
+								}
+							}
 
 						</tr>
 					}

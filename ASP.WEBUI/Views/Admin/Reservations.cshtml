@@ -1,4 +1,7 @@
 ﻿@using ACR.Entity.Concrete;
+@using ACR.Business.Models;
+@model AdViewReservationModelDTO;
+
 @{
 	ViewData["Title"] = "Reservations";
 	Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
@@ -29,6 +32,7 @@
 							<th>Randevu İptal Nedeni</th>
 							<th>Talep Eden</th>
 							<th>Operatör</th>
+							<th>Son Güncelleyen</th>
 						</tr>
 					</thead>
 					<tfoot>
@@ -45,6 +49,7 @@
 							<th>Randevu İptal Nedeni</th>
 							<th>Talep Eden</th>
 							<th>Operatör</th>
+							<th>Son Güncelleyen</th>
 						</tr>
 					</tfoot>
 					<tbody>
@@ -104,6 +109,16 @@
 								</td>
 								<td>@result.Requester?.Name @result.Requester?.Surname</td>
 								<td>@result.Operator?.Name @result.Operator?.Surname</td>
+								@{
+									if (!string.IsNullOrWhiteSpace(@result.UpdatedUserName))
+									{
+												<td>@result.UpdatedUserName</td>
+									}
+									else
+									{
+												<td>-</td>
+									}
+								}
 							</tr>
 						}
 

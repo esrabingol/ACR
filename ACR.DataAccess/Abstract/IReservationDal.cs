@@ -11,5 +11,6 @@ namespace ACR.DataAccess.Abstract
 		Reservation UpdateCanceledReservationToOperator(Reservation canceledReservation);
 		Reservation UpdateCanceledReservationToRequester(Reservation canceledReservation);
 		Reservation GetSelectedReservationInfo(Reservation reservationFind);
+	
 	}
 }

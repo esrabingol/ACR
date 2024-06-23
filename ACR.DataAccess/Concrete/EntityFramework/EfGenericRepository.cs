@@ -55,5 +55,6 @@ namespace ACR.DataAccess.Concrete.EntityFramework
 
 			return query.ToList();
 		}
+
 	}
 }
