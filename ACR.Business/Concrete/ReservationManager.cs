@@ -271,11 +271,28 @@ namespace ACR.Business.Concrete
 		}
 		public List<Reservation> GetAllReservationsToAdmin()
 		{
-			var reservations = _reservationDal.GetAll(null, o => o.Requester, y => y.Operator)
-									  .OrderByDescending(r => r.StartDate)
-									  .ToList();
+			Expression<Func<Reservation, object>>[] includes =
+			{
+				o => o.Requester,
+				y => y.Operator
+			};
 
-			return reservations;
+			var allReservations = _reservationDal.GetAll(null, includes)?.OrderByDescending(r => r.StartDate)?.ToList();
+			User responseUser;
+
+			if (allReservations != null)
+			{
+				foreach (var user in allReservations)
+				{
+					if (user.UpdatedBy.HasValue)
+					{
+						responseUser = _userDal.GetById(user.UpdatedBy.Value);
+						user.UpdatedUserName = responseUser.Name + " " + responseUser.Surname;
+					}
+				}
+			}
+
+			return allReservations;
 		}
 	}
 }
