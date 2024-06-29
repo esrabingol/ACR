@@ -68,7 +68,7 @@ namespace ACR.Business.Concrete
 			var allReservations = _reservationDal.GetAll(filters, includes)?.OrderByDescending(r => r.StartDate)?.ToList();
 			User responseUser;
 
-			if(allReservations != null)
+			if (allReservations != null)
 			{
 				foreach (var user in allReservations)
 				{
@@ -85,11 +85,23 @@ namespace ACR.Business.Concrete
 		public List<Reservation> GetAllReservationsToOperator()
 		{
 			var userId = _httpContext.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
-
 			var reservations = _reservationDal.GetAll(null, o => o.Requester, y => y.Operator)
 				.OrderByDescending(r => r.StartDate).ToList();
+			User responseUser;
 
-			return reservations.ToList();
+			if (reservations != null)
+			{
+				foreach (var user in reservations)
+				{
+					if (user.UpdatedBy.HasValue)
+					{
+						responseUser = _userDal.GetById(user.UpdatedBy.Value);
+						user.UpdatedUserName = responseUser.Name + " " + responseUser.Surname;
+					}
+				}
+			}
+
+			return reservations;
 		}
 		public List<Reservation> GetAllRezervationsOperator(OpIndexModelDTO indexModel)
 		{
@@ -273,9 +285,9 @@ namespace ACR.Business.Concrete
 		{
 			Expression<Func<Reservation, object>>[] includes =
 			{
-				o => o.Requester,
-				y => y.Operator
-			};
+		o => o.Requester,
+		y => y.Operator
+	};
 
 			var allReservations = _reservationDal.GetAll(null, includes)?.OrderByDescending(r => r.StartDate)?.ToList();
 			User responseUser;
@@ -287,7 +299,14 @@ namespace ACR.Business.Concrete
 					if (user.UpdatedBy.HasValue)
 					{
 						responseUser = _userDal.GetById(user.UpdatedBy.Value);
-						user.UpdatedUserName = responseUser.Name + " " + responseUser.Surname;
+						if (responseUser != null)
+						{
+							user.UpdatedUserName = responseUser.Name + " " + responseUser.Surname;
+						}
+						else
+						{
+							user.UpdatedUserName = "Unknown User";
+						}
 					}
 				}
 			}

@@ -43,9 +43,10 @@
     </style>
 </head>
 <body>
+    <div class="col-md-12">
     <div class="container mt-3 container-border">
         <div class="row">
-            <div class="col-md-12">
+
                 <h2 class="text-center">Kimlik Bilgileri</h2>
                 @if (TempData["SuccessMessage"] != null)
                 {
@@ -53,6 +54,7 @@
                         @TempData["SuccessMessage"]
                     </div>
                 }
+            
                 <form asp-controller="Account" asp-action="InfoUserID" method="post">
                     <input asp-for="Id" value="@Model.Id" type="hidden" />
 

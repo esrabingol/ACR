@@ -32,24 +32,37 @@ namespace ASP.WEBUI.Controllers
 
 			if (int.TryParse(userId, out int Id))
 			{
-				var user = _registerService.FindUserById(Id);
-				if (user != null)
+				//var user = _registerService.FindUserById(Id);
+				//if (user != null)
+				//{
+				//	return View("InfoUserID", user);
+				//}
+				//else
+				//{
+				//	RedirectToAction("Index", "Home");
+				//}
+
+				var result = _registerService.FindUserById(Id);
+				if(result.Success && result.Data !=null)
 				{
-					return View("InfoUserID", user);
+					return View("InfoUserId", result.Data);
 				}
 				else
 				{
-					RedirectToAction("Index", "Home");
+					TempData["ErrorMessage"] = "Kullanıcı bulunamadı.";
+					return RedirectToAction("Index", "Home");
 				}
 			}
-			return View();
+			TempData["ErrorMessage"] = "Geçersiz kullanıcı ID.";
+			return RedirectToAction("Index", "Home");
+
 		}
 
 		[HttpPost]
 		public IActionResult InfoUserID(User updateUser)
 		{
-			var user = _registerService.UpdateUserInfo(updateUser);
-			if (user != null)
+			var result = _registerService.UpdateUserInfo(updateUser);
+			if (result.Success)
 			{
 				TempData["SuccessMessage"] = "Kimlik Bilgileri başarıyla güncellendi.";
 				return RedirectToAction("InfoUserID");
